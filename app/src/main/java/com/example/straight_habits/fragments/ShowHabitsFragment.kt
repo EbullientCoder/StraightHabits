@@ -49,11 +49,15 @@ class ShowHabitsFragment : Fragment(), CheckHabitInterface, HabitDetailsInterfac
         super.onViewCreated(view, savedInstanceState)
 
         //Get Bundle
+        var category: String? = "Morning"
         val bundle = arguments
 
         //Get Category Name
-        val category: String? = bundle!!.getString("Category")
-        Log.e(String(), category.toString())
+        if(bundle != null){
+            category = bundle!!.getString("Category")
+            Log.e(String(), category.toString())
+        }
+
 
         //Set RecyclerView
         rvHabits = view.findViewById(R.id.rv_habits)

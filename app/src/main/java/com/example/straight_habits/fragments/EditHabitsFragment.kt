@@ -2,6 +2,7 @@ package com.example.straight_habits.fragments
 
 import android.os.Build
 import android.os.Bundle
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -47,6 +48,17 @@ class EditHabitsFragment : Fragment(), EditHabitInterface {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        //Get Bundle
+        var category: String? = "Morning"
+        val bundle = arguments
+
+        //Get Category Name
+        if(bundle != null){
+            category = bundle!!.getString("Category")
+            Log.e(String(), category.toString())
+        }
+
+
         //Set RecyclerView
         rvHabits = view.findViewById(R.id.rv_edit_habits)
 
@@ -54,7 +66,9 @@ class EditHabitsFragment : Fragment(), EditHabitInterface {
         lifecycleScope.launch(Dispatchers.IO){
             //Habits
             //Get HabitBeans List
-            getHabitsList()
+            if (category != null) {
+                getHabitsList(category)
+            }
             //Set the Recycler View
             setHabitsRecyclerView()
         }
@@ -66,12 +80,13 @@ class EditHabitsFragment : Fragment(), EditHabitInterface {
     //Habits
     //Get the Habits List
     @RequiresApi(Build.VERSION_CODES.O)
-    private suspend fun getHabitsList() {
+    private suspend fun getHabitsList(category: String) {
         //Database Instance
         val DB = RoomDB.getInstance(requireContext()).habitDAO()
 
         //Habits List
-        val habits = DB.readAll(ManageDaysFacade.getCurrentDay())
+        //val habits = DB.readAll(ManageDaysFacade.getCurrentDay())
+        val habits = DB.readAllCategory(ManageDaysFacade.getCurrentDay(), category)
 
 
         //Get the beans
