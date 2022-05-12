@@ -1,15 +1,20 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <!-- Palette White & Blue -->
-    <color name="dark_background">#171717</color>
+    <!-- Night Mode -->
+    <!-- <color name="dark_background">#171717</color> -->
+    <color name="dark_background">#18191b</color>
     <color name="dark_grey">#656660</color>
 
+    <!-- Day Mode -->
     <color name="background">#fbfcff</color>
-    <color name="blue">#2471ff</color>
     <color name="dark_text">#343434</color>
     <color name="lite_text">#d0d3da</color>
+
+    <!-- Accent -->
+    <color name="blue">#2471ff</color>
     <color name="red">#fa3e5f</color>
+
     <color name="black">#000000</color>
     <color name="white">#FFFFFF</color>
 </resources>
