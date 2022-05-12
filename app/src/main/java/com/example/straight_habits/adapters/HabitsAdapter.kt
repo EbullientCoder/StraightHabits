@@ -67,8 +67,8 @@ class HabitsAdapter(
                 habitNotSelected(habit)
 
             //Habit Done
-            //if(habit.getDone() && adapterPosition < selectedPosition)
-            if(habit.getDone())
+            //Selected Position: The position of the selected habit
+            if(habit.getDone() && adapterPosition <= selectedPosition)
                 habitDone()
 
             //Set Text

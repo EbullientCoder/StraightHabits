@@ -215,13 +215,16 @@ class ManageHabitsFacade {
         //Get the Position
         fun getSelectedPosition(habits: MutableList<HabitBean>) : Int{
             //Search the Selected Habit
+            if(habits.size == 0)
+                return 0
+
             if(habits.size != 0){
                 for(i in 0 until habits.size)
                     if(habits[i].getSelected())
                         return i
             }
 
-            return 0
+            return habits.size - 1
         }
 
 
