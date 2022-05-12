@@ -77,7 +77,7 @@ class CategoriesAdapter(
             }
             else{
                 //Set Text Color
-                txtName.setTextColor(ContextCompat.getColor(itemView.context, R.color.main_text))
+                txtName.setTextColor(ContextCompat.getColor(itemView.context, R.color.dark_text))
                 //Set Background
                 categoryBackground.setBackgroundResource(R.color.background)
 

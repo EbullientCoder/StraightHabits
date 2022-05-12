@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <!-- Palette White & Blue -->
+    <!-- Palette Dark & Blue -->
     <color name="background">#fbfcff</color>
     <color name="blue">#2471ff</color>
     <color name="dark_text">#343434</color>

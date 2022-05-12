@@ -24,14 +24,14 @@ class ManageColorsFacade {
                 //Text Size
                 habitName.setTextSize(TypedValue.COMPLEX_UNIT_SP, 20f)
                 //Text Color
-                habitName.setTextColor(ContextCompat.getColor(context, R.color.main_text))
-                shortHour.setTextColor(ContextCompat.getColor(context, R.color.main_text))
-                fullDate.setTextColor(ContextCompat.getColor(context, R.color.main_text))
-                information.setTextColor(ContextCompat.getColor(context, R.color.main_text))
+                habitName.setTextColor(ContextCompat.getColor(context, R.color.dark_text))
+                shortHour.setTextColor(ContextCompat.getColor(context, R.color.dark_text))
+                fullDate.setTextColor(ContextCompat.getColor(context, R.color.dark_text))
+                information.setTextColor(ContextCompat.getColor(context, R.color.dark_text))
                 //Dot Img
                 dot.setImageResource(R.drawable.icon_dot_selected)
                 //Set Line
-                line.setBackgroundResource(R.color.main_text)
+                line.setBackgroundResource(R.color.dark_text)
             }
             else{
                 //Text Size

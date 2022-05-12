@@ -33,7 +33,7 @@
             android:fontFamily="@font/source_sans_pro_bold"
             android:text="Edit Habit Details"
             android:textAlignment="center"
-            android:textColor="@color/main_text"
+            android:textColor="@color/dark_text"
             android:textSize="22sp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
