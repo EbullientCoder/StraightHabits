@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <array name="preloaded_fonts" translatable="false">
+        <item>@font/dosis</item>
+        <item>@font/dosis_bold</item>
+        <item>@font/dosis_extrabold</item>
+        <item>@font/dosis_extralight</item>
+        <item>@font/dosis_light</item>
+        <item>@font/dosis_medium</item>
+        <item>@font/dosis_semibold</item>
+        <item>@font/poppins</item>
+        <item>@font/source_sans_pro</item>
+        <item>@font/source_sans_pro_black</item>
+        <item>@font/source_sans_pro_black_italic</item>
+        <item>@font/source_sans_pro_bold</item>
+        <item>@font/source_sans_pro_bold_italic</item>
+        <item>@font/source_sans_pro_extralight</item>
+        <item>@font/source_sans_pro_extralight_italic</item>
+        <item>@font/source_sans_pro_italic</item>
+        <item>@font/source_sans_pro_light</item>
+        <item>@font/source_sans_pro_light_italic</item>
+        <item>@font/source_sans_pro_semibold</item>
+        <item>@font/source_sans_pro_semibold_italic</item>
+    </array>
+</resources>

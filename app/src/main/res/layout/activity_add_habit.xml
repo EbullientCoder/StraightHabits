@@ -1,0 +1,152 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:background="@color/background"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".activity.AddHabitActivity">
+
+    <!-- Header -->
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/constraintLayout"
+        android:layout_width="match_parent"
+        android:layout_height="70dp"
+        android:paddingVertical="15dp"
+        android:paddingHorizontal="20dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <!-- Name -->
+        <TextView
+            android:id="@+id/txt_user_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="-5dp"
+            android:fontFamily="@font/source_sans_pro_bold"
+            android:text="New Habit"
+            android:textColor="@color/main_text"
+            android:textSize="30sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/txt_dot"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="-5dp"
+            android:fontFamily="@font/source_sans_pro_bold"
+            android:text="!"
+            android:textColor="@color/blue"
+            android:textSize="30sp"
+            app:layout_constraintStart_toEndOf="@+id/txt_user_name"
+            app:layout_constraintTop_toTopOf="parent" />
+
+
+        <!-- Menu Button -->
+        <ImageView
+            android:id="@+id/btn_menu"
+            android:layout_width="25dp"
+            android:layout_height="25dp"
+            android:src="@drawable/icon_menu_dot_color"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+
+    <!-- Body -->
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginTop="70dp"
+        android:paddingHorizontal="20dp">
+
+        <!-- Habit Name -->
+        <EditText
+            android:id="@+id/txt_habit_name"
+            android:layout_width="match_parent"
+            android:layout_height="70dp"
+            android:fontFamily="@font/source_sans_pro_light"
+            android:hint="Name"
+            android:textColor="@color/white"
+            android:textColorHint="@color/main_text"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:layout_editor_absoluteX="20dp" />
+
+        <!-- Habit Information -->
+        <EditText
+            android:id="@+id/txt_habit_info"
+            android:layout_width="match_parent"
+            android:layout_height="70dp"
+            android:layout_marginTop="10dp"
+            android:fontFamily="@font/source_sans_pro_light"
+            android:hint="Information"
+            android:lines="10"
+            android:inputType="textLongMessage"
+            android:textColor="@color/white"
+            android:textColorHint="@color/main_text"
+            app:layout_constraintTop_toBottomOf="@+id/txt_habit_name"
+            tools:layout_editor_absoluteX="20dp" />
+
+        <!-- Habit Day -->
+        <EditText
+            android:id="@+id/txt_habit_day"
+            android:layout_width="match_parent"
+            android:layout_height="70dp"
+            android:layout_marginTop="10dp"
+            android:fontFamily="@font/source_sans_pro_light"
+            android:hint="Day"
+            android:inputType="textLongMessage"
+            android:lines="10"
+            android:textColor="@color/white"
+            android:textColorHint="@color/main_text"
+            app:layout_constraintTop_toBottomOf="@+id/txt_habit_info"
+            tools:layout_editor_absoluteX="20dp" />
+
+
+        <!-- Habit Start -->
+        <EditText
+            android:id="@+id/txt_habit_start"
+            android:layout_width="120dp"
+            android:layout_height="70dp"
+            android:layout_marginTop="30dp"
+            android:fontFamily="@font/source_sans_pro_light"
+            android:hint="Start Hour"
+            android:inputType="text"
+            android:textColor="@color/white"
+            android:textColorHint="@color/main_text"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/txt_habit_day" />
+
+        <!-- Habit End -->
+        <EditText
+            android:id="@+id/txt_habit_end"
+            android:layout_width="120dp"
+            android:layout_height="70dp"
+            android:layout_marginTop="30dp"
+            android:fontFamily="@font/source_sans_pro_light"
+            android:hint="End Hour"
+            android:inputType="text"
+            android:textColor="@color/white"
+            android:textColorHint="@color/main_text"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/txt_habit_day" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+    <!-- Button to Add one Habit -->
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/btn_done"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="end|bottom"
+        android:layout_margin="15dp"
+        android:src="@drawable/icon_done"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

@@ -1,0 +1,93 @@
+package com.example.straight_habits.adapters
+
+import android.view.LayoutInflater
+import android.view.View
+import android.view.ViewGroup
+import android.widget.ImageView
+import android.widget.LinearLayout
+import androidx.constraintlayout.widget.ConstraintLayout
+import androidx.recyclerview.widget.RecyclerView
+import com.example.straight_habits.R
+import com.example.straight_habits.interfaces.MenuItemClickInterface
+import com.example.straight_habits.models.MenuModel
+
+class MenuAdapter(
+    private var menuList: MutableList<MenuModel>,
+    private val menuItemClickInterface: MenuItemClickInterface
+) : RecyclerView.Adapter<MenuAdapter.MenuViewHolder>() {
+
+    //Create the Personalized ViewHolder
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MenuViewHolder {
+        val view = LayoutInflater.from(parent.context).inflate(R.layout.container_menu, parent, false)
+
+        return MenuViewHolder(view)
+    }
+
+    override fun onBindViewHolder(holder: MenuViewHolder, position: Int) {
+        holder.setData(menuList[position])
+    }
+
+    override fun getItemCount(): Int {
+        return menuList.size
+    }
+
+
+
+    //View Holder
+    inner class MenuViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView){
+        //Attributes
+        private val menuItem: ConstraintLayout = itemView.findViewById(R.id.menu_container)
+        private val image: ImageView = itemView.findViewById(R.id.img_menu)
+        //private val id: TextView = itemView.findViewById(R.id.txt_menu_id)
+        private val selector: LinearLayout = itemView.findViewById(R.id.menu_item_selected)
+
+        //Method
+        fun setData(item: MenuModel){
+            //Set Text
+            //id.text = item.getID()
+
+            //Set Image
+            if(item.getSelected())
+                setSelected(item)
+            else
+                setNotSelected(item)
+
+            //Set Click Listener
+            menuItem.setOnClickListener{
+                menuItemClickInterface.selectMenuItem(adapterPosition)
+            }
+        }
+
+        private fun setSelected(item: MenuModel){
+            //Image
+            if(item.getID() == "Routines")
+                image.setImageResource(R.drawable.icon_routine_blue)
+            else if(item.getID() == "Habits")
+                image.setImageResource(R.drawable.icon_habit_blue)
+            else
+                image.setImageResource(R.drawable.icon_stats_blue)
+
+            //Text
+            //id.setTextColor(ContextCompat.getColor(itemView.context, R.color.blue))
+
+            //Selector
+            selector.setBackgroundResource(R.drawable.icon_menu_item_selected)
+        }
+
+        private fun setNotSelected(item: MenuModel){
+            //Image
+            if(item.getID() == "Routines")
+                image.setImageResource(R.drawable.icon_routine_grey)
+            else if(item.getID() == "Habits")
+                image.setImageResource(R.drawable.icon_habit_grey)
+            else
+                image.setImageResource(R.drawable.icon_stats_grey)
+
+            //Text
+            //id.setTextColor(ContextCompat.getColor(itemView.context, R.color.lite_text))
+
+            //Selector
+            selector.setBackgroundResource(R.drawable.icon_menu_item_not_selected)
+        }
+    }
+}
