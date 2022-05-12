@@ -11,12 +11,12 @@ import com.example.straight_habits.R
 import com.example.straight_habits.facade.ManageDaysFacade
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import android.widget.ImageView
-import androidx.core.content.ContextCompat
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.straight_habits.adapters.MenuAdapter
 import com.example.straight_habits.adapters.CategoriesAdapter
 import com.example.straight_habits.database.RoomDB
+import com.example.straight_habits.facade.ManageCategoriesFacade
 import com.example.straight_habits.interfaces.MenuItemClickInterface
 import com.example.straight_habits.interfaces.SelectCategoryInterface
 import com.example.straight_habits.models.CategoryModel
@@ -143,6 +143,18 @@ class MainGraphicController(view: MainActivity): SelectCategoryInterface, MenuIt
 
 
 
+    fun selectFragment(){
+        //Get the Selected Category
+        val position = ManageCategoriesFacade.getSelectedPosition(categoriesList)
+
+        //Call the MainActivity method to update the Fragment showed list
+        mainInstance.setHabitsFragment(categoriesList[position].getName())
+    }
+
+
+
+
+
     //Interfaces Methods----------------------------------------------------------------------------
     //Select Category Interface
     override fun selectCategory(position: Int) {
@@ -157,7 +169,7 @@ class MainGraphicController(view: MainActivity): SelectCategoryInterface, MenuIt
 
 
         //Call the MainActivity method to update the Fragment showed list
-        mainInstance.setFragment(categoriesList[position].getName())
+        mainInstance.setHabitsFragment(categoriesList[position].getName())
     }
 
 

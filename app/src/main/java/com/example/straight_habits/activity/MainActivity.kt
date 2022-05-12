@@ -45,6 +45,8 @@ class MainActivity : AppCompatActivity() {
     //Graph Controller
     private lateinit var graphicController: MainGraphicController
 
+    var edit = false
+
 
 
     @RequiresApi(Build.VERSION_CODES.O)
@@ -59,7 +61,7 @@ class MainActivity : AppCompatActivity() {
         graphicController = MainGraphicController(this)
 
         //Set Fragment
-        setFragment("Morning")
+        setHabitsFragment("Morning")
 
         //Buttons
         setButtons()
@@ -169,10 +171,12 @@ class MainActivity : AppCompatActivity() {
         btnEdit = findViewById(R.id.btn_edit)
         btnEdit.visibility = View.GONE
         btnEdit.setOnClickListener{
+            //Set Edit = True
+            edit = true
+
+
             //Edit Fragment
-            editHabitsFragment = EditHabitsFragment()
-            supportFragmentManager
-                .beginTransaction().replace(R.id.fragment_container, editHabitsFragment).commit()
+            graphicController.selectFragment()
 
             //Retire the Icons
             btnMenu.performClick()
@@ -188,9 +192,12 @@ class MainActivity : AppCompatActivity() {
         btnDone = findViewById(R.id.btn_edit_done)
         btnDone.visibility = View.GONE
         btnDone.setOnClickListener{
+            //Set Edit = True
+            edit = false
+
+
             //Show Fragment
-            supportFragmentManager
-                .beginTransaction().replace(R.id.fragment_container, showHabitsFragment).commit()
+            graphicController.selectFragment()
 
             //Hide Button Done
             btnDone.visibility = View.GONE
@@ -215,16 +222,28 @@ class MainActivity : AppCompatActivity() {
 
 
     //Update the Fragment showed list
-    fun setFragment(category: String){
+    fun setHabitsFragment(category: String){
         val bundle = Bundle()
         bundle.putString("Category", category)
 
         //Set Fragment
-        showHabitsFragment = ShowHabitsFragment()
-        showHabitsFragment.arguments = bundle
+        //Check if create Show Habits Fragment or Edit Habits Fragment
+        if(edit){
+           //Edit Fragment
+            editHabitsFragment = EditHabitsFragment()
+            editHabitsFragment.arguments = bundle
 
-        supportFragmentManager
-            .beginTransaction().replace(R.id.fragment_container, showHabitsFragment).commit()
+            supportFragmentManager
+                .beginTransaction().replace(R.id.fragment_container, editHabitsFragment).commit()
+        }
+        else{
+            //Show Fragment
+            showHabitsFragment = ShowHabitsFragment()
+            showHabitsFragment.arguments = bundle
+
+            supportFragmentManager
+                .beginTransaction().replace(R.id.fragment_container, showHabitsFragment).commit()
+        }
     }
 
 
