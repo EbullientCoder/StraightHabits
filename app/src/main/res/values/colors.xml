@@ -5,11 +5,13 @@
     <!-- <color name="dark_background">#171717</color> -->
     <color name="dark_background">#18191b</color>
     <color name="dark_grey">#656660</color>
+    <color name="menu_dark_background">#1A000000</color>
 
     <!-- Day Mode -->
     <color name="background">#fbfcff</color>
     <color name="dark_text">#343434</color>
     <color name="lite_text">#d0d3da</color>
+    <color name="menu_background">#08000000</color>
 
     <!-- Accent -->
     <color name="blue">#2471ff</color>

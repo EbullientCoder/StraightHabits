@@ -1,6 +1,7 @@
 package com.example.straight_habits.controller.graphic
 
 
+import android.content.res.Configuration
 import android.os.Build
 import android.widget.TextView
 import androidx.annotation.RequiresApi
@@ -10,6 +11,7 @@ import com.example.straight_habits.R
 import com.example.straight_habits.facade.ManageDaysFacade
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import android.widget.ImageView
+import androidx.core.content.ContextCompat
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.straight_habits.adapters.MenuAdapter
@@ -65,6 +67,7 @@ class MainGraphicController(view: MainActivity): SelectCategoryInterface, MenuIt
         //RecyclerView
         rvCategories = view.findViewById(R.id.rv_categories)
 
+        //Set Categories
         mainInstance.lifecycleScope.launch(Dispatchers.IO){
             //Get Categories
             getCategoriesList()
@@ -87,6 +90,28 @@ class MainGraphicController(view: MainActivity): SelectCategoryInterface, MenuIt
         menuAdapter = MenuAdapter(menuList, this)
         //RecyclerView
         rvMenu = view.findViewById(R.id.rv_menu)
+        //Set RecyclerView Background
+        //Check Night ot Day Mode
+        when (mainInstance.resources.configuration.uiMode and Configuration.UI_MODE_NIGHT_MASK) {
+            //Night Mode
+            Configuration.UI_MODE_NIGHT_YES
+            ->{
+                rvMenu.setBackgroundResource(R.color.menu_dark_background)
+            }
+
+            //Day Mode
+            Configuration.UI_MODE_NIGHT_NO
+            ->{
+                rvMenu.setBackgroundResource(R.color.menu_background)
+            }
+
+            //Undefined
+            Configuration.UI_MODE_NIGHT_UNDEFINED
+            ->{
+                rvMenu.setBackgroundResource(R.color.menu_background)
+            }
+        }
+
         rvMenu.layoutManager = LinearLayoutManager(mainInstance, LinearLayoutManager.HORIZONTAL, false)
         rvMenu.adapter = menuAdapter
     }

@@ -6,6 +6,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.LinearLayout
+import android.widget.TextView
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
@@ -40,13 +41,13 @@ class MenuAdapter(
         //Attributes
         private val menuItem: ConstraintLayout = itemView.findViewById(R.id.menu_container)
         private val image: ImageView = itemView.findViewById(R.id.img_menu)
-        //private val id: TextView = itemView.findViewById(R.id.txt_menu_id)
+        private val id: TextView = itemView.findViewById(R.id.txt_menu_id)
         private val selector: LinearLayout = itemView.findViewById(R.id.menu_item_selected)
 
         //Method
         fun setData(item: MenuModel){
             //Set Text
-            //id.text = item.getID()
+            id.text = item.getID()
 
             //Set Image
             if(item.getSelected())
@@ -63,14 +64,14 @@ class MenuAdapter(
         private fun setSelected(item: MenuModel){
             //Image
             if(item.getID() == "Routines")
-                image.setImageResource(R.drawable.icon_routine_blue)
+                image.setImageResource(R.drawable.icon_todo_blue)
             else if(item.getID() == "Habits")
-                image.setImageResource(R.drawable.icon_habit_blue)
+                image.setImageResource(R.drawable.icon_habits_blue)
             else
                 image.setImageResource(R.drawable.icon_stats_blue)
 
             //Text
-            //id.setTextColor(ContextCompat.getColor(itemView.context, R.color.blue))
+            id.setTextColor(ContextCompat.getColor(itemView.context, R.color.blue))
 
             //Selector
             selector.setBackgroundResource(R.drawable.icon_menu_item_selected)
@@ -84,11 +85,14 @@ class MenuAdapter(
                 ->{
                     //Image
                     if(item.getID() == "Routines")
-                        image.setImageResource(R.drawable.icon_routine_grey)
+                        image.setImageResource(R.drawable.icon_todo_grey)
                     else if(item.getID() == "Habits")
-                        image.setImageResource(R.drawable.icon_habit_grey)
+                        image.setImageResource(R.drawable.icon_habits_grey)
                     else
                         image.setImageResource(R.drawable.icon_stats_grey)
+
+                    //Text
+                    id.setTextColor(ContextCompat.getColor(itemView.context, R.color.lite_text))
                 }
 
                 //Day Mode
@@ -96,11 +100,14 @@ class MenuAdapter(
                 ->{
                     //Image
                     if(item.getID() == "Routines")
-                        image.setImageResource(R.drawable.icon_routine_night)
+                        image.setImageResource(R.drawable.icon_todo_night)
                     else if(item.getID() == "Habits")
-                        image.setImageResource(R.drawable.icon_habit_night)
+                        image.setImageResource(R.drawable.icon_habits_night)
                     else
                         image.setImageResource(R.drawable.icon_stats_night)
+
+                    //Text
+                    id.setTextColor(ContextCompat.getColor(itemView.context, R.color.dark_grey))
                 }
 
                 //Undefined
@@ -108,16 +115,16 @@ class MenuAdapter(
                 ->{
                     //Image
                     if(item.getID() == "Routines")
-                        image.setImageResource(R.drawable.icon_routine_grey)
+                        image.setImageResource(R.drawable.icon_todo_grey)
                     else if(item.getID() == "Habits")
-                        image.setImageResource(R.drawable.icon_habit_grey)
+                        image.setImageResource(R.drawable.icon_habits_grey)
                     else
                         image.setImageResource(R.drawable.icon_stats_grey)
+
+                    //Text
+                    id.setTextColor(ContextCompat.getColor(itemView.context, R.color.lite_text))
                 }
             }
-
-            //Text
-            //id.setTextColor(ContextCompat.getColor(itemView.context, R.color.lite_text))
 
             //Selector
             selector.setBackgroundResource(R.drawable.icon_menu_item_not_selected)
