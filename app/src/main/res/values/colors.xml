@@ -2,6 +2,9 @@
 <resources>
 
     <!-- Palette White & Blue -->
+    <color name="dark_background">#171717</color>
+    <color name="dark_grey">#656660</color>
+
     <color name="background">#fbfcff</color>
     <color name="blue">#2471ff</color>
     <color name="dark_text">#343434</color>

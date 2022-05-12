@@ -69,7 +69,7 @@
         android:checked="false"
         android:text=""
         android:clickable="true"
-        android:buttonTint="@color/lite_text"
+        android:buttonTint="?attr/colorOnPrimary"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
@@ -80,7 +80,7 @@
         android:checked="false"
         android:text=""
         android:clickable="true"
-        android:buttonTint="@color/dark_text"
+        android:buttonTint="?attr/colorPrimaryVariant"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent" />

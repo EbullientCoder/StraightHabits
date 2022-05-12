@@ -60,8 +60,7 @@ class EditHabitsAdapter(
             setButtons()
 
             //Check Empty
-            if(habit.getEmpty()) setEmpty()
-            else setNormal()
+            setNormal()
         }
 
         //Set Buttons
@@ -88,18 +87,5 @@ class EditHabitsAdapter(
             btnDelete.visibility = View.VISIBLE
         }
 
-        //Set Empty
-        private fun setEmpty(){
-            //Text Color
-            txtFullDate.setTextColor(ContextCompat.getColor(itemView.context, R.color.background))
-            txtShortHour.setTextColor(ContextCompat.getColor(itemView.context, R.color.background))
-            //Line Not Visible
-            line.setBackgroundResource(R.color.background)
-            //Dot Not Visible
-            imgDot.setImageResource(R.drawable.icon_dot_not_visible)
-            //Remove Buttons
-            btnEdit.visibility = View.GONE
-            btnDelete.visibility = View.GONE
-        }
     }
 }

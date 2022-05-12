@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout
     android:id="@+id/main_layout"
-    android:background="@color/background"
+    android:background="?attr/colorPrimary"
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
@@ -26,7 +26,7 @@
             android:layout_height="wrap_content"
             android:fontFamily="@font/source_sans_pro_light"
             android:text="Hello"
-            android:textColor="@color/dark_text"
+            android:textColor="?attr/colorPrimaryVariant"
             android:textSize="36sp"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
@@ -39,7 +39,7 @@
             android:layout_marginTop="-10dp"
             android:fontFamily="@font/source_sans_pro_bold"
             android:text="Andrea"
-            android:textColor="@color/dark_text"
+            android:textColor="?attr/colorPrimaryVariant"
             android:textSize="40sp"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/textView" />
@@ -51,7 +51,7 @@
             android:layout_marginTop="-10dp"
             android:fontFamily="@font/source_sans_pro_bold"
             android:text="."
-            android:textColor="@color/blue"
+            android:textColor="?attr/colorSecondary"
             android:textSize="40sp"
             app:layout_constraintStart_toEndOf="@+id/txt_user_name"
             app:layout_constraintTop_toBottomOf="@+id/textView" />
@@ -105,7 +105,7 @@
             android:layout_marginEnd="19dp"
             android:fontFamily="@font/source_sans_pro"
             android:text="Reset"
-            android:textColor="@color/dark_text"
+            android:textColor="?attr/colorPrimaryVariant"
             app:layout_constraintEnd_toStartOf="@+id/btn_edit"
             app:layout_constraintTop_toBottomOf="@+id/btn_delete" />
 
@@ -126,7 +126,7 @@
             android:layout_marginEnd="24dp"
             android:fontFamily="@font/source_sans_pro"
             android:text="Edit"
-            android:textColor="@color/dark_text"
+            android:textColor="?attr/colorPrimaryVariant"
             app:layout_constraintEnd_toStartOf="@+id/btn_menu"
             app:layout_constraintTop_toBottomOf="@+id/btn_edit" />
 

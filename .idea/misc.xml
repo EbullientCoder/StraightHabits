@@ -50,12 +50,15 @@
         <entry key="..\:/Users/andre/Desktop/Developement/Android Developement/StraightEdge/StraightEdge/app/src/main/res/layout/container_edit_habit.xml" value="0.6" />
         <entry key="..\:/Users/andre/Desktop/Developement/Android Developement/StraightEdge/StraightEdge/app/src/main/res/layout/container_menu.xml" value="0.72" />
         <entry key="..\:/Users/andre/Desktop/Developement/Android Developement/StraightEdge/StraightEdge/app/src/main/res/layout/fragment_habit_details.xml" value="0.536" />
+        <entry key="..\:/Users/andre/Desktop/Developement/Android Developement/StraightHabits/StraightHabits/app/src/main/res/drawable/icon_dot_not_selected.xml" value="0.1" />
         <entry key="..\:/Users/andre/Desktop/Developement/Android Developement/StraightHabits/StraightHabits/app/src/main/res/layout/activity_main.xml" value="0.264" />
         <entry key="..\:/Users/andre/Desktop/Developement/Android Developement/StraightHabits/StraightHabits/app/src/main/res/layout/activity_splash_screen.xml" value="0.18840579710144928" />
         <entry key="..\:/Users/andre/Desktop/Developement/Android Developement/StraightHabits/StraightHabits/app/src/main/res/layout/container_category.xml" value="0.16304347826086957" />
+        <entry key="..\:/Users/andre/Desktop/Developement/Android Developement/StraightHabits/StraightHabits/app/src/main/res/layout/container_habit.xml" value="0.17300724637681159" />
         <entry key="..\:/Users/andre/Desktop/Developement/Android Developement/StraightHabits/StraightHabits/app/src/main/res/layout/container_menu.xml" value="0.6" />
         <entry key="..\:/Users/andre/Desktop/Developement/Android Developement/StraightHabits/StraightHabits/app/src/main/res/layout/fragment_habit_details.xml" value="0.18840579710144928" />
         <entry key="..\:/Users/andre/Desktop/Developement/Android Developement/StraightHabits/StraightHabits/app/src/main/res/layout/fragment_habit_details_edit.xml" value="0.19157608695652173" />
+        <entry key="..\:/Users/andre/Desktop/Developement/Android Developement/StraightHabits/StraightHabits/app/src/main/res/layout/fragment_show_habits.xml" value="0.17300724637681159" />
       </map>
     </option>
   </component>

@@ -1,21 +1,34 @@
 package com.example.straight_habits.adapters
 
 
+import android.content.Context
+import android.content.res.Configuration
+import android.graphics.Color
 import android.os.Build
+import android.util.TypedValue
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
+import androidx.annotation.AttrRes
+import androidx.annotation.ColorInt
 import androidx.annotation.RequiresApi
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.content.ContextCompat
+import androidx.core.graphics.toColor
 import androidx.recyclerview.widget.RecyclerView
 import com.example.straight_habits.R
 import com.example.straight_habits.database.RoomDB
+import com.example.straight_habits.facade.ManageColorsFacade
 import com.example.straight_habits.facade.ManageDaysFacade
 import com.example.straight_habits.interfaces.SelectCategoryInterface
 import com.example.straight_habits.models.CategoryModel
+import com.google.android.material.color.MaterialColors
 import kotlinx.coroutines.runBlocking
+
+
+
+
 
 
 class CategoriesAdapter(
@@ -52,6 +65,7 @@ class CategoriesAdapter(
         private val habitsCounter = itemView.findViewById<ConstraintLayout>(R.id.habits_left_background)
 
 
+
         //Methods
         @RequiresApi(Build.VERSION_CODES.O)
         fun setCommonData(category: CategoryModel){
@@ -76,10 +90,35 @@ class CategoriesAdapter(
                 habitsCounter.visibility = View.GONE
             }
             else{
-                //Set Text Color
-                txtName.setTextColor(ContextCompat.getColor(itemView.context, R.color.dark_text))
-                //Set Background
-                categoryBackground.setBackgroundResource(R.color.background)
+                //Check Night ot Day Mode
+                when (itemView.resources.configuration.uiMode and Configuration.UI_MODE_NIGHT_MASK) {
+                    //Night Mode
+                    Configuration.UI_MODE_NIGHT_YES
+                    ->{
+                        //Set Background
+                        categoryBackground.setBackgroundResource(R.color.dark_background)
+                        //Set Text Color
+                        txtName.setTextColor(ContextCompat.getColor(itemView.context, R.color.white))
+                    }
+
+                    //Day Mode
+                    Configuration.UI_MODE_NIGHT_NO
+                    ->{
+                        //Set Background
+                        categoryBackground.setBackgroundResource(R.color.background)
+                        //Set Text Color
+                        txtName.setTextColor(ContextCompat.getColor(itemView.context, R.color.dark_text))
+                    }
+
+                    //Undefined
+                    Configuration.UI_MODE_NIGHT_UNDEFINED
+                    ->{
+                        //Set Background
+                        categoryBackground.setBackgroundResource(R.color.background)
+                        //Set Text Color
+                        txtName.setTextColor(ContextCompat.getColor(itemView.context, R.color.dark_text))
+                    }
+                }
 
                 //Habits Counter
                 habitsCounter.visibility = View.GONE

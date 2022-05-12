@@ -15,7 +15,6 @@ class HabitBean(
 
     //Attribute to get the start Hour
     private var shortHour : String
-    private val empty : Boolean
     private var info : String
 
     // initializer block
@@ -25,10 +24,6 @@ class HabitBean(
             val st = StringTokenizer(startHour, ":")
             st.nextToken() + ":00"
         } else ""
-
-        //Empty
-        if(name == "" && information == "") empty = true
-        else empty = false
 
         //Information
         if(information.length > 40){
@@ -52,7 +47,6 @@ class HabitBean(
     fun getSelected() : Boolean{ return selected}
     fun getDone() : Boolean{ return done}
     fun getShortHour() : String{ return shortHour}
-    fun getEmpty() : Boolean{ return empty}
 
     //Setter
     fun setSelected(state : Boolean){ selected = state}

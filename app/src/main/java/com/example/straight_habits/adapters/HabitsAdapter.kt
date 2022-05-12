@@ -67,12 +67,9 @@ class HabitsAdapter(
                 habitNotSelected(habit)
 
             //Habit Done
-            if(habit.getDone() && adapterPosition < selectedPosition)
+            //if(habit.getDone() && adapterPosition < selectedPosition)
+            if(habit.getDone())
                 habitDone()
-
-            //Check Empty
-            if(habit.getEmpty())
-                setEmpty()
 
             //Set Text
             setText(habit)
@@ -179,20 +176,6 @@ class HabitsAdapter(
             container.setOnClickListener {
                 habitDetailsInterface.openHabitDetails(adapterPosition)
             }
-        }
-
-
-        //Empty
-        private fun setEmpty(){
-            //Text Color
-            txtFullDate.setTextColor(ContextCompat.getColor(itemView.context, R.color.background))
-            //Button Not Visible
-            btnDoneSelected.visibility = View.GONE
-            btnDoneNotSelected.visibility = View.GONE
-            //Line Not Visible
-            line.setBackgroundResource(R.color.background)
-            //Dot Not Visible
-            imgDot.setImageResource(R.drawable.icon_dot_not_visible)
         }
     }
 
