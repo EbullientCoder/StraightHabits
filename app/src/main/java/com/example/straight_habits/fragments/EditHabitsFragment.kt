@@ -102,56 +102,35 @@ class EditHabitsFragment : Fragment(), EditHabitInterface {
     private fun orderHabitsList(){
         var app: HabitBean
 
-        //The Empty Beans will be placed in the end of the List
-        for(i in 0 until habitsList.size - 1){
-            //If the habit is empty it has to in the last places of the List
-            if(habitsList[i].getEmpty()){
-                //Get last position
-                var j = habitsList.size - 1
-                while(habitsList[j].getEmpty() && j != i)
-                    j--
-
-                //Swap the Habits if they're not the same
-                if(i != j){
-                    val app = habitsList[i]
-                    habitsList[i] = habitsList[j]
-                    habitsList[j] = app
-                }
-            }
-        }
-
         //Loop to sort the beans by their starting hour
         for(i in 0 until habitsList.size - 1){
             for(j in i until habitsList.size){
+                //Tokenizer
+                val st1 = StringTokenizer(habitsList[i].getStartHour(), ":")
+                val st2 = StringTokenizer(habitsList[j].getStartHour(), ":")
 
-                if(!habitsList[i].getEmpty() && !habitsList[j].getEmpty()){
-                    //Tokenizer
-                    val st1 = StringTokenizer(habitsList[i].getStartHour(), ":")
-                    val st2 = StringTokenizer(habitsList[j].getStartHour(), ":")
+                //Get the Values
+                var start1 : MutableList<Int> = ArrayList()
+                while(st1.hasMoreTokens())
+                    start1.add(st1.nextToken().toInt())
 
-                    //Get the Values
-                    var start1 : MutableList<Int> = ArrayList()
-                    while(st1.hasMoreTokens())
-                        start1.add(st1.nextToken().toInt())
-
-                    var start2 : MutableList<Int> = ArrayList()
-                    while(st2.hasMoreTokens())
-                        start2.add(st2.nextToken().toInt())
+                var start2 : MutableList<Int> = ArrayList()
+                while(st2.hasMoreTokens())
+                    start2.add(st2.nextToken().toInt())
 
 
-                    //Sort Hours
-                    if(start1[0] > start2[0]){
-                        app = habitsList[i]
-                        habitsList[i] = habitsList[j]
-                        habitsList[j] = app
-                    }
+                //Sort Hours
+                if(start1[0] > start2[0]){
+                    app = habitsList[i]
+                    habitsList[i] = habitsList[j]
+                    habitsList[j] = app
+                }
 
-                    //Sort Minutes
-                    if(start1[0] == start2[0] && start1[1] > start2[1]){
-                        app = habitsList[i]
-                        habitsList[i] = habitsList[j]
-                        habitsList[j] = app
-                    }
+                //Sort Minutes
+                if(start1[0] == start2[0] && start1[1] > start2[1]){
+                    app = habitsList[i]
+                    habitsList[i] = habitsList[j]
+                    habitsList[j] = app
                 }
             }
         }

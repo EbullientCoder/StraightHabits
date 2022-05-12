@@ -1,11 +1,13 @@
 package com.example.straight_habits.adapters
 
+import android.content.res.Configuration
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.LinearLayout
 import androidx.constraintlayout.widget.ConstraintLayout
+import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
 import com.example.straight_habits.R
 import com.example.straight_habits.interfaces.MenuItemClickInterface
@@ -75,13 +77,44 @@ class MenuAdapter(
         }
 
         private fun setNotSelected(item: MenuModel){
-            //Image
-            if(item.getID() == "Routines")
-                image.setImageResource(R.drawable.icon_routine_grey)
-            else if(item.getID() == "Habits")
-                image.setImageResource(R.drawable.icon_habit_grey)
-            else
-                image.setImageResource(R.drawable.icon_stats_grey)
+            //Check Night ot Day Mode
+            when (itemView.resources.configuration.uiMode and Configuration.UI_MODE_NIGHT_MASK) {
+                //Night Mode
+                Configuration.UI_MODE_NIGHT_YES
+                ->{
+                    //Image
+                    if(item.getID() == "Routines")
+                        image.setImageResource(R.drawable.icon_routine_grey)
+                    else if(item.getID() == "Habits")
+                        image.setImageResource(R.drawable.icon_habit_grey)
+                    else
+                        image.setImageResource(R.drawable.icon_stats_grey)
+                }
+
+                //Day Mode
+                Configuration.UI_MODE_NIGHT_NO
+                ->{
+                    //Image
+                    if(item.getID() == "Routines")
+                        image.setImageResource(R.drawable.icon_routine_night)
+                    else if(item.getID() == "Habits")
+                        image.setImageResource(R.drawable.icon_habit_night)
+                    else
+                        image.setImageResource(R.drawable.icon_stats_night)
+                }
+
+                //Undefined
+                Configuration.UI_MODE_NIGHT_UNDEFINED
+                ->{
+                    //Image
+                    if(item.getID() == "Routines")
+                        image.setImageResource(R.drawable.icon_routine_grey)
+                    else if(item.getID() == "Habits")
+                        image.setImageResource(R.drawable.icon_habit_grey)
+                    else
+                        image.setImageResource(R.drawable.icon_stats_grey)
+                }
+            }
 
             //Text
             //id.setTextColor(ContextCompat.getColor(itemView.context, R.color.lite_text))

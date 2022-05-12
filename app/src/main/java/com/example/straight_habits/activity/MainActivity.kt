@@ -61,7 +61,6 @@ class MainActivity : AppCompatActivity() {
         //Set Fragment
         setFragment("Morning")
 
-
         //Buttons
         setButtons()
     }

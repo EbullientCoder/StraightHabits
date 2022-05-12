@@ -1,5 +1,6 @@
 package com.example.straight_habits.adapters
 
+import android.content.res.Configuration
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -50,6 +51,7 @@ class EditHabitsAdapter(
 
         //Methods
         fun setCommonData(habit: HabitBean){
+            //Text
             txtHabitName.text = habit.getName()
             txtInformation.text = habit.getInfo()
             txtFullDate.text = habit.getStartHour() + " - " + habit.getEndHour()
@@ -60,7 +62,7 @@ class EditHabitsAdapter(
             setButtons()
 
             //Check Empty
-            setNormal()
+            setData()
         }
 
         //Set Buttons
@@ -74,12 +76,58 @@ class EditHabitsAdapter(
         }
 
         //Set Normal
-        private fun setNormal(){
-            //Text Color
-            txtFullDate.setTextColor(ContextCompat.getColor(itemView.context, R.color.lite_text))
-            txtShortHour.setTextColor(ContextCompat.getColor(itemView.context, R.color.lite_text))
-            //Line Not Visible
-            line.setBackgroundResource(R.color.lite_text)
+        private fun setData(){
+            //Check Night ot Day Mode
+            when (itemView.resources.configuration.uiMode and Configuration.UI_MODE_NIGHT_MASK) {
+                //Night Mode
+                Configuration.UI_MODE_NIGHT_YES
+                ->{
+                    //Text Color
+                    txtHabitName.setTextColor(ContextCompat.getColor(itemView.context, R.color.dark_grey))
+                    txtInformation.setTextColor(ContextCompat.getColor(itemView.context, R.color.dark_grey))
+                    txtCategory.setTextColor(ContextCompat.getColor(itemView.context, R.color.dark_grey))
+                    txtFullDate.setTextColor(ContextCompat.getColor(itemView.context, R.color.dark_grey))
+                    txtShortHour.setTextColor(ContextCompat.getColor(itemView.context, R.color.dark_grey))
+                    //Button Color
+                    btnDelete.setImageResource(R.drawable.icon_delete_night)
+                    btnEdit.setImageResource(R.drawable.icon_edit_night)
+                    //Line Not Visible
+                    line.setBackgroundResource(R.color.dark_grey)
+                }
+
+                //Day Mode
+                Configuration.UI_MODE_NIGHT_NO
+                ->{
+                    //Text Color
+                    txtHabitName.setTextColor(ContextCompat.getColor(itemView.context, R.color.lite_text))
+                    txtInformation.setTextColor(ContextCompat.getColor(itemView.context, R.color.lite_text))
+                    txtCategory.setTextColor(ContextCompat.getColor(itemView.context, R.color.lite_text))
+                    txtFullDate.setTextColor(ContextCompat.getColor(itemView.context, R.color.lite_text))
+                    txtShortHour.setTextColor(ContextCompat.getColor(itemView.context, R.color.lite_text))
+                    //Button Color
+                    btnDelete.setImageResource(R.drawable.icon_delete_grey)
+                    btnEdit.setImageResource(R.drawable.icon_edit_grey)
+                    //Line Not Visible
+                    line.setBackgroundResource(R.color.lite_text)
+                }
+
+                //Undefined
+                Configuration.UI_MODE_NIGHT_UNDEFINED
+                ->{
+                    //Text Color
+                    txtHabitName.setTextColor(ContextCompat.getColor(itemView.context, R.color.lite_text))
+                    txtInformation.setTextColor(ContextCompat.getColor(itemView.context, R.color.lite_text))
+                    txtCategory.setTextColor(ContextCompat.getColor(itemView.context, R.color.lite_text))
+                    txtFullDate.setTextColor(ContextCompat.getColor(itemView.context, R.color.lite_text))
+                    txtShortHour.setTextColor(ContextCompat.getColor(itemView.context, R.color.lite_text))
+                    //Button Color
+                    btnDelete.setImageResource(R.drawable.icon_delete_grey)
+                    btnEdit.setImageResource(R.drawable.icon_edit_grey)
+                    //Line Not Visible
+                    line.setBackgroundResource(R.color.lite_text)
+                }
+            }
+
             //Dot Not Visible
             imgDot.setImageResource(R.drawable.icon_dot_not_selected)
             //Remove Buttons
