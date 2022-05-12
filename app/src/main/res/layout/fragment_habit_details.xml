@@ -7,7 +7,7 @@
     tools:context=".fragments.details.HabitDetailsFragment">
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="300dp"
-        android:layout_height="400dp"
+        android:layout_height="wrap_content"
         android:paddingHorizontal="20dp"
         android:paddingVertical="20dp"
         android:background="@drawable/habit_details_background"
@@ -16,57 +16,20 @@
         app:layout_constraintTop_toTopOf="parent">
 
 
-        <!-- Button -->
-        <ImageView
-            android:id="@+id/btn_habit_details_back"
-            android:layout_width="35dp"
-            android:layout_height="35dp"
-            android:src="@drawable/icon_back"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
-
-        <!-- Habit's Details -->
-        <TextView
-            android:id="@+id/textView2"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="3dp"
-            android:fontFamily="@font/source_sans_pro_bold"
-            android:text="Habit Details"
-            android:textAlignment="center"
-            android:textColor="@color/dark_text"
-            android:textSize="22sp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
-
-
-
-        <!-- Line Divider -->
-        <LinearLayout
-            android:id="@+id/linearLayout2"
-            android:layout_width="match_parent"
-            android:layout_height="1dp"
-            android:layout_marginTop="15dp"
-            android:background="@color/lite_text"
-            app:layout_constraintTop_toBottomOf="@+id/btn_habit_details_back"
-            tools:layout_editor_absoluteX="20dp" />
-
-
-
         <!-- Habit Name -->
         <TextView
             android:id="@+id/txt_habit_details_name"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="20dp"
+            android:layout_marginTop="-5dp"
             android:fontFamily="@font/source_sans_pro_semibold"
             android:text="Habit Name"
             android:textAlignment="center"
-            android:textColor="@color/dark_text"
+            android:textColor="?attr/colorPrimaryVariant"
             android:textSize="20sp"
+            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/linearLayout2" />
+            app:layout_constraintTop_toTopOf="parent" />
 
 
         <!-- Habit Information -->
@@ -74,12 +37,13 @@
             android:id="@+id/txt_habit_details_information"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="5dp"
+            android:layout_marginTop="10dp"
             android:fontFamily="@font/source_sans_pro_light"
             android:text="Information"
-            android:textAlignment="textStart"
-            android:textColor="@color/dark_text"
+            android:textAlignment="center"
+            android:textColor="?attr/colorPrimaryVariant"
             android:textSize="18sp"
+            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/txt_habit_details_name" />
 
@@ -89,12 +53,13 @@
             android:id="@+id/txt_habit_details_category"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="20dp"
+            android:layout_marginTop="30dp"
             android:fontFamily="@font/source_sans_pro_semibold"
             android:text="Habit Category"
             android:textAlignment="center"
-            android:textColor="@color/dark_text"
+            android:textColor="?attr/colorPrimaryVariant"
             android:textSize="18sp"
+            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/txt_habit_details_information" />
 
@@ -107,9 +72,10 @@
             android:layout_marginTop="5dp"
             android:fontFamily="@font/source_sans_pro_light"
             android:text="Habit Hour"
-            android:textAlignment="textStart"
-            android:textColor="@color/dark_text"
+            android:textAlignment="center"
+            android:textColor="?attr/colorPrimaryVariant"
             android:textSize="18sp"
+            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/txt_habit_details_category" />
 

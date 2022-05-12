@@ -19,7 +19,6 @@ import com.example.straight_habits.database.RoomDB
 import com.example.straight_habits.facade.ManageDaysFacade
 import com.example.straight_habits.facade.ManageHabitsFacade
 import com.example.straight_habits.fragments.details.HabitDetailsEditFragment
-import com.example.straight_habits.fragments.details.HabitDetailsFragment
 import com.example.straight_habits.interfaces.EditHabitInterface
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -41,7 +40,7 @@ class EditHabitsFragment : Fragment(), EditHabitInterface {
         savedInstanceState: Bundle?
     ): View? {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_edit, container, false)
+        return inflater.inflate(R.layout.fragment_edit_habits, container, false)
     }
 
     @RequiresApi(Build.VERSION_CODES.O)

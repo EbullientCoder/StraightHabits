@@ -41,10 +41,10 @@ class HabitDetailsFragment : DialogFragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         //Back Button
-        btnBack = view.findViewById(R.id.btn_habit_details_back)
+        /*btnBack = view.findViewById(R.id.btn_habit_details_back)
         btnBack.setOnClickListener {
             dismiss()
-        }
+        }*/
 
         //Habit's Details
         txtName = view.findViewById(R.id.txt_habit_details_name)
