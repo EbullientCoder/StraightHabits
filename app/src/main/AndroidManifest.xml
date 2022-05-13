@@ -10,23 +10,22 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.StraightHabits">
         <activity
-            android:name="com.example.straight_habits.activity.SplashScreenActivity"
+            android:name=".activity.AddHabitActivity"
+            android:exported="true"
+            android:launchMode="singleInstance" />
+        <activity
+            android:name=".activity.SplashScreenActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
-        </activity>
-        <!-- android:launchMode="singleInstance": there's only one instance of the activity -->
+        </activity> <!-- android:launchMode="singleInstance": there's only one instance of the activity -->
         <activity
-            android:name="com.example.straight_habits.activity.AddHabitActivity"
+            android:name=".activity.MainActivity"
             android:exported="true"
-            android:launchMode="singleInstance" /> <!-- android:launchMode="singleInstance": there's only one instance of the activity -->
-        <activity
-            android:name="com.example.straight_habits.activity.MainActivity"
-            android:exported="true"
-            android:launchMode="singleInstance"/>
+            android:launchMode="singleInstance" />
 
         <meta-data
             android:name="preloaded_fonts"
