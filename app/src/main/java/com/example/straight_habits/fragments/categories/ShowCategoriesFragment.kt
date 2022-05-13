@@ -1,6 +1,7 @@
 package com.example.straight_habits.fragments.categories
 
 import android.os.Bundle
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -62,6 +63,7 @@ class ShowCategoriesFragment : Fragment(), SelectCategoryInterface {
         val DB = RoomDB.getInstance(requireContext()).categoryDAO()
 
         //Habits List
+        categoriesList = ArrayList()
         categoriesList = DB.readAll()
     }
 
@@ -83,15 +85,23 @@ class ShowCategoriesFragment : Fragment(), SelectCategoryInterface {
         //The use of coroutine is obligatory cause else the main thread would be stacked waiting the
         //initialization of the categories list
         lifecycleScope.launch {
+            var counter = 0
             //Wait until the categoriesList is initialized
             while(!this@ShowCategoriesFragment::categoriesList.isInitialized)
                 delay(10)
+            while(categoriesList.size == 0 && counter != 10){
+                delay(10)
+                //Exit Conditions
+                counter++
+            }
+
 
             //Get the Selected Category
             val position = ManageCategoriesFacade.getSelectedPosition(categoriesList)
 
             //Call the MainActivity method to update the Fragment showed list
-            (activity as MainActivity?)?.setHabitsFragment(categoriesList[position].getName(), edit)
+            if(categoriesList.size != 0)
+                (activity as MainActivity?)?.setHabitsFragment(categoriesList[position].getName(), edit)
         }
     }
 

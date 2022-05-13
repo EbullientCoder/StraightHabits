@@ -69,7 +69,7 @@ class MainActivity : AppCompatActivity() {
         //Set Fragments
         setCategoriesFragment(false)
         showCategoriesFragment.selectFragment(false)
-        //setHabitsFragment("Morning", false)
+
 
         //Buttons
         setButtons()
@@ -222,7 +222,7 @@ class MainActivity : AppCompatActivity() {
             //Calling the "Add Habit" Activity
             val intent = Intent(this, AddHabitActivity::class.java)
             startActivity(intent)
-            overridePendingTransition(0, 0);
+            overridePendingTransition(0, 0)
         }
     }
 

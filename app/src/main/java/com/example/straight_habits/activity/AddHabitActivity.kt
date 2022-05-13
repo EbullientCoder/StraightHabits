@@ -1,23 +1,32 @@
 package com.example.straight_habits.activity
 
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.widget.ImageView
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.straight_habits.R
 import com.example.straight_habits.adapters.DaysAdapter
 import com.example.straight_habits.adapters.categories.AddHabitCategoriesAdapter
+import com.example.straight_habits.beans.HabitBean
+import com.example.straight_habits.controller.application.ManageHabits
 import com.example.straight_habits.controller.graphic.AddHabitGraphicController
 import com.example.straight_habits.database.RoomDB
 import com.example.straight_habits.interfaces.SelectDayInterface
 import com.example.straight_habits.interfaces.categories.SelectCategoryInterface
 import com.example.straight_habits.models.CategoryModel
 import com.example.straight_habits.models.DayModel
+import com.google.android.material.floatingactionbutton.FloatingActionButton
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
 
 class AddHabitActivity : AppCompatActivity(), SelectCategoryInterface, SelectDayInterface {
+    //Button
+    private lateinit var btnClose: ImageView
+    private lateinit var btnCreate: FloatingActionButton
     //Categories
     private lateinit var rvCategories: RecyclerView
     private lateinit var categoriesAdapter: AddHabitCategoriesAdapter
@@ -39,6 +48,10 @@ class AddHabitActivity : AppCompatActivity(), SelectCategoryInterface, SelectDay
         //Controller
         graphicController = AddHabitGraphicController(this)
 
+
+        //Set Button
+        setButtons()
+
         //Categories
         //Using Coroutines to Manage the Room DB
         lifecycleScope.launch(Dispatchers.IO){
@@ -56,6 +69,52 @@ class AddHabitActivity : AppCompatActivity(), SelectCategoryInterface, SelectDay
         setDaysRecyclerView()
     }
 
+
+
+    //Set Buttons
+    private fun setButtons(){
+        //Close Fragment
+        btnClose = findViewById(R.id.btn_close_add_habit)
+        btnClose.setOnClickListener {
+            //Calling the "Main Habit" Activity
+            val intent = Intent(this, MainActivity::class.java)
+            startActivity(intent)
+            overridePendingTransition(0, 0)
+        }
+
+        //Create the new Habit and go back to Main Activity
+        btnCreate = findViewById(R.id.btn_create_habit)
+        btnCreate.setOnClickListener{
+            //Application Model
+            val manageHabit = ManageHabits()
+            //Beans
+            var habitBeans: MutableList<HabitBean> = ArrayList()
+
+            //Category Loop
+            for(category in categoriesList){
+                //If the Category is selected create the bean
+                if(category.getSelected()){
+                    val bean = graphicController.getHabit(category)
+                    habitBeans.add(bean)
+                }
+            }
+
+            GlobalScope.launch {
+                //Day Loop
+                for(day in daysList){
+                    //If the Day is selected create the Model
+                    for(habit in habitBeans)
+                        manageHabit.addHabit(habit, day.id, applicationContext)
+                }
+            }
+
+
+            //Calling the "Main Habit" Activity
+            val intent = Intent(this, MainActivity::class.java)
+            startActivity(intent)
+            overridePendingTransition(0, 0)
+        }
+    }
 
 
 
@@ -88,13 +147,13 @@ class AddHabitActivity : AppCompatActivity(), SelectCategoryInterface, SelectDay
     //Create Days List
     private fun getDaysList(){
         daysList = ArrayList()
-        daysList.add(DayModel("M", true))
-        daysList.add(DayModel("T", false))
-        daysList.add(DayModel("W", false))
-        daysList.add(DayModel("T", false))
-        daysList.add(DayModel("F", false))
-        daysList.add(DayModel("S", false))
-        daysList.add(DayModel("S", false))
+        daysList.add(DayModel("M", true, "Monday"))
+        daysList.add(DayModel("T", false, "Tuesday"))
+        daysList.add(DayModel("W", false,"Wednesday"))
+        daysList.add(DayModel("T", false,"Thursday"))
+        daysList.add(DayModel("F", false, "Friday"))
+        daysList.add(DayModel("S", false, "Saturday"))
+        daysList.add(DayModel("S", false, "Sunday"))
     }
 
     //Set Recycler View

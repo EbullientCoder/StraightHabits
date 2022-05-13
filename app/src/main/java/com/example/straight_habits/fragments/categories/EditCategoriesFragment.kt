@@ -87,6 +87,7 @@ class EditCategoriesFragment : Fragment(), SelectCategoryInterface {
         categoriesAdapter.notifyDataSetChanged()
 
         //Call the MainActivity method to update the Fragment showed list
-        (activity as MainActivity?)?.setHabitsFragment(categoriesList[position].getName(), true)
+        if(categoriesList.size != 0)
+            (activity as MainActivity?)?.setHabitsFragment(categoriesList[position].getName(), true)
     }
 }

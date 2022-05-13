@@ -4,15 +4,15 @@ import android.widget.EditText
 import com.example.straight_habits.R
 import com.example.straight_habits.activity.AddHabitActivity
 import com.example.straight_habits.beans.HabitBean
+import com.example.straight_habits.models.CategoryModel
 
 class AddHabitGraphicController(view: AddHabitActivity) {
     private val addHabitInstance = view
     //Text
-    /*private val txtHabitName: EditText
+    private val txtHabitName: EditText
     private val txtHabitInfo: EditText
-    private val txtHabitDay: EditText
     private val txtHabitStart: EditText
-    private val txtHabitEnd: EditText*/
+    private val txtHabitEnd: EditText
 
 
 
@@ -22,25 +22,23 @@ class AddHabitGraphicController(view: AddHabitActivity) {
         addHabitInstance.supportActionBar?.hide()
 
         //Text
-        /*txtHabitName = view.findViewById(R.id.txt_habit_name)
-        txtHabitInfo = view.findViewById(R.id.txt_habit_info)
-        txtHabitDay = view.findViewById(R.id.txt_habit_day)
-        txtHabitStart = view.findViewById(R.id.txt_habit_start)
-        txtHabitEnd = view.findViewById(R.id.txt_habit_end)*/
+        txtHabitName = view.findViewById(R.id.txt_add_habit_name)
+        txtHabitInfo = view.findViewById(R.id.txt_add_habit_info)
+        txtHabitStart = view.findViewById(R.id.txt_add_habit_start)
+        txtHabitEnd = view.findViewById(R.id.txt_add_habit_end)
     }
 
 
 
     //Return Habit Bean
-    fun getHabit(): HabitBean{
+    fun getHabit(category: CategoryModel): HabitBean{
         var name = "NULL"
         var info = "NULL"
-        var category = "Morning"
         var start = "NULL"
         var end = "NULL"
 
         //Name
-        /*if (txtHabitName.editableText.toString() != null)
+        if (txtHabitName.editableText.toString() != null)
             name = txtHabitName.editableText.toString()
         //info
         if (txtHabitInfo.editableText.toString() != null)
@@ -50,10 +48,10 @@ class AddHabitGraphicController(view: AddHabitActivity) {
             start = txtHabitStart.editableText.toString()
         //End
         if (txtHabitEnd.editableText.toString() != null)
-            end = txtHabitEnd.editableText.toString()*/
+            end = txtHabitEnd.editableText.toString()
 
         //Return the Habit Bean
-        return HabitBean(0, name, info,category, start, end, false, false)
+        return HabitBean(0, name, info, category.getName(), start, end, false, false)
     }
 
 
