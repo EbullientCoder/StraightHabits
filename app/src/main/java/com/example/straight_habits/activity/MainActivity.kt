@@ -161,11 +161,16 @@ class MainActivity : AppCompatActivity() {
             //Reset Categories list
             testDeleteAndRebuildCategories()
 
-            //Recreate the Show Fragment
-            //Show Fragment
+            //Recreate the Show Fragments
+            //Show Habits Fragment
             showHabitsFragment = ShowHabitsFragment()
             supportFragmentManager
                 .beginTransaction().replace(R.id.habits_fragment_container, showHabitsFragment).commit()
+            //Show Categories Fragment
+            showCategoriesFragment = ShowCategoriesFragment()
+            supportFragmentManager
+                .beginTransaction().replace(R.id.categories_fragment_container, showCategoriesFragment).commit()
+
 
             btnMenu.performClick()
         }
@@ -304,6 +309,6 @@ class MainActivity : AppCompatActivity() {
         }
 
         //Notify the User
-        Toast.makeText(this, "THE HABITS LIST HAS BEEN RESTORED", Toast.LENGTH_SHORT).show()
+        Toast.makeText(this, "THE CATEGORIES LIST HAS BEEN RESTORED", Toast.LENGTH_SHORT).show()
     }
 }
