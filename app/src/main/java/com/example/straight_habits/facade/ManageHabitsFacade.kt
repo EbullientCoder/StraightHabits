@@ -116,72 +116,24 @@ class ManageHabitsFacade {
                     false)
             )
 
-            //Eat & Drink
+            //Gym Bag
             habitsList.add(
                 HabitBean(
                     0,
-                    "Consumare la Colazione",
-                    "Bere mezza bottiglia dopo il caffè.",
+                    "Borsa della Palestra",
+                    "Preparare la borsa della palestra.",
                     "Morning",
                     "8:50",
                     "9:00",
                     false,
-                    false)
+                    false
+                )
             )
 
-            //Get the Water
-            habitsList.add(
-                HabitBean(
-                    0,
-                    "Prendere la Bottiglia",
-                    "Portare la bottiglia d'acqua in cameretta.",
-                    "Morning",
-                    "9:00",
-                    "9:05",
-                    false,
-                    false)
-            )
 
-            //Get the Notebook
-            habitsList.add(
-                HabitBean(
-                    0,
-                    "Quaderno e Astuccio",
-                    "Prendere il quaderno e l'astuccio della materia che si intende " +
-                            "studiare.",
-                    "Morning",
-                    "9:05",
-                    "9:10",
-                    false,
-                    false)
-            )
 
-            //Hide the distractions
-            habitsList.add(
-                HabitBean(
-                    0,
-                    "Preparare l'ambiente",
-                    "Nascondere il cel. Prendere l'acqua.",
-                    "Morning",
-                    "9:10",
-                    "9:15",
-                    false,
-                    false)
-            )
 
-            //Study until it's time to go
-            habitsList.add(
-                HabitBean(
-                    0,
-                    "Studiare",
-                    "Studiare fino alle 13, ovvero fino a l'ora di pranzo.",
-                    "Morning",
-                    "9:15",
-                    "12:50",
-                    false,
-                    false)
-            )
-
+            //Afternoon-----------------------------------------------------------------------------
             //Shutdown
             habitsList.add(
                 HabitBean(
@@ -207,6 +159,51 @@ class ManageHabitsFacade {
                     false,
                     false)
             )
+
+
+
+
+            //Evening-----------------------------------------------------------------------------
+            //Gym
+            habitsList.add(
+                HabitBean(
+                    0,
+                    "Palestra",
+                    "Andare in Palestra.",
+                    "Evening",
+                    "20:00",
+                    "20:00",
+                    false,
+                    false)
+            )
+
+            //Training
+            habitsList.add(
+                HabitBean(
+                    0,
+                    "Allenarsi",
+                    "Una volta arrivato in palestra cosa vuoi fare?",
+                    "Evening",
+                    "20:30",
+                    "22:00",
+                    false,
+                    false)
+            )
+
+            //Gym Bag
+            habitsList.add(
+                HabitBean(
+                    0,
+                    "Borsa Palestra",
+                    "Svuotare la borsa della palestra.",
+                    "Evening",
+                    "22:30",
+                    "22:35",
+                    false,
+                    false)
+            )
+
+
 
             return habitsList
         }
