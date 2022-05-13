@@ -1,4 +1,4 @@
-package com.example.straight_habits.interfaces
+package com.example.straight_habits.interfaces.habits
 
 interface HabitDetailsInterface {
     //Open the Dialog Fragment when the Habit is clicked

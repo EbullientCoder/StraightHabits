@@ -1,4 +1,4 @@
-package com.example.straight_habits.interfaces
+package com.example.straight_habits.interfaces.habits
 
 interface EditHabitInterface {
     fun deleteHabit(position: Int)

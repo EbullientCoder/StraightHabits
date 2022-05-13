@@ -12,7 +12,7 @@ import com.example.straight_habits.R
 import com.example.straight_habits.activity.MainActivity
 import com.example.straight_habits.adapters.categories.EditCategoriesAdapter
 import com.example.straight_habits.database.RoomDB
-import com.example.straight_habits.interfaces.SelectCategoryInterface
+import com.example.straight_habits.interfaces.categories.SelectCategoryInterface
 import com.example.straight_habits.models.CategoryModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch

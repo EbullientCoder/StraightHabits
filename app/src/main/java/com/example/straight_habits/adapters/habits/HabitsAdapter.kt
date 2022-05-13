@@ -14,8 +14,8 @@ import com.example.straight_habits.R
 import com.example.straight_habits.beans.HabitBean
 import com.example.straight_habits.facade.ManageColorsFacade
 import com.example.straight_habits.facade.ManageHabitsFacade
-import com.example.straight_habits.interfaces.CheckHabitInterface
-import com.example.straight_habits.interfaces.HabitDetailsInterface
+import com.example.straight_habits.interfaces.habits.CheckHabitInterface
+import com.example.straight_habits.interfaces.habits.HabitDetailsInterface
 
 class HabitsAdapter(
     private var habitsList : MutableList<HabitBean>,

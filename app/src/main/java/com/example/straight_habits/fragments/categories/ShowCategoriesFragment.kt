@@ -1,12 +1,10 @@
 package com.example.straight_habits.fragments.categories
 
 import android.os.Bundle
-import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -15,12 +13,11 @@ import com.example.straight_habits.activity.MainActivity
 import com.example.straight_habits.adapters.categories.CategoriesAdapter
 import com.example.straight_habits.database.RoomDB
 import com.example.straight_habits.facade.ManageCategoriesFacade
-import com.example.straight_habits.interfaces.SelectCategoryInterface
+import com.example.straight_habits.interfaces.categories.SelectCategoryInterface
 import com.example.straight_habits.models.CategoryModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
-import kotlinx.coroutines.runBlocking
 
 class ShowCategoriesFragment : Fragment(), SelectCategoryInterface {
     //Categories

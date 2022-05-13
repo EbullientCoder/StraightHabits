@@ -6,24 +6,26 @@ import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.straight_habits.R
+import com.example.straight_habits.adapters.DaysAdapter
 import com.example.straight_habits.adapters.categories.AddHabitCategoriesAdapter
-import com.example.straight_habits.adapters.categories.CategoriesAdapter
 import com.example.straight_habits.controller.graphic.AddHabitGraphicController
 import com.example.straight_habits.database.RoomDB
-import com.example.straight_habits.interfaces.SelectCategoryInterface
+import com.example.straight_habits.interfaces.SelectDayInterface
+import com.example.straight_habits.interfaces.categories.SelectCategoryInterface
 import com.example.straight_habits.models.CategoryModel
+import com.example.straight_habits.models.DayModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 
-class AddHabitActivity : AppCompatActivity(), SelectCategoryInterface {
+class AddHabitActivity : AppCompatActivity(), SelectCategoryInterface, SelectDayInterface {
     //Categories
     private lateinit var rvCategories: RecyclerView
     private lateinit var categoriesAdapter: AddHabitCategoriesAdapter
     private lateinit var categoriesList: MutableList<CategoryModel>
     //Days
     private lateinit var rvDays: RecyclerView
-    //private lateinit var daysAdapter: DaysAdapter
-    private lateinit var daysList: MutableList<String>
+    private lateinit var daysAdapter: DaysAdapter
+    private lateinit var daysList: MutableList<DayModel>
 
     //Controller
     private lateinit var graphicController: AddHabitGraphicController
@@ -48,7 +50,10 @@ class AddHabitActivity : AppCompatActivity(), SelectCategoryInterface {
         }
 
         //Days
+        //Get Days List
         getDaysList()
+        //Set Recycler View
+        setDaysRecyclerView()
     }
 
 
@@ -83,13 +88,13 @@ class AddHabitActivity : AppCompatActivity(), SelectCategoryInterface {
     //Create Days List
     private fun getDaysList(){
         daysList = ArrayList()
-        daysList.add("M")
-        daysList.add("T")
-        daysList.add("W")
-        daysList.add("T")
-        daysList.add("F")
-        daysList.add("S")
-        daysList.add("S")
+        daysList.add(DayModel("M", true))
+        daysList.add(DayModel("T", false))
+        daysList.add(DayModel("W", false))
+        daysList.add(DayModel("T", false))
+        daysList.add(DayModel("F", false))
+        daysList.add(DayModel("S", false))
+        daysList.add(DayModel("S", false))
     }
 
     //Set Recycler View
@@ -98,12 +103,12 @@ class AddHabitActivity : AppCompatActivity(), SelectCategoryInterface {
         rvDays = findViewById(R.id.rv_add_habit_days)
 
         //Adapter
-        //daysAdapter = AddHabitCategoriesAdapter(categoriesList, this)
+        daysAdapter = DaysAdapter(daysList, this)
 
         //Recycler View
         rvDays
             .layoutManager = LinearLayoutManager(applicationContext, LinearLayoutManager.HORIZONTAL, false)
-        //rvDays.adapter = daysAdapter
+        rvDays.adapter = daysAdapter
     }
 
 
@@ -111,6 +116,7 @@ class AddHabitActivity : AppCompatActivity(), SelectCategoryInterface {
 
 
     //Interface Methods-----------------------------------------------------------------------------
+    //Category Interface
     override fun selectCategory(position: Int) {
         //Check or Uncheck Category
         if(categoriesList[position].getSelected())
@@ -120,5 +126,19 @@ class AddHabitActivity : AppCompatActivity(), SelectCategoryInterface {
 
         //Upgrade Adapter
         categoriesAdapter.notifyDataSetChanged()
+    }
+
+
+
+    //Day Interface
+    override fun selectDay(position: Int) {
+        //Check or Uncheck Day
+        if(daysList[position].selected)
+            daysList[position].selected = false
+        else
+            daysList[position].selected = true
+
+        //Upgrade Adapter
+        daysAdapter.notifyDataSetChanged()
     }
 }

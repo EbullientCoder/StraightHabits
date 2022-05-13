@@ -20,7 +20,7 @@ import com.example.straight_habits.database.RoomDB
 import com.example.straight_habits.facade.ManageDaysFacade
 import com.example.straight_habits.facade.ManageHabitsFacade
 import com.example.straight_habits.fragments.details.HabitDetailsEditFragment
-import com.example.straight_habits.interfaces.EditHabitInterface
+import com.example.straight_habits.interfaces.habits.EditHabitInterface
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.runBlocking

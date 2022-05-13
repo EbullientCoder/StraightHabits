@@ -11,7 +11,7 @@ import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
 import com.example.straight_habits.R
 import com.example.straight_habits.beans.HabitBean
-import com.example.straight_habits.interfaces.EditHabitInterface
+import com.example.straight_habits.interfaces.habits.EditHabitInterface
 
 
 class EditHabitsAdapter(

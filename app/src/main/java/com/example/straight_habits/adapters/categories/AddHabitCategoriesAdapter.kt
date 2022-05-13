@@ -12,12 +12,8 @@ import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
 import com.example.straight_habits.R
-import com.example.straight_habits.database.RoomDB
-import com.example.straight_habits.facade.ManageDaysFacade
-import com.example.straight_habits.interfaces.SelectCategoryInterface
+import com.example.straight_habits.interfaces.categories.SelectCategoryInterface
 import com.example.straight_habits.models.CategoryModel
-import kotlinx.coroutines.runBlocking
-
 
 
 class AddHabitCategoriesAdapter(
