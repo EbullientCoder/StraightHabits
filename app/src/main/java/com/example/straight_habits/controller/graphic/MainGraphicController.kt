@@ -11,18 +11,10 @@ import com.example.straight_habits.R
 import com.example.straight_habits.facade.ManageDaysFacade
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import android.widget.ImageView
-import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.straight_habits.adapters.MenuAdapter
-import com.example.straight_habits.adapters.CategoriesAdapter
-import com.example.straight_habits.database.RoomDB
-import com.example.straight_habits.facade.ManageCategoriesFacade
 import com.example.straight_habits.interfaces.MenuItemClickInterface
-import com.example.straight_habits.interfaces.SelectCategoryInterface
-import com.example.straight_habits.models.CategoryModel
 import com.example.straight_habits.models.MenuModel
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.launch
 
 
 @RequiresApi(Build.VERSION_CODES.O)

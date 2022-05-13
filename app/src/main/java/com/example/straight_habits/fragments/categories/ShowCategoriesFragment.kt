@@ -1,6 +1,7 @@
-package com.example.straight_habits.fragments
+package com.example.straight_habits.fragments.categories
 
 import android.os.Bundle
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -11,20 +12,21 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.straight_habits.R
 import com.example.straight_habits.activity.MainActivity
-import com.example.straight_habits.adapters.CategoriesAdapter
+import com.example.straight_habits.adapters.categories.CategoriesAdapter
 import com.example.straight_habits.database.RoomDB
 import com.example.straight_habits.facade.ManageCategoriesFacade
 import com.example.straight_habits.interfaces.SelectCategoryInterface
 import com.example.straight_habits.models.CategoryModel
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
+import kotlinx.coroutines.runBlocking
 
 class ShowCategoriesFragment : Fragment(), SelectCategoryInterface {
     //Categories
     private lateinit var rvCategories: RecyclerView
     private lateinit var categoriesAdapter: CategoriesAdapter
     private lateinit var categoriesList: MutableList<CategoryModel>
-
 
 
     override fun onCreateView(
@@ -80,12 +82,20 @@ class ShowCategoriesFragment : Fragment(), SelectCategoryInterface {
 
 
     //Categories
-    fun selectFragment(){
-        //Get the Selected Category
-        val position = ManageCategoriesFacade.getSelectedPosition(categoriesList)
+    fun selectFragment(edit: Boolean){
+        //The use of coroutine is obligatory cause else the main thread would be stacked waiting the
+        //initialization of the categories list
+        lifecycleScope.launch {
+            //Wait until the categoriesList is initialized
+            while(!this@ShowCategoriesFragment::categoriesList.isInitialized)
+                delay(10)
 
-        //Call the MainActivity method to update the Fragment showed list
-        (activity as MainActivity?)?.setHabitsFragment(categoriesList[position].getName())
+            //Get the Selected Category
+            val position = ManageCategoriesFacade.getSelectedPosition(categoriesList)
+
+            //Call the MainActivity method to update the Fragment showed list
+            (activity as MainActivity?)?.setHabitsFragment(categoriesList[position].getName(), edit)
+        }
     }
 
 
@@ -103,6 +113,6 @@ class ShowCategoriesFragment : Fragment(), SelectCategoryInterface {
         categoriesAdapter.notifyDataSetChanged()
 
         //Call the MainActivity method to update the Fragment showed list
-        (activity as MainActivity?)?.setHabitsFragment(categoriesList[position].getName())
+        (activity as MainActivity?)?.setHabitsFragment(categoriesList[position].getName(), false)
     }
 }

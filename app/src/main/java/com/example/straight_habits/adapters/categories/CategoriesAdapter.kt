@@ -1,29 +1,21 @@
-package com.example.straight_habits.adapters
+package com.example.straight_habits.adapters.categories
 
 
-import android.content.Context
 import android.content.res.Configuration
-import android.graphics.Color
 import android.os.Build
-import android.util.TypedValue
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
-import androidx.annotation.AttrRes
-import androidx.annotation.ColorInt
 import androidx.annotation.RequiresApi
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.content.ContextCompat
-import androidx.core.graphics.toColor
 import androidx.recyclerview.widget.RecyclerView
 import com.example.straight_habits.R
 import com.example.straight_habits.database.RoomDB
-import com.example.straight_habits.facade.ManageColorsFacade
 import com.example.straight_habits.facade.ManageDaysFacade
 import com.example.straight_habits.interfaces.SelectCategoryInterface
 import com.example.straight_habits.models.CategoryModel
-import com.google.android.material.color.MaterialColors
 import kotlinx.coroutines.runBlocking
 
 

@@ -1,4 +1,4 @@
-package com.example.straight_habits.adapters
+package com.example.straight_habits.adapters.habits
 
 import android.content.res.Configuration
 import android.view.LayoutInflater
@@ -20,13 +20,13 @@ class EditHabitsAdapter(
     ) : RecyclerView.Adapter<EditHabitsAdapter.EditHabitsViewHolder>() {
 
     //Create the Personalized ViewHolder
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): EditHabitsAdapter.EditHabitsViewHolder {
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): EditHabitsViewHolder {
         val view = LayoutInflater.from(parent.context).inflate(R.layout.container_edit_habit, parent, false)
 
         return EditHabitsViewHolder(view)
     }
 
-    override fun onBindViewHolder(holder: EditHabitsAdapter.EditHabitsViewHolder, position: Int) {
+    override fun onBindViewHolder(holder: EditHabitsViewHolder, position: Int) {
         holder.setCommonData(habitsList[position])
     }
 

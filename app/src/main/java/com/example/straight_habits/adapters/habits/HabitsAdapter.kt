@@ -1,4 +1,4 @@
-package com.example.straight_habits.adapters
+package com.example.straight_habits.adapters.habits
 
 import android.graphics.Paint
 import android.view.LayoutInflater
@@ -9,7 +9,6 @@ import android.widget.ImageView
 import android.widget.LinearLayout
 import android.widget.TextView
 import androidx.constraintlayout.widget.ConstraintLayout
-import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
 import com.example.straight_habits.R
 import com.example.straight_habits.beans.HabitBean
@@ -25,7 +24,7 @@ class HabitsAdapter(
 ) : RecyclerView.Adapter<HabitsAdapter.HabitsViewHolder>() {
 
     //Create the Personalized ViewHolder
-    override fun onCreateViewHolder(parent: ViewGroup, position: Int): HabitsAdapter.HabitsViewHolder {
+    override fun onCreateViewHolder(parent: ViewGroup, position: Int): HabitsViewHolder {
         val view = LayoutInflater.from(parent.context).inflate(R.layout.container_habit, parent, false)
 
         return HabitsViewHolder(view)

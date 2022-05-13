@@ -1,4 +1,4 @@
-package com.example.straight_habits.fragments
+package com.example.straight_habits.fragments.habits
 
 import android.os.Build
 import android.os.Bundle
@@ -7,20 +7,20 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
 import androidx.annotation.RequiresApi
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.straight_habits.R
-import com.example.straight_habits.adapters.EditHabitsAdapter
+import com.example.straight_habits.adapters.habits.HabitsAdapter
 import com.example.straight_habits.beans.HabitBean
 import com.example.straight_habits.controller.application.ManageHabits
 import com.example.straight_habits.database.RoomDB
 import com.example.straight_habits.facade.ManageDaysFacade
 import com.example.straight_habits.facade.ManageHabitsFacade
-import com.example.straight_habits.fragments.details.HabitDetailsEditFragment
-import com.example.straight_habits.interfaces.EditHabitInterface
+import com.example.straight_habits.fragments.details.HabitDetailsFragment
+import com.example.straight_habits.interfaces.CheckHabitInterface
+import com.example.straight_habits.interfaces.HabitDetailsInterface
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.runBlocking
@@ -28,10 +28,10 @@ import java.util.*
 import kotlin.collections.ArrayList
 
 
-class EditHabitsFragment : Fragment(), EditHabitInterface {
+class ShowHabitsFragment : Fragment(), CheckHabitInterface, HabitDetailsInterface {
     //Habits
     private lateinit var rvHabits: RecyclerView
-    private lateinit var habitsAdapter: EditHabitsAdapter
+    private lateinit var habitsAdapter: HabitsAdapter
     private lateinit var habitsList: MutableList<HabitBean>
 
 
@@ -41,8 +41,9 @@ class EditHabitsFragment : Fragment(), EditHabitInterface {
         savedInstanceState: Bundle?
     ): View? {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_edit_habits, container, false)
+        return inflater.inflate(R.layout.fragment_show_habits, container, false)
     }
+
 
     @RequiresApi(Build.VERSION_CODES.O)
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -60,7 +61,7 @@ class EditHabitsFragment : Fragment(), EditHabitInterface {
 
 
         //Set RecyclerView
-        rvHabits = view.findViewById(R.id.rv_edit_habits)
+        rvHabits = view.findViewById(R.id.rv_habits)
 
         //Using Coroutines to Manage the Room DB
         lifecycleScope.launch(Dispatchers.IO){
@@ -110,6 +111,9 @@ class EditHabitsFragment : Fragment(), EditHabitInterface {
 
         //Order the Habits
         orderHabitsList()
+        //Select the first one
+        if(habitsList.size != 0)
+            selectFirstHabit()
     }
 
     //Order the Beans by their Starting Hour
@@ -150,69 +154,143 @@ class EditHabitsFragment : Fragment(), EditHabitInterface {
         }
     }
 
+    //Select the first habit
+    @RequiresApi(Build.VERSION_CODES.O)
+    private fun selectFirstHabit(){
+        //Application Controller
+        val manageHabits = ManageHabits()
+
+        //Check if the first habit is not selected
+        if(!habitsList[0].getDone() && !habitsList[0].getSelected())
+            habitsList[0].setSelected(true)
+
+        //Update habit
+        runBlocking {
+            manageHabits
+                .editHabit(
+                    ManageHabitsFacade.beanToModel(habitsList[0],
+                        ManageDaysFacade.getCurrentDay()),
+                    requireContext())
+        }
+    }
+
 
     //Set Recycler View to display the Habits List
     private fun setHabitsRecyclerView(){
         //Adapter
-        habitsAdapter = EditHabitsAdapter(habitsList, this)
+        habitsAdapter = HabitsAdapter(habitsList, this, this)
 
         //To Update the UI we need to use the UI Thread
         activity?.runOnUiThread {
             //Layout Manager
             rvHabits.layoutManager = LinearLayoutManager(context)
             rvHabits.adapter = habitsAdapter
+
+            //Position
+            var position = ManageHabitsFacade.getSelectedPosition(habitsList)
+            if(position != 0) position--
+
+            //Show the selected Habit
+            rvHabits.scrollToPosition(position)
         }
     }
+
 
 
 
 
     //Interface Methods-----------------------------------------------------------------------------
-    //Edit Habit Interface
+    //Check Habit Interface
+    //Check Clicked Habit
     @RequiresApi(Build.VERSION_CODES.O)
-    override fun deleteHabit(position: Int) {
-        //Application Controller
-        val manageHabit = ManageHabits()
+    override fun checkHabit(position: Int) {
+        //Connect to DB
+        val DB = RoomDB.getInstance(requireContext())
+        val dao = DB.habitDAO()
 
-        //Coroutines
-        runBlocking {
-            //Delete Habit
-            val habitModel = ManageHabitsFacade.beanToModel(habitsList[position], ManageDaysFacade.getCurrentDay())
-            manageHabit.deleteHabit(habitModel, requireContext())
+        //Loop to set on false the habit.selected
+        habitsList[position - 1].setSelected(false)
+        //Set on true habit.done
+        habitsList[position - 1].setDone(true)
 
-            //Check if the Habit was Selected. If so, select the next one that is not done
-            if(habitsList[position].getSelected()){
-                val i = ManageHabitsFacade.getNotDone(habitsList, position + 1)
-
-                activity?.runOnUiThread {
-                    Toast.makeText(context, i.toString(), Toast.LENGTH_SHORT).show()
-                }
-
-                if(i != habitsList.size){
-                    //Set Selected the first not done bean
-                    habitsList[i].setSelected(true)
-
-                    manageHabit
-                        .editHabit(ManageHabitsFacade
-                            .beanToModel(habitsList[i], ManageDaysFacade.getCurrentDay()), requireContext())
-                }
-            }
+        //Edit the Room DB to deselect and set done the Habit Clicked
+        lifecycleScope.launch(Dispatchers.IO){
+            dao.edit(ManageHabitsFacade.beanToModel(habitsList[position - 1], ManageDaysFacade.getCurrentDay()))
         }
 
-        //Remove Habit from the List
-        habitsList.removeAt(position)
+
+        //Set on true habit.selected
+        var i = position
+        while (i != habitsList.size){
+            //Next Select Condition
+            if(!habitsList[i].getDone()){
+                habitsList[i].setSelected(true)
+
+                //Edit the Room DB to select the next Habit that has not be done
+                lifecycleScope.launch(Dispatchers.IO){
+                    //Edit DB
+                    dao.edit(ManageHabitsFacade.beanToModel(habitsList[i], ManageDaysFacade.getCurrentDay()))
+                }
+                break
+            }
+
+            i++
+        }
 
         //Notify the Adapter
-        habitsAdapter.notifyDataSetChanged()
+        activity?.runOnUiThread{
+            habitsAdapter.notifyDataSetChanged()
+        }
     }
 
-    override fun editHabit(position: Int) {
+    @RequiresApi(Build.VERSION_CODES.O)
+    override fun checkLastHabit(position: Int) {
+        //Connect to DB
+        val DB = RoomDB.getInstance(requireContext())
+        val dao = DB.habitDAO()
+
+        //Set Selected and Done
+        habitsList[position].setSelected(false)
+        habitsList[position].setDone(true)
+
+        //Update the DB
+        lifecycleScope.launch(Dispatchers.IO){
+            //Edit the Database
+            dao.edit(ManageHabitsFacade.beanToModel(habitsList[position], ManageDaysFacade.getCurrentDay()))
+        }
+
+        //Notify the Adapter
+        activity?.runOnUiThread{
+            habitsAdapter.notifyDataSetChanged()
+        }
+    }
+
+    @RequiresApi(Build.VERSION_CODES.O)
+    override fun preDoneHabit(position: Int, clicked: Boolean) {
+        //Connect to DB
+        val DB = RoomDB.getInstance(requireContext())
+        val dao = DB.habitDAO()
+
+        //Set Done or Undone
+        if(clicked)
+            habitsList[position].setDone(true)
+        else
+            habitsList[position].setDone(false)
+
+        //Update the DB
+        lifecycleScope.launch(Dispatchers.IO){
+            //Edit DB
+            dao.edit(ManageHabitsFacade.beanToModel(habitsList[position], ManageDaysFacade.getCurrentDay()))
+        }
+    }
+
+    override fun openHabitDetails(position: Int) {
         val bundle = Bundle()
-        bundle.putSerializable("Edit Habit Details", habitsList[position])
+        bundle.putSerializable("Habit Details", habitsList[position])
 
         //Create the Details Fragment
-        val habitDetailsEditFragment = HabitDetailsEditFragment()
-        habitDetailsEditFragment.arguments = bundle
-        activity?.let { habitDetailsEditFragment.show(it.supportFragmentManager,"EditHabitDetailsFragment") }
+        val habitDetailsFragment = HabitDetailsFragment()
+        habitDetailsFragment.arguments = bundle
+        activity?.let { habitDetailsFragment.show(it.supportFragmentManager,"HabitDetailsFragment") }
     }
 }
