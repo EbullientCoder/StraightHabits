@@ -1,5 +1,6 @@
 package com.example.straight_habits.fragments.details
 
+import android.content.res.Configuration
 import android.graphics.Color
 import android.graphics.drawable.ColorDrawable
 import android.os.Bundle
@@ -9,6 +10,7 @@ import android.view.ViewGroup
 import android.view.Window
 import android.widget.ImageView
 import android.widget.TextView
+import androidx.core.content.ContextCompat
 import androidx.fragment.app.DialogFragment
 import com.example.straight_habits.R
 import com.example.straight_habits.beans.HabitBean
@@ -45,6 +47,31 @@ class HabitDetailsFragment : DialogFragment() {
         btnBack.setOnClickListener {
             dismiss()
         }
+        //Check Night ot Day Mode
+        when (view.resources.configuration.uiMode and Configuration.UI_MODE_NIGHT_MASK) {
+            //Night Mode
+            Configuration.UI_MODE_NIGHT_YES
+            ->{
+                //Image Button
+                btnBack.setImageResource(R.drawable.icon_close_night)
+            }
+
+            //Day Mode
+            Configuration.UI_MODE_NIGHT_NO
+            ->{
+                //Image Button
+                btnBack.setImageResource(R.drawable.icon_close_day)
+            }
+
+            //Undefined
+            Configuration.UI_MODE_NIGHT_UNDEFINED
+            ->{
+                //Image Button
+                btnBack.setImageResource(R.drawable.icon_close_night)
+            }
+        }
+
+
 
         //Habit's Details
         txtName = view.findViewById(R.id.txt_habit_details_name)
