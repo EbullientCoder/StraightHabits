@@ -26,7 +26,7 @@ import kotlinx.coroutines.launch
 
 
 @RequiresApi(Build.VERSION_CODES.O)
-class MainGraphicController(view: MainActivity): SelectCategoryInterface, MenuItemClickInterface {
+class MainGraphicController(view: MainActivity): MenuItemClickInterface {
     private val mainInstance = view
     //Text
     private val txtDay : TextView
@@ -35,11 +35,6 @@ class MainGraphicController(view: MainActivity): SelectCategoryInterface, MenuIt
     private var btnMenu : ImageView
     //Add Habit Button
     private var btnAddHabit : FloatingActionButton
-
-    //Categories
-    private var rvCategories: RecyclerView
-    private lateinit var categoriesAdapter: CategoriesAdapter
-    private lateinit var categoriesList: MutableList<CategoryModel>
 
     //Menu
     private var rvMenu: RecyclerView
@@ -62,22 +57,6 @@ class MainGraphicController(view: MainActivity): SelectCategoryInterface, MenuIt
         btnMenu = view.findViewById(R.id.btn_menu)
         btnAddHabit = view.findViewById(R.id.btn_add_habit)
 
-
-        //Categories
-        //RecyclerView
-        rvCategories = view.findViewById(R.id.rv_categories)
-
-        //Set Categories
-        mainInstance.lifecycleScope.launch(Dispatchers.IO){
-            //Get Categories
-            getCategoriesList()
-
-            //Set the Recycler View in the UI Thread
-            mainInstance.runOnUiThread{
-                //Set Recycler View
-                setCategoriesRecyclerView()
-            }
-        }
 
 
         //Menu
@@ -119,61 +98,8 @@ class MainGraphicController(view: MainActivity): SelectCategoryInterface, MenuIt
 
 
 
-    //Categories
-    //Get Categories
-    private suspend fun getCategoriesList(){
-        //Database Instance
-        val DB = RoomDB.getInstance(mainInstance).categoryDAO()
-
-        //Habits List
-        categoriesList = DB.readAll()
-    }
-
-    //Set Recycler View
-    private fun setCategoriesRecyclerView(){
-        //Adapter
-        categoriesAdapter = CategoriesAdapter(categoriesList, this)
-
-        //Recycler View
-        rvCategories.layoutManager = LinearLayoutManager(mainInstance, LinearLayoutManager.HORIZONTAL, false)
-        rvCategories.adapter = categoriesAdapter
-    }
-
-
-
-
-
-    fun selectFragment(){
-        //Get the Selected Category
-        val position = ManageCategoriesFacade.getSelectedPosition(categoriesList)
-
-        //Call the MainActivity method to update the Fragment showed list
-        mainInstance.setHabitsFragment(categoriesList[position].getName())
-    }
-
-
-
-
 
     //Interfaces Methods----------------------------------------------------------------------------
-    //Select Category Interface
-    override fun selectCategory(position: Int) {
-        //Deselect All
-        for(i in 0 until categoriesList.size)
-            categoriesList[i].setSelected(false)
-        //Select One
-        categoriesList[position].setSelected(true)
-
-        //Notify the Adapter
-        categoriesAdapter.notifyDataSetChanged()
-
-
-        //Call the MainActivity method to update the Fragment showed list
-        mainInstance.setHabitsFragment(categoriesList[position].getName())
-    }
-
-
-
     //Menu Item Click Interface
     override fun selectMenuItem(position: Int) {
         //Deselect All

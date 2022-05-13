@@ -44,6 +44,7 @@ class ShowHabitsFragment : Fragment(), CheckHabitInterface, HabitDetailsInterfac
         return inflater.inflate(R.layout.fragment_show_habits, container, false)
     }
 
+
     @RequiresApi(Build.VERSION_CODES.O)
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)

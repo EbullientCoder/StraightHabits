@@ -20,6 +20,7 @@ import com.example.straight_habits.facade.ManageCategoriesFacade
 import com.example.straight_habits.facade.ManageDaysFacade
 import com.example.straight_habits.facade.ManageHabitsFacade
 import com.example.straight_habits.fragments.EditHabitsFragment
+import com.example.straight_habits.fragments.ShowCategoriesFragment
 import com.example.straight_habits.fragments.ShowHabitsFragment
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import kotlinx.coroutines.Dispatchers
@@ -39,8 +40,11 @@ class MainActivity : AppCompatActivity() {
     private lateinit var txtEdit: TextView
 
     //Fragment
+    //Habits
     private lateinit var showHabitsFragment: ShowHabitsFragment
     private lateinit var editHabitsFragment: EditHabitsFragment
+    //Categories
+    private lateinit var showCategoriesFragment: ShowCategoriesFragment
 
     //Graph Controller
     private lateinit var graphicController: MainGraphicController
@@ -60,7 +64,8 @@ class MainActivity : AppCompatActivity() {
         //Set the Graphic Elements
         graphicController = MainGraphicController(this)
 
-        //Set Fragment
+        //Set Fragments
+        setCategoriesFragment()
         setHabitsFragment("Morning")
 
         //Buttons
@@ -160,7 +165,7 @@ class MainActivity : AppCompatActivity() {
             //Show Fragment
             showHabitsFragment = ShowHabitsFragment()
             supportFragmentManager
-                .beginTransaction().replace(R.id.fragment_container, showHabitsFragment).commit()
+                .beginTransaction().replace(R.id.habits_fragment_container, showHabitsFragment).commit()
 
             btnMenu.performClick()
         }
@@ -176,7 +181,7 @@ class MainActivity : AppCompatActivity() {
 
 
             //Edit Fragment
-            graphicController.selectFragment()
+            showCategoriesFragment.selectFragment()
 
             //Retire the Icons
             btnMenu.performClick()
@@ -197,7 +202,7 @@ class MainActivity : AppCompatActivity() {
 
 
             //Show Fragment
-            graphicController.selectFragment()
+            showCategoriesFragment.selectFragment()
 
             //Hide Button Done
             btnDone.visibility = View.GONE
@@ -234,7 +239,7 @@ class MainActivity : AppCompatActivity() {
             editHabitsFragment.arguments = bundle
 
             supportFragmentManager
-                .beginTransaction().replace(R.id.fragment_container, editHabitsFragment).commit()
+                .beginTransaction().replace(R.id.habits_fragment_container, editHabitsFragment).commit()
         }
         else{
             //Show Fragment
@@ -242,7 +247,24 @@ class MainActivity : AppCompatActivity() {
             showHabitsFragment.arguments = bundle
 
             supportFragmentManager
-                .beginTransaction().replace(R.id.fragment_container, showHabitsFragment).commit()
+                .beginTransaction().replace(R.id.habits_fragment_container, showHabitsFragment).commit()
+        }
+    }
+
+    //Set Categories Fragment
+    private fun setCategoriesFragment(){
+        //Set Fragment
+        //Check if create Show Habits Fragment or Edit Habits Fragment
+        if(edit){
+            //Edit Fragment
+
+        }
+        else{
+            //Show Fragment
+            showCategoriesFragment = ShowCategoriesFragment()
+
+            supportFragmentManager
+                .beginTransaction().replace(R.id.categories_fragment_container, showCategoriesFragment).commit()
         }
     }
 
