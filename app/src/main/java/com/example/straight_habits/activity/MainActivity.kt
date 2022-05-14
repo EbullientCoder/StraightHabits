@@ -79,15 +79,8 @@ class MainActivity : AppCompatActivity() {
     override fun onRestart() {
         super.onRestart()
 
-        //On Restart the Graphic Controller will be called so it can update the Habits List
-        //Using Coroutines to Manage the Room DB
-        /*lifecycleScope.launch(Dispatchers.IO){
-            //Get HabitBeans List
-            //graphicController.getHabitsList()
+        //On Restart the fragments will be recreated
 
-            //Set the Recycler View
-            //graphicController.setHabitsRecyclerView()
-        }*/
     }
 
 

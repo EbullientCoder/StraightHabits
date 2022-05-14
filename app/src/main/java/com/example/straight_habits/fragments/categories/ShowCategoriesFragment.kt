@@ -47,8 +47,10 @@ class ShowCategoriesFragment : Fragment(), SelectCategoryInterface {
             //Get Categories List
             getCategoriesList()
 
-            //Set the Recycler View
-            setCategoriesRecyclerView()
+            activity?.runOnUiThread {
+                //Set the Recycler View
+                setCategoriesRecyclerView()
+            }
         }
     }
 
@@ -104,7 +106,6 @@ class ShowCategoriesFragment : Fragment(), SelectCategoryInterface {
                 (activity as MainActivity?)?.setHabitsFragment(categoriesList[position].getName(), edit)
         }
     }
-
 
 
 

@@ -71,6 +71,7 @@ class AddHabitActivity : AppCompatActivity(), SelectCategoryInterface, SelectDay
 
 
 
+
     //Set Buttons
     private fun setButtons(){
         //Close Fragment
@@ -104,7 +105,8 @@ class AddHabitActivity : AppCompatActivity(), SelectCategoryInterface, SelectDay
                 for(day in daysList){
                     //If the Day is selected create the Model
                     for(habit in habitBeans)
-                        manageHabit.addHabit(habit, day.id, applicationContext)
+                        if(day.selected)
+                            manageHabit.addHabit(habit, day.id, applicationContext)
                 }
             }
 

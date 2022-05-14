@@ -21,6 +21,7 @@ import com.example.straight_habits.facade.ManageHabitsFacade
 import com.example.straight_habits.fragments.details.HabitDetailsFragment
 import com.example.straight_habits.interfaces.habits.CheckHabitInterface
 import com.example.straight_habits.interfaces.habits.HabitDetailsInterface
+import com.example.straight_habits.models.CategoryModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.runBlocking
@@ -70,8 +71,11 @@ class ShowHabitsFragment : Fragment(), CheckHabitInterface, HabitDetailsInterfac
             if (category != null) {
                 getHabitsList(category)
             }
-            //Set the Recycler View
-            setHabitsRecyclerView()
+
+            activity?.runOnUiThread {
+                //Set the Recycler View
+                setHabitsRecyclerView()
+            }
         }
     }
 
