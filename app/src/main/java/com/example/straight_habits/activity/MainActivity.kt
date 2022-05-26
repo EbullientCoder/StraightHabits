@@ -6,7 +6,6 @@ import android.content.SharedPreferences
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.os.Build
-import android.util.Log
 import android.view.View
 import android.widget.ImageView
 import android.widget.TextView
@@ -280,9 +279,12 @@ class MainActivity : AppCompatActivity() {
             //Application Controller
             val manageHabits = ManageHabits()
 
+            //Delete the Old List
             manageHabits.deleteAllHabitsFromDay(this@MainActivity)
+            //manageHabits.deleteAllHabits(this@MainActivity)
             //Add a new One
-            manageHabits.addHabitsList(ManageHabitsFacade.createHabitsList(), this@MainActivity)
+            manageHabits.addHabitsListCurrentDay(ManageHabitsFacade.createHabitsList(), this@MainActivity)
+            //manageHabits.addHabitsListAllDay(ManageHabitsFacade.createHabitsList(), this@MainActivity)
         }
 
         //Notify the User

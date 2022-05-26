@@ -38,9 +38,9 @@ class ManageHabits {
     }
 
 
-    //Add the Habits List into the DB
+    //Add the Habits List of the Current Day into the DB
     @RequiresApi(Build.VERSION_CODES.O)
-    suspend fun addHabitsList(habits : MutableList<HabitBean>, context: Context){
+    suspend fun addHabitsListCurrentDay(habits : MutableList<HabitBean>, context: Context){
         //Get the DB Instance
         val db = RoomDB.getInstance(context)
         val dao = db.habitDAO()
@@ -67,6 +67,39 @@ class ManageHabits {
         //db.close()
     }
 
+    //Add the Habits List of all days inside the DB
+    suspend fun addHabitsListAllDay(habits : MutableList<HabitBean>, context: Context){
+        //Get the DB Instance
+        val db = RoomDB.getInstance(context)
+        val dao = db.habitDAO()
+
+        //Get the Days List
+        val days = ManageDaysFacade.getDaysList()
+
+        //Loop to add the List
+        for(day in days)
+            for(habit in habits)
+                dao.insert(
+                    HabitModel(
+                        0,
+                        habit.getName(),
+                        habit.getInformation(),
+                        habit.getCategory(),
+                        habit.getStartHour(),
+                        habit.getEndHour(),
+                        day,
+                        habit.getSelected(),
+                        habit.getDone()
+                    )
+                )
+
+        //Close the Database
+        //db.close()
+    }
+
+
+
+
 
     //Delete the Passed Habit
     suspend fun deleteHabit(habitModel: HabitModel, context: Context){
@@ -75,7 +108,7 @@ class ManageHabits {
         val dao = db.habitDAO()
 
         //Remove
-        dao.delete(habitModel.getDay(), habitModel.getName())
+        dao.delete(habitModel.getDay(), habitModel.getName(), habitModel.getCategory(), habitModel.getStartHour(), habitModel.getInformation())
 
         //Close the Connection
         //db.close()

@@ -11,8 +11,8 @@ interface HabitDAO {
     suspend fun insert(habit : HabitModel)
 
     //Delete One Habit
-    @Query("DELETE FROM HabitTable WHERE Day = :day AND Name = :name")
-    suspend fun delete(day: String, name: String)
+    @Query("DELETE FROM HabitTable WHERE Day = :day AND Name = :name AND Category = :category AND Start = :start AND Information = :info")
+    suspend fun delete(day: String, name: String, category: String, start: String, info: String)
 
     //Delete all Habits
     @Query("DELETE FROM HabitTable")

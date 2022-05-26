@@ -8,10 +8,10 @@ class ManageCategoriesFacade {
         fun createCategoriesList(): MutableList<CategoryModel>{
             var categoriesList: MutableList<CategoryModel> = ArrayList()
 
-            categoriesList.add(CategoryModel(0,"Morning", true))
+            categoriesList.add(CategoryModel(0,"Diet", true))
+            categoriesList.add(CategoryModel(0,"Morning", false))
             categoriesList.add(CategoryModel(0,"Afternoon", false))
             categoriesList.add(CategoryModel(0,"Evening", false))
-            categoriesList.add(CategoryModel(0,"Night", false))
 
             return categoriesList
         }

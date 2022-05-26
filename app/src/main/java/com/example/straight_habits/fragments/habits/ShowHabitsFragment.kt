@@ -164,9 +164,12 @@ class ShowHabitsFragment : Fragment(), CheckHabitInterface, HabitDetailsInterfac
         //Application Controller
         val manageHabits = ManageHabits()
 
-        //Check if the first habit is not selected
-        if(!habitsList[0].getDone() && !habitsList[0].getSelected())
+
+        //Check if the first habit is not selected and not Done
+        if(!habitsList[0].getDone() && !habitsList[0].getSelected()){
             habitsList[0].setSelected(true)
+        }
+
 
         //Update habit
         runBlocking {

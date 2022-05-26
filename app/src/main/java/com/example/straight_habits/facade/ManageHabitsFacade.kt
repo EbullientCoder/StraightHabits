@@ -11,6 +11,8 @@ class ManageHabitsFacade {
             //Habits List
             var habitsList : MutableList<HabitBean> = arrayListOf()
 
+
+            //Morning-------------------------------------------------------------------------------
             //Good Morning
             habitsList.add(
                 HabitBean(
@@ -54,13 +56,25 @@ class ManageHabitsFacade {
             habitsList.add(
                 HabitBean(
                     0,
-                "Andare al Bagno",
-                "E' abbastanza esplicativo così credo.",
+                    "Andare al Bagno",
+                    "E' abbastanza esplicativo così credo.",
                     "Morning",
-                "8:20",
-                "8:30",
-                false,
-                false))
+                    "8:20",
+                    "8:30",
+                    false,
+                    false))
+
+            //Smalto per le Unghie
+            habitsList.add(
+                HabitBean(
+                    0,
+                    "Smalto Amaro",
+                    "Mettere lo smalto amaro per le unghie.",
+                    "Morning",
+                    "8:30",
+                    "8:35",
+                    false,
+                    false))
 
             //Base Flor
             habitsList.add(
@@ -69,12 +83,11 @@ class ManageHabitsFacade {
                     "Scendere le Scale",
                     "Per forza",
                     "Morning",
-                    "8:30",
-                    "8:30",
+                    "8:35",
+                    "8:35",
                     false,
                     false)
             )
-
 
             //Weight Yourself
             habitsList.add(
@@ -84,7 +97,20 @@ class ManageHabitsFacade {
                     "Prima o poi dovremmo anche iniziare a farci delle foto. " +
                             "Magari quando sarò presentabile.",
                     "Morning",
-                    "8:30",
+                    "8:35",
+                    "8:35",
+                    false,
+                    false)
+            )
+
+            //Photo & Weight
+            habitsList.add(
+                HabitBean(
+                    0,
+                    "Foto",
+                    "Foto del fisico e scrivere il peso.",
+                    "Morning",
+                    "8:35",
                     "8:35",
                     false,
                     false)
@@ -94,8 +120,8 @@ class ManageHabitsFacade {
             habitsList.add(
                 HabitBean(
                     0,
-                    "Caffè & Colazione",
-                    "Preparare anche il Pranzo!!!",
+                    "Colazione",
+                    "Leggere sul micronde la dieta e preparare il cibo per dopo.",
                     "Morning",
                     "8:35",
                     "8:50",
@@ -131,8 +157,7 @@ class ManageHabitsFacade {
             )
 
 
-
-
+            
             //Afternoon-----------------------------------------------------------------------------
             //Shutdown
             habitsList.add(
@@ -212,9 +237,11 @@ class ManageHabitsFacade {
         //Get the Position
         fun getSelectedPosition(habits: MutableList<HabitBean>) : Int{
             //Search the Selected Habit
+            //If habitsList is empty
             if(habits.size == 0)
                 return 0
 
+            //If habitsList is not empty
             if(habits.size != 0){
                 for(i in 0 until habits.size)
                     if(habits[i].getSelected())

@@ -77,5 +77,21 @@ class ManageDaysFacade {
         fun getCurrentDay(): String{
             return LocalDateTime.now().dayOfWeek.toString().lowercase().capitalize()
         }
+
+
+
+        //Get Days List
+        fun getDaysList(): MutableList<String>{
+            var days: MutableList<String> = ArrayList()
+            days.add("Monday")
+            days.add("Tuesday")
+            days.add("Wednesday")
+            days.add("Thursday")
+            days.add("Friday")
+            days.add("Saturday")
+            days.add("Sunday")
+
+            return days
+        }
     }
 }

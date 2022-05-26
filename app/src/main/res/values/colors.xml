@@ -15,6 +15,7 @@
 
     <!-- Accent -->
     <color name="blue">#2471ff</color>
+    <!-- color name="blue">#2471ff</color -->
     <color name="red">#fa3e5f</color>
 
     <color name="black">#000000</color>

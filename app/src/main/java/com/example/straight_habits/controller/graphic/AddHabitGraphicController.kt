@@ -1,18 +1,28 @@
 package com.example.straight_habits.controller.graphic
 
+import android.app.AlertDialog
+import android.app.TimePickerDialog
 import android.widget.EditText
+import android.widget.TimePicker
 import com.example.straight_habits.R
 import com.example.straight_habits.activity.AddHabitActivity
 import com.example.straight_habits.beans.HabitBean
 import com.example.straight_habits.models.CategoryModel
+import java.util.*
 
-class AddHabitGraphicController(view: AddHabitActivity) {
+
+class AddHabitGraphicController(view: AddHabitActivity): TimePickerDialog.OnTimeSetListener {
     private val addHabitInstance = view
     //Text
     private val txtHabitName: EditText
     private val txtHabitInfo: EditText
     private val txtHabitStart: EditText
     private val txtHabitEnd: EditText
+    private var hour: Int = 0
+    private var savedHour = 0
+    private var minute: Int = 0
+    private var savedMinute = 0
+    private var style = AlertDialog.THEME_HOLO_DARK
 
 
 
@@ -26,6 +36,25 @@ class AddHabitGraphicController(view: AddHabitActivity) {
         txtHabitInfo = view.findViewById(R.id.txt_add_habit_info)
         txtHabitStart = view.findViewById(R.id.txt_add_habit_start)
         txtHabitEnd = view.findViewById(R.id.txt_add_habit_end)
+    }
+
+
+    //Set the Click Listener
+    private fun setDate(){
+        val cal = Calendar.getInstance()
+        hour = cal.get(Calendar.HOUR)
+        minute = cal.get(Calendar.MINUTE)
+
+
+        //When Clicked open the Time Picker
+        txtHabitStart.setOnClickListener{
+
+        }
+
+        //When Clicked open the Time Picker
+        txtHabitEnd.setOnClickListener{
+
+        }
     }
 
 
@@ -55,14 +84,10 @@ class AddHabitGraphicController(view: AddHabitActivity) {
     }
 
 
-    //Get Day
-    fun getDay(): String{
-        var day = "NULL"
 
-        //Day
-        //if (txtHabitDay.editableText.toString() != null)
-        //    day = txtHabitDay.editableText.toString()
 
-        return day
+
+    override fun onTimeSet(p0: TimePicker?, p1: Int, p2: Int) {
+        TODO("Not yet implemented")
     }
 }
