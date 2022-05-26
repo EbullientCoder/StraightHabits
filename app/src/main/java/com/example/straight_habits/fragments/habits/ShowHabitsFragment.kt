@@ -116,8 +116,10 @@ class ShowHabitsFragment : Fragment(), CheckHabitInterface, HabitDetailsInterfac
         //Order the Habits
         orderHabitsList()
         //Select the first one
-        if(habitsList.size != 0)
+        if(habitsList.size != 0){
             selectFirstHabit()
+            checkHabitSelected()
+        }
     }
 
     //Order the Beans by their Starting Hour
@@ -167,7 +169,6 @@ class ShowHabitsFragment : Fragment(), CheckHabitInterface, HabitDetailsInterfac
 
         //Check if the first habit is not selected and not done yet
         if(!habitsList[0].getDone() && !habitsList[0].getSelected()){
-            /*
             //Check if there's already one selected habit
             val selected = ManageHabitsFacade.getSelectedPosition(habitsList)
             //If there's already one selected habit than deselect it
@@ -183,7 +184,7 @@ class ShowHabitsFragment : Fragment(), CheckHabitInterface, HabitDetailsInterfac
                             requireContext())
                 }
             }
-            */
+
 
 
             //Select the first habit
@@ -199,6 +200,43 @@ class ShowHabitsFragment : Fragment(), CheckHabitInterface, HabitDetailsInterfac
             }
         }
     }
+
+    //Check if there's an habit not done before the one selected
+    @RequiresApi(Build.VERSION_CODES.O)
+    private fun checkHabitSelected(){
+        //Application Controller
+        val manageHabits = ManageHabits()
+
+        //Get the first habit not done
+        val notDone = ManageHabitsFacade.getNotDone(habitsList, 0)
+        //Get the selected habit
+        val selected = ManageHabitsFacade.getSelectedPosition(habitsList)
+
+        //If the habit not done is before the selected one, deselect the second and select the first
+        if(notDone < selected){
+            habitsList[notDone].setSelected(true)
+            habitsList[selected].setSelected(false)
+
+
+            //Update the DB
+            runBlocking {
+                manageHabits
+                    .editHabit(
+                        ManageHabitsFacade.beanToModel(habitsList[notDone],
+                            ManageDaysFacade.getCurrentDay()),
+                        requireContext())
+            }
+
+            runBlocking {
+                manageHabits
+                    .editHabit(
+                        ManageHabitsFacade.beanToModel(habitsList[selected],
+                            ManageDaysFacade.getCurrentDay()),
+                        requireContext())
+            }
+        }
+    }
+
 
 
     //Set Recycler View to display the Habits List
@@ -220,8 +258,6 @@ class ShowHabitsFragment : Fragment(), CheckHabitInterface, HabitDetailsInterfac
             rvHabits.scrollToPosition(position)
         }
     }
-
-
 
 
 
