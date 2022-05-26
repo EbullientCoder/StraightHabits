@@ -165,19 +165,38 @@ class ShowHabitsFragment : Fragment(), CheckHabitInterface, HabitDetailsInterfac
         val manageHabits = ManageHabits()
 
 
-        //Check if the first habit is not selected and not Done
+        //Check if the first habit is not selected and not done yet
         if(!habitsList[0].getDone() && !habitsList[0].getSelected()){
+            /*
+            //Check if there's already one selected habit
+            val selected = ManageHabitsFacade.getSelectedPosition(habitsList)
+            //If there's already one selected habit than deselect it
+            if(habitsList[selected].getSelected()){
+                habitsList[selected].setSelected(false)
+
+                //Update the deselected habit
+                runBlocking {
+                    manageHabits
+                        .editHabit(
+                            ManageHabitsFacade.beanToModel(habitsList[selected],
+                                ManageDaysFacade.getCurrentDay()),
+                            requireContext())
+                }
+            }
+            */
+
+
+            //Select the first habit
             habitsList[0].setSelected(true)
-        }
 
-
-        //Update habit
-        runBlocking {
-            manageHabits
-                .editHabit(
-                    ManageHabitsFacade.beanToModel(habitsList[0],
-                        ManageDaysFacade.getCurrentDay()),
-                    requireContext())
+            //Update the first habit
+            runBlocking {
+                manageHabits
+                    .editHabit(
+                        ManageHabitsFacade.beanToModel(habitsList[0],
+                            ManageDaysFacade.getCurrentDay()),
+                        requireContext())
+            }
         }
     }
 
