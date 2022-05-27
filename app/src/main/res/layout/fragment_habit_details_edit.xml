@@ -11,7 +11,8 @@
         android:layout_height="wrap_content"
         android:background="@drawable/habit_details_background"
         android:paddingHorizontal="20dp"
-        android:paddingVertical="20dp"
+        android:paddingTop="20dp"
+        android:paddingBottom="60dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
@@ -111,7 +112,7 @@
 
     <!-- Btn Close -->
     <ImageView
-        android:id="@+id/btn_habit_details_back"
+        android:id="@+id/btn_habit_details_edit_back"
         android:layout_width="25dp"
         android:layout_height="25dp"
         android:layout_marginTop="10dp"
@@ -119,4 +120,15 @@
         android:src="@drawable/icon_delete"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
+
+
+    <!-- Btn Done -->
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/btn_create_habit"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="10dp"
+        android:src="@drawable/icon_done"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent" />
 </androidx.constraintlayout.widget.ConstraintLayout>

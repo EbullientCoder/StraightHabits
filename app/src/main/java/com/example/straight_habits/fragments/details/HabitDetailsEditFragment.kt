@@ -8,7 +8,9 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.view.Window
+import android.widget.EditText
 import android.widget.ImageView
+import android.widget.TextView
 import androidx.fragment.app.DialogFragment
 import com.example.straight_habits.R
 import com.example.straight_habits.beans.HabitBean
@@ -17,6 +19,12 @@ import com.example.straight_habits.beans.HabitBean
 class HabitDetailsEditFragment : DialogFragment() {
     //Button
     private lateinit var btnBack: ImageView
+    //Text
+    private lateinit var txtName: EditText
+    private lateinit var txtInfo: EditText
+    private lateinit var txtCategory: EditText
+    private lateinit var txtStart: EditText
+    private lateinit var txtEnd: EditText
 
 
     override fun onCreateView(
@@ -36,22 +44,36 @@ class HabitDetailsEditFragment : DialogFragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         //Back Button
-        /*btnBack = view.findViewById(R.id.btn_habit_details_back)
+        btnBack = view.findViewById(R.id.btn_habit_details_edit_back)
         btnBack.setOnClickListener {
             dismiss()
-        }*/
+        }
+
+
+
 
         //Habit's Details
-        /*txtName = view.findViewById(R.id.txt_habit_details_name)
-        txtInfo = view.findViewById(R.id.txt_habit_details_information)
-        txtCategory = view.findViewById(R.id.txt_habit_details_category)
-        txtHour = view.findViewById(R.id.txt_habit_details_hour)*/
+        txtName = view.findViewById(R.id.txt_habit_details_edit_name)
+        txtInfo = view.findViewById(R.id.txt_habit_details_edit_information)
+        txtCategory = view.findViewById(R.id.txt_habit_details_edit_category)
+        txtStart = view.findViewById(R.id.txt_habit_details_edit_start)
+        txtEnd = view.findViewById(R.id.txt_habit_details_edit_end)
 
         //Get Bundle
-        //val bundle = arguments
+        val bundle = arguments
 
         //Get Habit
-        //val habit: HabitBean = bundle!!.getSerializable("Edit Habit Details") as HabitBean
-        //setText(habit)
+        val habit: HabitBean = bundle!!.getSerializable("Edit Habit Details") as HabitBean
+        setText(habit)
+    }
+
+
+
+    private fun setText(habit: HabitBean){
+        txtName.hint = habit.getName()
+        txtInfo.hint = habit.getInformation()
+        txtCategory.hint = habit.getCategory()
+        txtStart.hint = habit.getStartHour()
+        txtEnd.hint = habit.getEndHour()
     }
 }
