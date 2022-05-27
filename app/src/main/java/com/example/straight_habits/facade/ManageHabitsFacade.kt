@@ -254,6 +254,10 @@ class ManageHabitsFacade {
 
         //Get the Position of the first 'not done' habit
         fun getNotDone(habits: MutableList<HabitBean>, position: Int): Int{
+            //If habitsList is empty
+            if(habits.size == 0)
+                return 0
+
             //Search the not done habit
             if(habits.size != 0){
                 for(i in position until habits.size)
@@ -261,7 +265,7 @@ class ManageHabitsFacade {
                         return i
             }
 
-            return 0
+            return habits.size - 1
         }
 
 

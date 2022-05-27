@@ -79,7 +79,6 @@ class MainActivity : AppCompatActivity() {
         super.onRestart()
 
         //On Restart the fragments will be recreated
-
     }
 
 
@@ -157,15 +156,8 @@ class MainActivity : AppCompatActivity() {
             testDeleteAndRebuildCategories()
 
             //Recreate the Show Fragments
-            //Show Habits Fragment
-            showHabitsFragment = ShowHabitsFragment()
-            supportFragmentManager
-                .beginTransaction().replace(R.id.habits_fragment_container, showHabitsFragment).commit()
-            //Show Categories Fragment
-            showCategoriesFragment = ShowCategoriesFragment()
-            supportFragmentManager
-                .beginTransaction().replace(R.id.categories_fragment_container, showCategoriesFragment).commit()
-
+            setCategoriesFragment(false)
+            showCategoriesFragment.selectFragment(false)
 
             btnMenu.performClick()
         }

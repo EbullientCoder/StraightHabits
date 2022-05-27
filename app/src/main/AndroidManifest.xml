@@ -24,8 +24,7 @@
         </activity> <!-- android:launchMode="singleInstance": there's only one instance of the activity -->
         <activity
             android:name=".activity.MainActivity"
-            android:exported="true"
-            android:launchMode="singleInstance" />
+            android:exported="true" />
 
         <meta-data
             android:name="preloaded_fonts"

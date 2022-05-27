@@ -99,11 +99,11 @@ class ShowCategoriesFragment : Fragment(), SelectCategoryInterface {
 
 
             //Get the Selected Category
-            val position = ManageCategoriesFacade.getSelectedPosition(categoriesList)
+            //val position = ManageCategoriesFacade.getSelectedPosition(categoriesList)
 
             //Call the MainActivity method to update the Fragment showed list
             if(categoriesList.size != 0)
-                (activity as MainActivity?)?.setHabitsFragment(categoriesList[position].getName(), edit)
+                (activity as MainActivity?)?.setHabitsFragment(categoriesList[0].getName(), edit)
         }
     }
 
