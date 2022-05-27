@@ -20,11 +20,12 @@ import com.example.straight_habits.beans.HabitBean
 import com.example.straight_habits.controller.application.ManageHabits
 import com.example.straight_habits.facade.ManageDaysFacade
 import com.example.straight_habits.facade.ManageHabitsFacade
+import com.example.straight_habits.interfaces.UpdateEditHabitsListInterface
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import kotlinx.coroutines.runBlocking
 
 
-class HabitDetailsEditFragment : DialogFragment() {
+class HabitDetailsEditFragment(val updateEditHabitsListInterface: UpdateEditHabitsListInterface) : DialogFragment() {
     //Button
     private lateinit var btnBack: ImageView
     private lateinit var btnDone: FloatingActionButton
@@ -66,8 +67,12 @@ class HabitDetailsEditFragment : DialogFragment() {
         btnDone = view.findViewById(R.id.btn_habit_details_edit_done)
         btnDone.setOnClickListener{
             //If the Habit has been updated than print it and close the fragment
-            Toast.makeText(requireContext(), "Habit Updated!", Toast.LENGTH_SHORT).show()
-            editHabit(habit)
+            if(editHabit(habit)){
+                Toast.makeText(requireContext(), "Habit Updated!", Toast.LENGTH_SHORT).show()
+
+                updateEditHabitsListInterface.updateList()
+            }
+
             dismiss()
         }
 
@@ -85,6 +90,7 @@ class HabitDetailsEditFragment : DialogFragment() {
 
         //Get Habit
         habit = bundle!!.getSerializable("Edit Habit Details") as HabitBean
+
         setText(habit)
     }
 
@@ -99,7 +105,7 @@ class HabitDetailsEditFragment : DialogFragment() {
     }
 
     @RequiresApi(Build.VERSION_CODES.O)
-    private fun editHabit(habit: HabitBean){
+    private fun editHabit(habit: HabitBean): Boolean{
         //Application Controller
         val manageHabits = ManageHabits()
 
@@ -144,5 +150,7 @@ class HabitDetailsEditFragment : DialogFragment() {
                     ManageHabitsFacade.beanToModel(habit, ManageDaysFacade.getCurrentDay()),
                     requireContext())
         }
+
+        return true
     }
 }

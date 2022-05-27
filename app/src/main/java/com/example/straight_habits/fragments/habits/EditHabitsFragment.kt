@@ -20,6 +20,7 @@ import com.example.straight_habits.database.RoomDB
 import com.example.straight_habits.facade.ManageDaysFacade
 import com.example.straight_habits.facade.ManageHabitsFacade
 import com.example.straight_habits.fragments.details.HabitDetailsEditFragment
+import com.example.straight_habits.interfaces.UpdateEditHabitsListInterface
 import com.example.straight_habits.interfaces.habits.EditHabitInterface
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -28,11 +29,13 @@ import java.util.*
 import kotlin.collections.ArrayList
 
 
-class EditHabitsFragment : Fragment(), EditHabitInterface {
+class EditHabitsFragment : Fragment(), EditHabitInterface, UpdateEditHabitsListInterface {
     //Habits
     private lateinit var rvHabits: RecyclerView
     private lateinit var habitsAdapter: EditHabitsAdapter
     private lateinit var habitsList: MutableList<HabitBean>
+    //Category
+    //var category: String? = "Morning"
 
 
 
@@ -167,6 +170,7 @@ class EditHabitsFragment : Fragment(), EditHabitInterface {
 
 
 
+
     //Interface Methods-----------------------------------------------------------------------------
     //Edit Habit Interface
     @RequiresApi(Build.VERSION_CODES.O)
@@ -211,8 +215,38 @@ class EditHabitsFragment : Fragment(), EditHabitInterface {
         bundle.putSerializable("Edit Habit Details", habitsList[position])
 
         //Create the Details Fragment
-        val habitDetailsEditFragment = HabitDetailsEditFragment()
+        val habitDetailsEditFragment = HabitDetailsEditFragment(this)
         habitDetailsEditFragment.arguments = bundle
         activity?.let { habitDetailsEditFragment.show(it.supportFragmentManager,"EditHabitDetailsFragment") }
+    }
+
+
+
+
+
+    //Function Called by the Edit Habit Details fragment
+    @RequiresApi(Build.VERSION_CODES.O)
+    override fun updateList(){
+        //Get Bundle
+        var category: String? = "Morning"
+        val bundle = arguments
+
+        //Get Category Name
+        if(bundle != null){
+            category = bundle!!.getString("Category")
+            Log.e(String(), category.toString())
+        }
+
+
+        //Using Coroutines to Manage the Room DB
+        lifecycleScope.launch(Dispatchers.IO){
+            //Habits
+            //Get HabitBeans List
+            if (category != null) {
+                getHabitsList(category)
+            }
+            //Set the Recycler View
+            setHabitsRecyclerView()
+        }
     }
 }
