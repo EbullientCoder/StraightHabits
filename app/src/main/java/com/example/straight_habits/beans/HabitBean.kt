@@ -5,11 +5,11 @@ import java.util.*
 
 class HabitBean(
     private val ID: Int,
-    private val name : String,
+    private var name : String,
     private var information : String,
     private var category : String,
-    private val startHour : String,
-    private val endHour : String,
+    private var startHour : String,
+    private var endHour : String,
     private var selected : Boolean,
     private var done : Boolean) : Serializable{
 
@@ -49,7 +49,11 @@ class HabitBean(
     fun getShortHour() : String{ return shortHour}
 
     //Setter
+    fun setName(name: String){ this.name = name}
+    fun setInformation(information: String){ this.information = information}
+    fun setCategory(category: String){ this.category = category}
+    fun setStart(start: String){ this.startHour = start}
+    fun setEnd(end: String){ this.endHour = end}
     fun setSelected(state : Boolean){ selected = state}
     fun setDone(state : Boolean){ done = state}
-    fun setShortHour(hour : String){ shortHour = hour}
 }
