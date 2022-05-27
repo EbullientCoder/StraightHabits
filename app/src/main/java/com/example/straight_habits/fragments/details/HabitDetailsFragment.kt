@@ -47,29 +47,7 @@ class HabitDetailsFragment : DialogFragment() {
         btnBack.setOnClickListener {
             dismiss()
         }
-        //Check Night ot Day Mode
-        when (view.resources.configuration.uiMode and Configuration.UI_MODE_NIGHT_MASK) {
-            //Night Mode
-            Configuration.UI_MODE_NIGHT_YES
-            ->{
-                //Image Button
-                btnBack.setImageResource(R.drawable.icon_close_night)
-            }
 
-            //Day Mode
-            Configuration.UI_MODE_NIGHT_NO
-            ->{
-                //Image Button
-                btnBack.setImageResource(R.drawable.icon_close_day)
-            }
-
-            //Undefined
-            Configuration.UI_MODE_NIGHT_UNDEFINED
-            ->{
-                //Image Button
-                btnBack.setImageResource(R.drawable.icon_close_night)
-            }
-        }
 
 
 

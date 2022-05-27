@@ -1,10 +1,13 @@
 package com.example.straight_habits.fragments.details
 
+import android.graphics.Color
+import android.graphics.drawable.ColorDrawable
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.Window
 import android.widget.ImageView
 import androidx.fragment.app.DialogFragment
 import com.example.straight_habits.R
@@ -20,6 +23,12 @@ class HabitDetailsEditFragment : DialogFragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
+        // Set transparent background and no title
+        if (dialog != null && dialog!!.window != null) {
+            dialog!!.window?.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT));
+            dialog!!.window?.requestFeature(Window.FEATURE_NO_TITLE);
+        }
+
         // Inflate the layout for this fragment
         return inflater.inflate(R.layout.fragment_habit_details_edit, container, false)
     }
