@@ -10,12 +10,12 @@ import android.widget.TextView
 import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
 import com.example.straight_habits.R
-import com.example.straight_habits.beans.HabitBean
+import com.example.straight_habits.beans.RoutineBean
 import com.example.straight_habits.interfaces.habits.EditHabitInterface
 
 
 class EditHabitsAdapter(
-    private var habitsList : MutableList<HabitBean>,
+    private var habitsList : MutableList<RoutineBean>,
     private var editHabitInterface: EditHabitInterface
     ) : RecyclerView.Adapter<EditHabitsAdapter.EditHabitsViewHolder>() {
 
@@ -50,13 +50,13 @@ class EditHabitsAdapter(
         private val btnDelete = itemView.findViewById<ImageView>(R.id.btn_delete_habit)
 
         //Methods
-        fun setCommonData(habit: HabitBean){
+        fun setCommonData(routine: RoutineBean){
             //Text
-            txtHabitName.text = habit.getName()
-            txtInformation.text = habit.getInfo()
-            txtFullDate.text = habit.getStartHour() + " - " + habit.getEndHour()
-            txtShortHour.text = habit.getShortHour()
-            txtCategory.text = habit.getCategory()
+            txtHabitName.text = routine.getName()
+            txtInformation.text = routine.getInfo()
+            txtFullDate.text = routine.getStartHour() + " - " + routine.getEndHour()
+            txtShortHour.text = routine.getShortHour()
+            txtCategory.text = routine.getCategory()
 
             //Set Buttons
             setButtons()

@@ -4,34 +4,34 @@ import android.content.Context
 import android.os.Build
 import android.util.Log
 import androidx.annotation.RequiresApi
-import com.example.straight_habits.beans.HabitBean
+import com.example.straight_habits.beans.RoutineBean
 import com.example.straight_habits.database.RoomDB
 import com.example.straight_habits.facade.ManageDaysFacade
-import com.example.straight_habits.models.HabitModel
+import com.example.straight_habits.models.RoutineModel
 
-class ManageHabits {
+class ManageRoutine {
     //Create the Habit Model and save it into the Room DB
-    suspend fun addHabit(habit : HabitBean, day : String, context: Context){
+    suspend fun addRoutine(routine : RoutineBean, day: String, context: Context){
         //Get the DB Instance
         val db = RoomDB.getInstance(context)
-        val dao = db.habitDAO()
+        val dao = db.routineDAO()
 
         //Add the Habit
         dao.insert(
-            HabitModel(
+            RoutineModel(
                 0,
-                habit.getName(),
-                habit.getInformation(),
-                habit.getCategory(),
-                habit.getStartHour(),
-                habit.getEndHour(),
+                routine.getName(),
+                routine.getInformation(),
+                routine.getCategory(),
+                routine.getStartHour(),
+                routine.getEndHour(),
                 day,
-                habit.getSelected(),
-                habit.getDone()
+                routine.getSelected(),
+                routine.getDone()
             )
         )
 
-        Log.i(String(), habit.getName() + " Added!")
+        Log.i(String(), routine.getName() + " Added!")
 
         //Close the Database
         //db.close()
@@ -40,17 +40,17 @@ class ManageHabits {
 
     //Add the Habits List of the Current Day into the DB
     @RequiresApi(Build.VERSION_CODES.O)
-    suspend fun addHabitsListCurrentDay(habits : MutableList<HabitBean>, context: Context){
+    suspend fun addRoutineListCurrentDay(routines : MutableList<RoutineBean>, context: Context){
         //Get the DB Instance
         val db = RoomDB.getInstance(context)
-        val dao = db.habitDAO()
+        val dao = db.routineDAO()
 
         val day = ManageDaysFacade.getCurrentDay()
 
         //Loop to add the List
-        for(habit in habits)
+        for(habit in routines)
             dao.insert(
-                HabitModel(
+                RoutineModel(
                     0,
                     habit.getName(),
                     habit.getInformation(),
@@ -67,20 +67,43 @@ class ManageHabits {
         //db.close()
     }
 
-    //Add the Habits List of all days inside the DB
-    suspend fun addHabitsListAllDay(habits : MutableList<HabitBean>, context: Context){
+    //Add the Habit List in the selected day
+    suspend fun addRoutineListSelectedDay(routines: MutableList<RoutineBean>, day: String, context: Context){
         //Get the DB Instance
         val db = RoomDB.getInstance(context)
-        val dao = db.habitDAO()
+        val dao = db.routineDAO()
+
+        //Loop to add the List
+        for(habit in routines)
+            dao.insert(
+                RoutineModel(
+                    0,
+                    habit.getName(),
+                    habit.getInformation(),
+                    habit.getCategory(),
+                    habit.getStartHour(),
+                    habit.getEndHour(),
+                    day,
+                    habit.getSelected(),
+                    habit.getDone()
+                )
+            )
+    }
+
+    //Add the Habits List of all days inside the DB
+    suspend fun addRoutineListAllDay(routines : MutableList<RoutineBean>, context: Context){
+        //Get the DB Instance
+        val db = RoomDB.getInstance(context)
+        val dao = db.routineDAO()
 
         //Get the Days List
         val days = ManageDaysFacade.getDaysList()
 
         //Loop to add the List
         for(day in days)
-            for(habit in habits)
+            for(habit in routines)
                 dao.insert(
-                    HabitModel(
+                    RoutineModel(
                         0,
                         habit.getName(),
                         habit.getInformation(),
@@ -102,13 +125,13 @@ class ManageHabits {
 
 
     //Delete the Passed Habit
-    suspend fun deleteHabit(habitModel: HabitModel, context: Context){
+    suspend fun deleteRoutine(routineModel: RoutineModel, context: Context){
         //Get the Database Instance
         val db = RoomDB.getInstance(context)
-        val dao = db.habitDAO()
+        val dao = db.routineDAO()
 
         //Remove
-        dao.delete(habitModel.getDay(), habitModel.getName(), habitModel.getCategory(), habitModel.getStartHour(), habitModel.getInformation())
+        dao.delete(routineModel.getDay(), routineModel.getName(), routineModel.getCategory(), routineModel.getStartHour(), routineModel.getInformation())
 
         //Close the Connection
         //db.close()
@@ -116,10 +139,10 @@ class ManageHabits {
 
 
     //Delete all the Habits
-    suspend fun deleteAllHabits(context: Context){
+    suspend fun deleteAllRoutine(context: Context){
         //Get the Database Instance
         val db = RoomDB.getInstance(context)
-        val dao = db.habitDAO()
+        val dao = db.routineDAO()
 
         dao.deleteAll()
 
@@ -130,10 +153,10 @@ class ManageHabits {
 
     //Delete all the Habits from the Current Day
     @RequiresApi(Build.VERSION_CODES.O)
-    suspend fun deleteAllHabitsFromDay(context: Context){
+    suspend fun deleteAllRoutineFromDay(context: Context){
         //Get the Database Instance
         val db = RoomDB.getInstance(context)
-        val dao = db.habitDAO()
+        val dao = db.routineDAO()
 
         val day = ManageDaysFacade.getCurrentDay()
         dao.deleteAllFromDay(day)
@@ -144,11 +167,11 @@ class ManageHabits {
 
 
     //Edit Habit
-    suspend fun editHabit(habit: HabitModel, context: Context){
+    suspend fun editRoutine(routine: RoutineModel, context: Context){
         //Get the Database Instance
         val db = RoomDB.getInstance(context)
-        val dao = db.habitDAO()
+        val dao = db.routineDAO()
 
-        dao.edit(habit)
+        dao.edit(routine)
     }
 }

@@ -1,6 +1,5 @@
 package com.example.straight_habits.fragments.details
 
-import android.content.res.Configuration
 import android.graphics.Color
 import android.graphics.drawable.ColorDrawable
 import android.os.Bundle
@@ -10,10 +9,9 @@ import android.view.ViewGroup
 import android.view.Window
 import android.widget.ImageView
 import android.widget.TextView
-import androidx.core.content.ContextCompat
 import androidx.fragment.app.DialogFragment
 import com.example.straight_habits.R
-import com.example.straight_habits.beans.HabitBean
+import com.example.straight_habits.beans.RoutineBean
 
 
 class HabitDetailsFragment : DialogFragment() {
@@ -61,16 +59,16 @@ class HabitDetailsFragment : DialogFragment() {
         val bundle = arguments
 
         //Get Habit
-        val habit: HabitBean = bundle!!.getSerializable("Habit Details") as HabitBean
-        setText(habit)
+        val routine: RoutineBean = bundle!!.getSerializable("Habit Details") as RoutineBean
+        setText(routine)
     }
 
 
 
-    private fun setText(habit: HabitBean){
-        txtName.text = habit.getName()
-        txtInfo.text = habit.getInformation()
-        txtCategory.text = habit.getCategory()
-        txtHour.text = habit.getStartHour() + " - " + habit.getEndHour()
+    private fun setText(routine: RoutineBean){
+        txtName.text = routine.getName()
+        txtInfo.text = routine.getInformation()
+        txtCategory.text = routine.getCategory()
+        txtHour.text = routine.getStartHour() + " - " + routine.getEndHour()
     }
 }

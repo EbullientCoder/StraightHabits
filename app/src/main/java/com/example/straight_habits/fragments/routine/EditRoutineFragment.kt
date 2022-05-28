@@ -1,4 +1,4 @@
-package com.example.straight_habits.fragments.habits
+package com.example.straight_habits.fragments.routine
 
 import android.os.Build
 import android.os.Bundle
@@ -14,11 +14,11 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.straight_habits.R
 import com.example.straight_habits.adapters.habits.EditHabitsAdapter
-import com.example.straight_habits.beans.HabitBean
-import com.example.straight_habits.controller.application.ManageHabits
+import com.example.straight_habits.beans.RoutineBean
+import com.example.straight_habits.controller.application.ManageRoutine
 import com.example.straight_habits.database.RoomDB
 import com.example.straight_habits.facade.ManageDaysFacade
-import com.example.straight_habits.facade.ManageHabitsFacade
+import com.example.straight_habits.facade.ManageRoutineFacade
 import com.example.straight_habits.fragments.details.HabitDetailsEditFragment
 import com.example.straight_habits.interfaces.UpdateEditHabitsListInterface
 import com.example.straight_habits.interfaces.habits.EditHabitInterface
@@ -29,11 +29,11 @@ import java.util.*
 import kotlin.collections.ArrayList
 
 
-class EditHabitsFragment : Fragment(), EditHabitInterface, UpdateEditHabitsListInterface {
+class EditRoutineFragment : Fragment(), EditHabitInterface, UpdateEditHabitsListInterface {
     //Habits
     private lateinit var rvHabits: RecyclerView
     private lateinit var habitsAdapter: EditHabitsAdapter
-    private lateinit var habitsList: MutableList<HabitBean>
+    private lateinit var habitsList: MutableList<RoutineBean>
     //Category
     //var category: String? = "Morning"
 
@@ -85,7 +85,7 @@ class EditHabitsFragment : Fragment(), EditHabitInterface, UpdateEditHabitsListI
     @RequiresApi(Build.VERSION_CODES.O)
     private suspend fun getHabitsList(category: String) {
         //Database Instance
-        val DB = RoomDB.getInstance(requireContext()).habitDAO()
+        val DB = RoomDB.getInstance(requireContext()).routineDAO()
 
         //Habits List
         //val habits = DB.readAll(ManageDaysFacade.getCurrentDay())
@@ -98,7 +98,7 @@ class EditHabitsFragment : Fragment(), EditHabitInterface, UpdateEditHabitsListI
             //Create the Bean
             //Add the Bean to the List
             habitsList.add(
-                HabitBean(
+                RoutineBean(
                     habits[i].getID(),
                     habits[i].getName(),
                     habits[i].getInformation(),
@@ -117,7 +117,7 @@ class EditHabitsFragment : Fragment(), EditHabitInterface, UpdateEditHabitsListI
 
     //Order the Beans by their Starting Hour
     private fun orderHabitsList(){
-        var app: HabitBean
+        var app: RoutineBean
 
         //Loop to sort the beans by their starting hour
         for(i in 0 until habitsList.size - 1){
@@ -176,17 +176,17 @@ class EditHabitsFragment : Fragment(), EditHabitInterface, UpdateEditHabitsListI
     @RequiresApi(Build.VERSION_CODES.O)
     override fun deleteHabit(position: Int) {
         //Application Controller
-        val manageHabit = ManageHabits()
+        val manageHabit = ManageRoutine()
 
         //Coroutines
         runBlocking {
             //Delete Habit
-            val habitModel = ManageHabitsFacade.beanToModel(habitsList[position], ManageDaysFacade.getCurrentDay())
-            manageHabit.deleteHabit(habitModel, requireContext())
+            val habitModel = ManageRoutineFacade.beanToModel(habitsList[position], ManageDaysFacade.getCurrentDay())
+            manageHabit.deleteRoutine(habitModel, requireContext())
 
             //Check if the Habit was Selected. If so, select the next one that is not done
             if(habitsList[position].getSelected()){
-                val i = ManageHabitsFacade.getNotDone(habitsList, position + 1)
+                val i = ManageRoutineFacade.getNotDone(habitsList, position + 1)
 
                 activity?.runOnUiThread {
                     Toast.makeText(context, i.toString(), Toast.LENGTH_SHORT).show()
@@ -197,7 +197,7 @@ class EditHabitsFragment : Fragment(), EditHabitInterface, UpdateEditHabitsListI
                     habitsList[i].setSelected(true)
 
                     manageHabit
-                        .editHabit(ManageHabitsFacade
+                        .editRoutine(ManageRoutineFacade
                             .beanToModel(habitsList[i], ManageDaysFacade.getCurrentDay()), requireContext())
                 }
             }

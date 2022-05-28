@@ -1,4 +1,4 @@
-package com.example.straight_habits.fragments.habits
+package com.example.straight_habits.fragments.routine
 
 import android.os.Build
 import android.os.Bundle
@@ -13,15 +13,14 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.straight_habits.R
 import com.example.straight_habits.adapters.habits.HabitsAdapter
-import com.example.straight_habits.beans.HabitBean
-import com.example.straight_habits.controller.application.ManageHabits
+import com.example.straight_habits.beans.RoutineBean
+import com.example.straight_habits.controller.application.ManageRoutine
 import com.example.straight_habits.database.RoomDB
 import com.example.straight_habits.facade.ManageDaysFacade
-import com.example.straight_habits.facade.ManageHabitsFacade
+import com.example.straight_habits.facade.ManageRoutineFacade
 import com.example.straight_habits.fragments.details.HabitDetailsFragment
 import com.example.straight_habits.interfaces.habits.CheckHabitInterface
 import com.example.straight_habits.interfaces.habits.HabitDetailsInterface
-import com.example.straight_habits.models.CategoryModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.runBlocking
@@ -29,11 +28,11 @@ import java.util.*
 import kotlin.collections.ArrayList
 
 
-class ShowHabitsFragment : Fragment(), CheckHabitInterface, HabitDetailsInterface {
+class ShowRoutineFragment : Fragment(), CheckHabitInterface, HabitDetailsInterface {
     //Habits
     private lateinit var rvHabits: RecyclerView
     private lateinit var habitsAdapter: HabitsAdapter
-    private lateinit var habitsList: MutableList<HabitBean>
+    private lateinit var habitsList: MutableList<RoutineBean>
 
 
 
@@ -87,7 +86,7 @@ class ShowHabitsFragment : Fragment(), CheckHabitInterface, HabitDetailsInterfac
     @RequiresApi(Build.VERSION_CODES.O)
     private suspend fun getHabitsList(category: String) {
         //Database Instance
-        val DB = RoomDB.getInstance(requireContext()).habitDAO()
+        val DB = RoomDB.getInstance(requireContext()).routineDAO()
 
         //Habits List
         //val habits = DB.readAll(ManageDaysFacade.getCurrentDay())
@@ -100,7 +99,7 @@ class ShowHabitsFragment : Fragment(), CheckHabitInterface, HabitDetailsInterfac
             //Create the Bean
             //Add the Bean to the List
             habitsList.add(
-                HabitBean(
+                RoutineBean(
                     habits[i].getID(),
                     habits[i].getName(),
                     habits[i].getInformation(),
@@ -124,7 +123,7 @@ class ShowHabitsFragment : Fragment(), CheckHabitInterface, HabitDetailsInterfac
 
     //Order the Beans by their Starting Hour
     private fun orderHabitsList(){
-        var app: HabitBean
+        var app: RoutineBean
 
         //Loop to sort the beans by their starting hour
         for(i in 0 until habitsList.size - 1){
@@ -164,13 +163,13 @@ class ShowHabitsFragment : Fragment(), CheckHabitInterface, HabitDetailsInterfac
     @RequiresApi(Build.VERSION_CODES.O)
     private fun selectFirstHabit(){
         //Application Controller
-        val manageHabits = ManageHabits()
+        val manageHabits = ManageRoutine()
 
 
         //Check if the first habit is not selected and not done yet
         if(!habitsList[0].getDone() && !habitsList[0].getSelected()){
             //Check if there's already one selected habit
-            val selected = ManageHabitsFacade.getSelectedPosition(habitsList)
+            val selected = ManageRoutineFacade.getSelectedPosition(habitsList)
             //If there's already one selected habit than deselect it
             if(habitsList[selected].getSelected()){
                 habitsList[selected].setSelected(false)
@@ -178,8 +177,8 @@ class ShowHabitsFragment : Fragment(), CheckHabitInterface, HabitDetailsInterfac
                 //Update the deselected habit
                 runBlocking {
                     manageHabits
-                        .editHabit(
-                            ManageHabitsFacade.beanToModel(habitsList[selected],
+                        .editRoutine(
+                            ManageRoutineFacade.beanToModel(habitsList[selected],
                                 ManageDaysFacade.getCurrentDay()),
                             requireContext())
                 }
@@ -193,8 +192,8 @@ class ShowHabitsFragment : Fragment(), CheckHabitInterface, HabitDetailsInterfac
             //Update the first habit
             runBlocking {
                 manageHabits
-                    .editHabit(
-                        ManageHabitsFacade.beanToModel(habitsList[0],
+                    .editRoutine(
+                        ManageRoutineFacade.beanToModel(habitsList[0],
                             ManageDaysFacade.getCurrentDay()),
                         requireContext())
             }
@@ -205,12 +204,12 @@ class ShowHabitsFragment : Fragment(), CheckHabitInterface, HabitDetailsInterfac
     @RequiresApi(Build.VERSION_CODES.O)
     private fun checkHabitSelected(){
         //Application Controller
-        val manageHabits = ManageHabits()
+        val manageHabits = ManageRoutine()
 
         //Get the first habit not done
-        val notDone = ManageHabitsFacade.getNotDone(habitsList, 0)
+        val notDone = ManageRoutineFacade.getNotDone(habitsList, 0)
         //Get the selected habit
-        val selected = ManageHabitsFacade.getSelectedPosition(habitsList)
+        val selected = ManageRoutineFacade.getSelectedPosition(habitsList)
 
         //If the habit not done is before the selected one, deselect the second and select the first
         if(notDone < selected){
@@ -221,16 +220,16 @@ class ShowHabitsFragment : Fragment(), CheckHabitInterface, HabitDetailsInterfac
             //Update the DB
             runBlocking {
                 manageHabits
-                    .editHabit(
-                        ManageHabitsFacade.beanToModel(habitsList[notDone],
+                    .editRoutine(
+                        ManageRoutineFacade.beanToModel(habitsList[notDone],
                             ManageDaysFacade.getCurrentDay()),
                         requireContext())
             }
 
             runBlocking {
                 manageHabits
-                    .editHabit(
-                        ManageHabitsFacade.beanToModel(habitsList[selected],
+                    .editRoutine(
+                        ManageRoutineFacade.beanToModel(habitsList[selected],
                             ManageDaysFacade.getCurrentDay()),
                         requireContext())
             }
@@ -251,7 +250,7 @@ class ShowHabitsFragment : Fragment(), CheckHabitInterface, HabitDetailsInterfac
             rvHabits.adapter = habitsAdapter
 
             //Position
-            var position = ManageHabitsFacade.getSelectedPosition(habitsList)
+            var position = ManageRoutineFacade.getSelectedPosition(habitsList)
             if(position != 0) position--
 
             //Show the selected Habit
@@ -268,7 +267,7 @@ class ShowHabitsFragment : Fragment(), CheckHabitInterface, HabitDetailsInterfac
     override fun checkHabit(position: Int) {
         //Connect to DB
         val DB = RoomDB.getInstance(requireContext())
-        val dao = DB.habitDAO()
+        val dao = DB.routineDAO()
 
         //Loop to set on false the habit.selected
         habitsList[position - 1].setSelected(false)
@@ -277,7 +276,7 @@ class ShowHabitsFragment : Fragment(), CheckHabitInterface, HabitDetailsInterfac
 
         //Edit the Room DB to deselect and set done the Habit Clicked
         lifecycleScope.launch(Dispatchers.IO){
-            dao.edit(ManageHabitsFacade.beanToModel(habitsList[position - 1], ManageDaysFacade.getCurrentDay()))
+            dao.edit(ManageRoutineFacade.beanToModel(habitsList[position - 1], ManageDaysFacade.getCurrentDay()))
         }
 
 
@@ -291,7 +290,7 @@ class ShowHabitsFragment : Fragment(), CheckHabitInterface, HabitDetailsInterfac
                 //Edit the Room DB to select the next Habit that has not be done
                 lifecycleScope.launch(Dispatchers.IO){
                     //Edit DB
-                    dao.edit(ManageHabitsFacade.beanToModel(habitsList[i], ManageDaysFacade.getCurrentDay()))
+                    dao.edit(ManageRoutineFacade.beanToModel(habitsList[i], ManageDaysFacade.getCurrentDay()))
                 }
                 break
             }
@@ -309,7 +308,7 @@ class ShowHabitsFragment : Fragment(), CheckHabitInterface, HabitDetailsInterfac
     override fun checkLastHabit(position: Int) {
         //Connect to DB
         val DB = RoomDB.getInstance(requireContext())
-        val dao = DB.habitDAO()
+        val dao = DB.routineDAO()
 
         //Set Selected and Done
         habitsList[position].setSelected(false)
@@ -318,7 +317,7 @@ class ShowHabitsFragment : Fragment(), CheckHabitInterface, HabitDetailsInterfac
         //Update the DB
         lifecycleScope.launch(Dispatchers.IO){
             //Edit the Database
-            dao.edit(ManageHabitsFacade.beanToModel(habitsList[position], ManageDaysFacade.getCurrentDay()))
+            dao.edit(ManageRoutineFacade.beanToModel(habitsList[position], ManageDaysFacade.getCurrentDay()))
         }
 
         //Notify the Adapter
@@ -331,7 +330,7 @@ class ShowHabitsFragment : Fragment(), CheckHabitInterface, HabitDetailsInterfac
     override fun preDoneHabit(position: Int, clicked: Boolean) {
         //Connect to DB
         val DB = RoomDB.getInstance(requireContext())
-        val dao = DB.habitDAO()
+        val dao = DB.routineDAO()
 
         //Set Done or Undone
         if(clicked)
@@ -342,7 +341,7 @@ class ShowHabitsFragment : Fragment(), CheckHabitInterface, HabitDetailsInterfac
         //Update the DB
         lifecycleScope.launch(Dispatchers.IO){
             //Edit DB
-            dao.edit(ManageHabitsFacade.beanToModel(habitsList[position], ManageDaysFacade.getCurrentDay()))
+            dao.edit(ManageRoutineFacade.beanToModel(habitsList[position], ManageDaysFacade.getCurrentDay()))
         }
     }
 

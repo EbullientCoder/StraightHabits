@@ -6,7 +6,7 @@ import android.widget.EditText
 import android.widget.TimePicker
 import com.example.straight_habits.R
 import com.example.straight_habits.activity.AddHabitActivity
-import com.example.straight_habits.beans.HabitBean
+import com.example.straight_habits.beans.RoutineBean
 import com.example.straight_habits.models.CategoryModel
 import java.util.*
 
@@ -60,7 +60,7 @@ class AddHabitGraphicController(view: AddHabitActivity): TimePickerDialog.OnTime
 
 
     //Return Habit Bean
-    fun getHabit(category: CategoryModel): HabitBean{
+    fun getHabit(category: CategoryModel): RoutineBean{
         var name = "NULL"
         var info = "NULL"
         var start = "NULL"
@@ -80,7 +80,7 @@ class AddHabitGraphicController(view: AddHabitActivity): TimePickerDialog.OnTime
             end = txtHabitEnd.editableText.toString()
 
         //Return the Habit Bean
-        return HabitBean(0, name, info, category.getName(), start, end, false, false)
+        return RoutineBean(0, name, info, category.getName(), start, end, false, false)
     }
 
 

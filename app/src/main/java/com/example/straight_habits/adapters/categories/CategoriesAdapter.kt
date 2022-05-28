@@ -132,7 +132,7 @@ class CategoriesAdapter(
         private suspend fun getHabitsNumber(category: CategoryModel): Int{
             //Database Instance
             val DB = RoomDB.getInstance(itemView.context)
-            val dao = DB.habitDAO()
+            val dao = DB.routineDAO()
 
             //Get all the habits in the category
             val habits = dao.readAllCategory(ManageDaysFacade.getCurrentDay(), category.getName())

@@ -5,12 +5,12 @@ import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
 import com.example.straight_habits.dao.CategoryDAO
-import com.example.straight_habits.dao.HabitDAO
+import com.example.straight_habits.dao.RoutineDAO
 import com.example.straight_habits.models.CategoryModel
-import com.example.straight_habits.models.HabitModel
+import com.example.straight_habits.models.RoutineModel
 
 //Add Database Entities
-@Database(entities = [HabitModel::class, CategoryModel::class], version = 1, exportSchema = false )
+@Database(entities = [RoutineModel::class, CategoryModel::class], version = 1, exportSchema = false )
 abstract class RoomDB : RoomDatabase(){
 
     //Singleton to get the Instance
@@ -40,6 +40,6 @@ abstract class RoomDB : RoomDatabase(){
 
 
     //DAOs
-    abstract fun habitDAO(): HabitDAO
+    abstract fun routineDAO(): RoutineDAO
     abstract fun categoryDAO(): CategoryDAO
 }

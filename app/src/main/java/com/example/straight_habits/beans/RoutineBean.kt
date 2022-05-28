@@ -3,7 +3,7 @@ package com.example.straight_habits.beans
 import java.io.Serializable
 import java.util.*
 
-class HabitBean(
+class RoutineBean(
     private val ID: Int,
     private var name : String,
     private var information : String,

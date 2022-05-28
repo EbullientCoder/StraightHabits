@@ -10,8 +10,8 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.straight_habits.R
 import com.example.straight_habits.adapters.DaysAdapter
 import com.example.straight_habits.adapters.categories.AddHabitCategoriesAdapter
-import com.example.straight_habits.beans.HabitBean
-import com.example.straight_habits.controller.application.ManageHabits
+import com.example.straight_habits.beans.RoutineBean
+import com.example.straight_habits.controller.application.ManageRoutine
 import com.example.straight_habits.controller.graphic.AddHabitGraphicController
 import com.example.straight_habits.database.RoomDB
 import com.example.straight_habits.interfaces.SelectDayInterface
@@ -87,16 +87,16 @@ class AddHabitActivity : AppCompatActivity(), SelectCategoryInterface, SelectDay
         btnCreate = findViewById(R.id.btn_create_habit)
         btnCreate.setOnClickListener{
             //Application Model
-            val manageHabit = ManageHabits()
+            val manageHabit = ManageRoutine()
             //Beans
-            var habitBeans: MutableList<HabitBean> = ArrayList()
+            var routineBeans: MutableList<RoutineBean> = ArrayList()
 
             //Category Loop
             for(category in categoriesList){
                 //If the Category is selected create the bean
                 if(category.getSelected()){
                     val bean = graphicController.getHabit(category)
-                    habitBeans.add(bean)
+                    routineBeans.add(bean)
                 }
             }
 
@@ -104,9 +104,9 @@ class AddHabitActivity : AppCompatActivity(), SelectCategoryInterface, SelectDay
                 //Day Loop
                 for(day in daysList){
                     //If the Day is selected create the Model
-                    for(habit in habitBeans)
+                    for(habit in routineBeans)
                         if(day.selected)
-                            manageHabit.addHabit(habit, day.id, applicationContext)
+                            manageHabit.addRoutine(habit, day.id, applicationContext)
                 }
             }
 

@@ -7,7 +7,7 @@ import java.io.Serializable
 
 //Room DB Entity
 @Entity(tableName = "HabitTable")
-data class HabitModel(
+data class RoutineModel(
     @PrimaryKey(autoGenerate = true)
     private var ID : Int,
 

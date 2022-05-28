@@ -11,14 +11,14 @@ import android.widget.TextView
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.recyclerview.widget.RecyclerView
 import com.example.straight_habits.R
-import com.example.straight_habits.beans.HabitBean
+import com.example.straight_habits.beans.RoutineBean
 import com.example.straight_habits.facade.ManageColorsFacade
-import com.example.straight_habits.facade.ManageHabitsFacade
+import com.example.straight_habits.facade.ManageRoutineFacade
 import com.example.straight_habits.interfaces.habits.CheckHabitInterface
 import com.example.straight_habits.interfaces.habits.HabitDetailsInterface
 
 class HabitsAdapter(
-    private var habitsList : MutableList<HabitBean>,
+    private var habitsList : MutableList<RoutineBean>,
     private var checkHabitInterface : CheckHabitInterface,
     private var habitDetailsInterface: HabitDetailsInterface
 ) : RecyclerView.Adapter<HabitsAdapter.HabitsViewHolder>() {
@@ -31,7 +31,7 @@ class HabitsAdapter(
     }
 
     override fun onBindViewHolder(holder: HabitsViewHolder, position: Int) {
-        var selectedPosition = ManageHabitsFacade.getSelectedPosition(habitsList)
+        var selectedPosition = ManageRoutineFacade.getSelectedPosition(habitsList)
         holder.setCommonData(habitsList[position], selectedPosition)
 
         if(position == 0 ||
@@ -58,20 +58,20 @@ class HabitsAdapter(
         private val container = itemView.findViewById<ConstraintLayout>(R.id.menu_container)
 
         //Methods
-        fun setCommonData(habit : HabitBean, selectedPosition : Int){
+        fun setCommonData(routine : RoutineBean, selectedPosition : Int){
             //Habit Selected or Not Selected
-            if(habit.getSelected())
+            if(routine.getSelected())
                 habitSelected()
             else
-                habitNotSelected(habit)
+                habitNotSelected(routine)
 
             //Habit Done
             //Selected Position: The position of the selected habit
-            if(habit.getDone() && adapterPosition <= selectedPosition)
+            if(routine.getDone() && adapterPosition <= selectedPosition)
                 habitDone()
 
             //Set Text
-            setText(habit)
+            setText(routine)
 
             //Set Short Hour
             txtShortHour.visibility = View.GONE
@@ -101,7 +101,7 @@ class HabitsAdapter(
             btnDoneSelected.isChecked = false
         }
 
-        private fun habitNotSelected(habit: HabitBean){
+        private fun habitNotSelected(routine: RoutineBean){
             //Set Text, Dot and Line Color and Size
             ManageColorsFacade.setAdapterColors(txtHabitName,
                 txtShortHour,
@@ -119,7 +119,7 @@ class HabitsAdapter(
             btnDoneNotSelected.isEnabled = true
 
             //Button Control Check
-            if(habit.getDone()) btnDoneNotSelected.isChecked = true
+            if(routine.getDone()) btnDoneNotSelected.isChecked = true
         }
 
         //Habit Done
@@ -133,16 +133,16 @@ class HabitsAdapter(
         }
 
         //Set Text
-        private fun setText(habit : HabitBean){
-            txtHabitName.text = habit.getName()
-            txtFullDate.text = habit.getStartHour() + " - " + habit.getEndHour()
-            txtInformation.text = habit.getInfo()
+        private fun setText(routine : RoutineBean){
+            txtHabitName.text = routine.getName()
+            txtFullDate.text = routine.getStartHour() + " - " + routine.getEndHour()
+            txtInformation.text = routine.getInfo()
         }
 
         //Set Hour
-        fun setHour(habit: HabitBean){
+        fun setHour(routine: RoutineBean){
             txtShortHour.visibility = View.VISIBLE
-            txtShortHour.text = habit.getShortHour()
+            txtShortHour.text = routine.getShortHour()
         }
 
         //Set the Buttons Click Listener

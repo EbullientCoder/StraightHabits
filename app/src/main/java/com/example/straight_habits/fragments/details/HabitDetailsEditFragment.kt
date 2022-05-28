@@ -4,22 +4,20 @@ import android.graphics.Color
 import android.graphics.drawable.ColorDrawable
 import android.os.Build
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.view.Window
 import android.widget.EditText
 import android.widget.ImageView
-import android.widget.TextView
 import android.widget.Toast
 import androidx.annotation.RequiresApi
 import androidx.fragment.app.DialogFragment
 import com.example.straight_habits.R
-import com.example.straight_habits.beans.HabitBean
-import com.example.straight_habits.controller.application.ManageHabits
+import com.example.straight_habits.beans.RoutineBean
+import com.example.straight_habits.controller.application.ManageRoutine
 import com.example.straight_habits.facade.ManageDaysFacade
-import com.example.straight_habits.facade.ManageHabitsFacade
+import com.example.straight_habits.facade.ManageRoutineFacade
 import com.example.straight_habits.interfaces.UpdateEditHabitsListInterface
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import kotlinx.coroutines.runBlocking
@@ -37,7 +35,7 @@ class HabitDetailsEditFragment(val updateEditHabitsListInterface: UpdateEditHabi
     private lateinit var txtEnd: EditText
 
     //Habit
-    private lateinit var habit: HabitBean
+    private lateinit var routine: RoutineBean
 
 
     override fun onCreateView(
@@ -67,7 +65,7 @@ class HabitDetailsEditFragment(val updateEditHabitsListInterface: UpdateEditHabi
         btnDone = view.findViewById(R.id.btn_habit_details_edit_done)
         btnDone.setOnClickListener{
             //If the Habit has been updated than print it and close the fragment
-            if(editHabit(habit)){
+            if(editHabit(routine)){
                 Toast.makeText(requireContext(), "Habit Updated!", Toast.LENGTH_SHORT).show()
 
                 updateEditHabitsListInterface.updateList()
@@ -89,25 +87,25 @@ class HabitDetailsEditFragment(val updateEditHabitsListInterface: UpdateEditHabi
         val bundle = arguments
 
         //Get Habit
-        habit = bundle!!.getSerializable("Edit Habit Details") as HabitBean
+        routine = bundle!!.getSerializable("Edit Habit Details") as RoutineBean
 
-        setText(habit)
+        setText(routine)
     }
 
 
 
-    private fun setText(habit: HabitBean){
-        txtName.hint = habit.getName()
-        txtInfo.hint = habit.getInformation()
-        txtCategory.hint = habit.getCategory()
-        txtStart.hint = habit.getStartHour()
-        txtEnd.hint = habit.getEndHour()
+    private fun setText(routine: RoutineBean){
+        txtName.hint = routine.getName()
+        txtInfo.hint = routine.getInformation()
+        txtCategory.hint = routine.getCategory()
+        txtStart.hint = routine.getStartHour()
+        txtEnd.hint = routine.getEndHour()
     }
 
     @RequiresApi(Build.VERSION_CODES.O)
-    private fun editHabit(habit: HabitBean): Boolean{
+    private fun editHabit(routine: RoutineBean): Boolean{
         //Application Controller
-        val manageHabits = ManageHabits()
+        val manageHabits = ManageRoutine()
 
         //Get Text
         var name: String
@@ -119,35 +117,35 @@ class HabitDetailsEditFragment(val updateEditHabitsListInterface: UpdateEditHabi
         //Name
         if (txtName.editableText.toString() != ""){
             name = txtName.editableText.toString()
-            habit.setName(name)
+            routine.setName(name)
         }
         //Information
         if (txtInfo.editableText.toString() != ""){
             info = txtInfo.editableText.toString()
-            habit.setInformation(info)
+            routine.setInformation(info)
         }
         //Category
         if (txtCategory.editableText.toString() != ""){
             category = txtCategory.editableText.toString()
-            habit.setCategory(category)
+            routine.setCategory(category)
         }
         //Start
         if (txtStart.editableText.toString() != ""){
             start = txtStart.editableText.toString()
-            habit.setStart(start)
+            routine.setStart(start)
         }
         //End
         if (txtEnd.editableText.toString() != ""){
             end = txtEnd.editableText.toString()
-            habit.setEnd(end)
+            routine.setEnd(end)
         }
 
 
         //Update the DB
         runBlocking {
             manageHabits
-                .editHabit(
-                    ManageHabitsFacade.beanToModel(habit, ManageDaysFacade.getCurrentDay()),
+                .editRoutine(
+                    ManageRoutineFacade.beanToModel(routine, ManageDaysFacade.getCurrentDay()),
                     requireContext())
         }
 

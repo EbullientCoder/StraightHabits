@@ -2,13 +2,13 @@ package com.example.straight_habits.dao
 
 
 import androidx.room.*
-import com.example.straight_habits.models.HabitModel
+import com.example.straight_habits.models.RoutineModel
 
 @Dao
-interface HabitDAO {
+interface RoutineDAO {
     //Insert Habit
     @Insert(onConflict = OnConflictStrategy.IGNORE)
-    suspend fun insert(habit : HabitModel)
+    suspend fun insert(routine : RoutineModel)
 
     //Delete One Habit
     @Query("DELETE FROM HabitTable WHERE Day = :day AND Name = :name AND Category = :category AND Start = :start AND Information = :info")
@@ -24,14 +24,14 @@ interface HabitDAO {
 
     //Read all Habits
     @Query("SELECT * FROM HabitTable WHERE Day = :currentDay")
-    suspend fun readAll(currentDay: String) : MutableList<HabitModel>
+    suspend fun readAll(currentDay: String) : MutableList<RoutineModel>
 
     //Read all Habits from category
     @Query("SELECT * FROM HabitTable WHERE Day = :currentDay AND Category = :category")
-    suspend fun readAllCategory(currentDay: String, category: String) : MutableList<HabitModel>
+    suspend fun readAllCategory(currentDay: String, category: String) : MutableList<RoutineModel>
 
     //Edit one Habit
     //@Query("UPDATE HabitTable SET WHERE ID = :habitID")
     @Update
-    suspend fun edit(habit: HabitModel)
+    suspend fun edit(routine: RoutineModel)
 }

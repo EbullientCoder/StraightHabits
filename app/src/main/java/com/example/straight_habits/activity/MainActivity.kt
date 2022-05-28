@@ -13,16 +13,17 @@ import android.widget.Toast
 import androidx.annotation.RequiresApi
 import androidx.lifecycle.lifecycleScope
 import com.example.straight_habits.R
+import com.example.straight_habits.beans.RoutineBean
 import com.example.straight_habits.controller.application.ManageCategories
-import com.example.straight_habits.controller.application.ManageHabits
+import com.example.straight_habits.controller.application.ManageRoutine
 import com.example.straight_habits.controller.graphic.MainGraphicController
 import com.example.straight_habits.facade.ManageCategoriesFacade
 import com.example.straight_habits.facade.ManageDaysFacade
-import com.example.straight_habits.facade.ManageHabitsFacade
+import com.example.straight_habits.facade.ManageRoutineFacade
 import com.example.straight_habits.fragments.categories.EditCategoriesFragment
-import com.example.straight_habits.fragments.habits.EditHabitsFragment
+import com.example.straight_habits.fragments.routine.EditRoutineFragment
 import com.example.straight_habits.fragments.categories.ShowCategoriesFragment
-import com.example.straight_habits.fragments.habits.ShowHabitsFragment
+import com.example.straight_habits.fragments.routine.ShowRoutineFragment
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -42,8 +43,8 @@ class MainActivity : AppCompatActivity() {
 
     //Fragment
     //Habits
-    private lateinit var showHabitsFragment: ShowHabitsFragment
-    private lateinit var editHabitsFragment: EditHabitsFragment
+    private lateinit var showRoutineFragment: ShowRoutineFragment
+    private lateinit var editRoutineFragment: EditRoutineFragment
     //Categories
     private lateinit var showCategoriesFragment: ShowCategoriesFragment
     private lateinit var editCategoriesFragment: EditCategoriesFragment
@@ -151,7 +152,7 @@ class MainActivity : AppCompatActivity() {
         btnDelete.visibility = View.GONE
         btnDelete.setOnClickListener{
             //Reset Habits list
-            testDeleteAndRebuildHabits()
+            testDeleteAndRebuildRoutine()
             //Reset Categories list
             testDeleteAndRebuildCategories()
 
@@ -221,19 +222,19 @@ class MainActivity : AppCompatActivity() {
         //Check if create Show Habits Fragment or Edit Habits Fragment
         if(edit){
            //Edit Fragment
-            editHabitsFragment = EditHabitsFragment()
-            editHabitsFragment.arguments = bundle
+            editRoutineFragment = EditRoutineFragment()
+            editRoutineFragment.arguments = bundle
 
             supportFragmentManager
-                .beginTransaction().replace(R.id.habits_fragment_container, editHabitsFragment).commit()
+                .beginTransaction().replace(R.id.habits_fragment_container, editRoutineFragment).commit()
         }
         else{
             //Show Fragment
-            showHabitsFragment = ShowHabitsFragment()
-            showHabitsFragment.arguments = bundle
+            showRoutineFragment = ShowRoutineFragment()
+            showRoutineFragment.arguments = bundle
 
             supportFragmentManager
-                .beginTransaction().replace(R.id.habits_fragment_container, showHabitsFragment).commit()
+                .beginTransaction().replace(R.id.habits_fragment_container, showRoutineFragment).commit()
         }
     }
 
@@ -264,19 +265,76 @@ class MainActivity : AppCompatActivity() {
     //Test------------------------------------------------------------------------------------------
     //Delete and ReBuild the habits list
     @RequiresApi(Build.VERSION_CODES.O)
-    private fun testDeleteAndRebuildHabits(){
+    private fun testDeleteAndRebuildRoutine(){
+        //Get Diet Routine
+        var dietList = ManageRoutineFacade.createRoutineDietList()
+
+        //Shared------------------------------------------------------------------------------------
+        var shared: MutableList<RoutineBean> = ArrayList()
+        //Breakfast
+        shared.add(dietList[0])
+        //Mid Morning Snack
+        shared.add(dietList[1])
+        //Mid Evening Snack
+        shared.add(dietList[3])
+
+        //Monday & Thursday-------------------------------------------------------------------------
+        var mon_thu: MutableList<RoutineBean> = ArrayList()
+        //Launch
+        mon_thu.add(dietList[2])
+        //Dinner
+        mon_thu.add(dietList[4])
+
+        //Tuesday & Friday--------------------------------------------------------------------------
+        var tue_fri: MutableList<RoutineBean> = ArrayList()
+        //Launch
+        tue_fri.add(dietList[5])
+        //Dinner
+        tue_fri.add(dietList[6])
+
+        //Wednesday & Saturday--------------------------------------------------------------------------
+        var wed_sat: MutableList<RoutineBean> = ArrayList()
+        //Launch
+        wed_sat.add(dietList[7])
+        //Dinner
+        wed_sat.add(dietList[8])
+
+        //Sunday------------------------------------------------------------------------------------
+        var sun: MutableList<RoutineBean> = ArrayList()
+        //Launch
+        sun.add(dietList[9])
+        //Dinner
+        sun.add(dietList[10])
+
+
+
         //Reset the Current Habits list
         //Delete the Old List from the DB
         runBlocking{
             //Application Controller
-            val manageHabits = ManageHabits()
+            val manageRoutine = ManageRoutine()
 
             //Delete the Old List
-            manageHabits.deleteAllHabitsFromDay(this@MainActivity)
+            manageRoutine.deleteAllRoutineFromDay(this@MainActivity)
             //manageHabits.deleteAllHabits(this@MainActivity)
             //Add a new One
-            manageHabits.addHabitsListCurrentDay(ManageHabitsFacade.createHabitsList(), this@MainActivity)
-            //manageHabits.addHabitsListAllDay(ManageHabitsFacade.createHabitsList(), this@MainActivity)
+            manageRoutine.addRoutineListCurrentDay(ManageRoutineFacade.createRoutineList(), this@MainActivity)
+            manageRoutine.addRoutineListAllDay(shared, this@MainActivity)
+
+            //Monday
+            manageRoutine.addRoutineListSelectedDay(mon_thu, "Monday", this@MainActivity)
+            //Tuesday
+            manageRoutine.addRoutineListSelectedDay(tue_fri, "Tuesday", this@MainActivity)
+            //Wednesday
+            manageRoutine.addRoutineListSelectedDay(wed_sat, "Wednesday", this@MainActivity)
+            //Thursday
+            manageRoutine.addRoutineListSelectedDay(mon_thu, "Thursday", this@MainActivity)
+            //Friday
+            manageRoutine.addRoutineListSelectedDay(tue_fri, "Friday", this@MainActivity)
+            //Saturday
+            manageRoutine.addRoutineListSelectedDay(wed_sat, "Saturday", this@MainActivity)
+            //Sunday
+            manageRoutine.addRoutineListSelectedDay(sun, "Sunday", this@MainActivity)
         }
 
         //Notify the User

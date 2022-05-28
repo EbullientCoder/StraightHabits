@@ -4,7 +4,7 @@ import android.content.Context
 import android.os.Build
 import androidx.annotation.RequiresApi
 import com.example.straight_habits.database.RoomDB
-import com.example.straight_habits.models.HabitModel
+import com.example.straight_habits.models.RoutineModel
 import java.time.LocalDateTime
 
 class ManageDaysFacade {
@@ -13,9 +13,9 @@ class ManageDaysFacade {
         suspend fun resetPrevDayHabits(day: String, context: Context){
             //Database
             val db = RoomDB.getInstance(context)
-            val dao = db.habitDAO()
+            val dao = db.routineDAO()
             //Habits List
-            var habitsList: MutableList<HabitModel> = ArrayList()
+            var habitsList: MutableList<RoutineModel> = ArrayList()
 
             //Get the Habits List of the previous day
             when(day){
@@ -50,7 +50,7 @@ class ManageDaysFacade {
             }
 
             //Reset the List
-            ManageHabitsFacade.resetHabitsList(habitsList)
+            ManageRoutineFacade.resetHabitsList(habitsList)
 
             //Update the new habits list on the DB
             for(habit in habitsList)

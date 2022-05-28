@@ -1,6 +1,5 @@
 package com.example.straight_habits.facade
 
-import com.example.straight_habits.beans.HabitBean
 import com.example.straight_habits.models.CategoryModel
 
 class ManageCategoriesFacade {
