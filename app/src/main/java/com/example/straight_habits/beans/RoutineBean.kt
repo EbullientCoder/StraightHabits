@@ -26,6 +26,9 @@ class RoutineBean(
         } else ""
 
         //Information
+        //var pos = information.indexOf('\n')
+        //if(pos == -1) pos = 0
+
         if(information.length > 40){
             info = information.subSequence(0, 40).toString() + "-\n" + information.subSequence(40, information.length).toString()
 
