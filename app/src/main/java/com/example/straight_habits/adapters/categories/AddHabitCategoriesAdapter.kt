@@ -23,7 +23,7 @@ class AddHabitCategoriesAdapter(
 
     //Personalized View Holder
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): CategoryViewHolder {
-        val view = LayoutInflater.from(parent.context).inflate(R.layout.container_category_add_habit, parent, false)
+        val view = LayoutInflater.from(parent.context).inflate(R.layout.container_category_add_routine, parent, false)
 
         return CategoryViewHolder(view)
     }

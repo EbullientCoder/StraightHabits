@@ -49,7 +49,7 @@ class HabitDetailsEditFragment(val updateEditHabitsListInterface: UpdateEditHabi
         }
 
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_habit_details_edit, container, false)
+        return inflater.inflate(R.layout.fragment_routine_details_edit, container, false)
     }
 
     @RequiresApi(Build.VERSION_CODES.O)

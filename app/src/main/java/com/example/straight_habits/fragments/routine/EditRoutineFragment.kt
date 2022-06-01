@@ -44,7 +44,7 @@ class EditRoutineFragment : Fragment(), EditHabitInterface, UpdateEditHabitsList
         savedInstanceState: Bundle?
     ): View? {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_edit_habits, container, false)
+        return inflater.inflate(R.layout.fragment_edit_routine, container, false)
     }
 
     @RequiresApi(Build.VERSION_CODES.O)

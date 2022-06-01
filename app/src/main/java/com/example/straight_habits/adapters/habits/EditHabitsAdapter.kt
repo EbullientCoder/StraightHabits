@@ -21,7 +21,7 @@ class EditHabitsAdapter(
 
     //Create the Personalized ViewHolder
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): EditHabitsViewHolder {
-        val view = LayoutInflater.from(parent.context).inflate(R.layout.container_edit_habit, parent, false)
+        val view = LayoutInflater.from(parent.context).inflate(R.layout.container_edit_routine, parent, false)
 
         return EditHabitsViewHolder(view)
     }

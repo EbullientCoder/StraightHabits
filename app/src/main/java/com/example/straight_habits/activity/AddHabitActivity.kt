@@ -43,7 +43,7 @@ class AddHabitActivity : AppCompatActivity(), SelectCategoryInterface, SelectDay
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_add_habit)
+        setContentView(R.layout.activity_add_routine)
 
         //Controller
         graphicController = AddHabitGraphicController(this)

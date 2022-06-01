@@ -35,7 +35,7 @@ class HabitDetailsFragment : DialogFragment() {
         }
 
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_habit_details, container, false)
+        return inflater.inflate(R.layout.fragment_routine_details, container, false)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
