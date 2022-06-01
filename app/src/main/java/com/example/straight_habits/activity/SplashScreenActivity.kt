@@ -48,7 +48,7 @@ class SplashScreenActivity : AppCompatActivity() {
 
             startActivity(intent)
             overridePendingTransition(0, 0);
-        }, 3000)
+        }, 1500)
     }
 
 }
