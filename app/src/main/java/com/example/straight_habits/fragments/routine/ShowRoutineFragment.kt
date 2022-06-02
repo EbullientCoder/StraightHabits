@@ -12,7 +12,7 @@ import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.straight_habits.R
-import com.example.straight_habits.adapters.habits.HabitsAdapter
+import com.example.straight_habits.adapters.routine.ShowRoutineAdapter
 import com.example.straight_habits.beans.RoutineBean
 import com.example.straight_habits.controller.application.ManageRoutine
 import com.example.straight_habits.database.RoomDB
@@ -31,7 +31,7 @@ import kotlin.collections.ArrayList
 class ShowRoutineFragment : Fragment(), CheckHabitInterface, HabitDetailsInterface {
     //Habits
     private lateinit var rvHabits: RecyclerView
-    private lateinit var habitsAdapter: HabitsAdapter
+    private lateinit var showRoutineAdapter: ShowRoutineAdapter
     private lateinit var habitsList: MutableList<RoutineBean>
 
 
@@ -241,13 +241,13 @@ class ShowRoutineFragment : Fragment(), CheckHabitInterface, HabitDetailsInterfa
     //Set Recycler View to display the Habits List
     private fun setHabitsRecyclerView(){
         //Adapter
-        habitsAdapter = HabitsAdapter(habitsList, this, this)
+        showRoutineAdapter = ShowRoutineAdapter(habitsList, this, this)
 
         //To Update the UI we need to use the UI Thread
         activity?.runOnUiThread {
             //Layout Manager
             rvHabits.layoutManager = LinearLayoutManager(context)
-            rvHabits.adapter = habitsAdapter
+            rvHabits.adapter = showRoutineAdapter
 
             //Position
             var position = ManageRoutineFacade.getSelectedPosition(habitsList)
@@ -300,7 +300,7 @@ class ShowRoutineFragment : Fragment(), CheckHabitInterface, HabitDetailsInterfa
 
         //Notify the Adapter
         activity?.runOnUiThread{
-            habitsAdapter.notifyDataSetChanged()
+            showRoutineAdapter.notifyDataSetChanged()
         }
     }
 
@@ -322,7 +322,7 @@ class ShowRoutineFragment : Fragment(), CheckHabitInterface, HabitDetailsInterfa
 
         //Notify the Adapter
         activity?.runOnUiThread{
-            habitsAdapter.notifyDataSetChanged()
+            showRoutineAdapter.notifyDataSetChanged()
         }
     }
 

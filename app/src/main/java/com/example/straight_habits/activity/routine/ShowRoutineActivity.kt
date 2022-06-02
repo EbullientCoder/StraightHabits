@@ -1,4 +1,4 @@
-package com.example.straight_habits.activity
+package com.example.straight_habits.activity.routine
 
 import android.content.Context
 import android.content.Intent
@@ -16,7 +16,7 @@ import com.example.straight_habits.R
 import com.example.straight_habits.beans.RoutineBean
 import com.example.straight_habits.controller.application.ManageCategories
 import com.example.straight_habits.controller.application.ManageRoutine
-import com.example.straight_habits.controller.graphic.MainGraphicController
+import com.example.straight_habits.controller.graphic.ShowRoutineGraphicController
 import com.example.straight_habits.facade.ManageCategoriesFacade
 import com.example.straight_habits.facade.ManageDaysFacade
 import com.example.straight_habits.facade.ManageRoutineFacade
@@ -31,7 +31,7 @@ import kotlinx.coroutines.runBlocking
 import java.io.File
 
 
-class MainActivity : AppCompatActivity() {
+class ShowRoutineActivity : AppCompatActivity() {
     //Buttons
     private lateinit var btnMenu: ImageView
     private lateinit var btnDone: ImageView
@@ -50,7 +50,7 @@ class MainActivity : AppCompatActivity() {
     private lateinit var editCategoriesFragment: EditCategoriesFragment
 
     //Graph Controller
-    private lateinit var graphicController: MainGraphicController
+    private lateinit var graphicController: ShowRoutineGraphicController
 
 
 
@@ -58,13 +58,13 @@ class MainActivity : AppCompatActivity() {
     @RequiresApi(Build.VERSION_CODES.O)
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_main)
+        setContentView(R.layout.activity_show_routine)
 
         //Using Shared Preferences to check if the day is changed from the last access
         resetList()
 
         //Set the Graphic Elements
-        graphicController = MainGraphicController(this)
+        graphicController = ShowRoutineGraphicController(this)
 
         //Set Fragments
         setCategoriesFragment(false)
@@ -170,7 +170,7 @@ class MainActivity : AppCompatActivity() {
         btnEdit.visibility = View.GONE
         btnEdit.setOnClickListener{
             //Edit Fragment
-            setCategoriesFragment(true)
+            /*setCategoriesFragment(true)
             showCategoriesFragment.selectFragment(true)
 
             //Retire the Icons
@@ -180,7 +180,13 @@ class MainActivity : AppCompatActivity() {
             btnMenu.visibility = View.GONE
 
             //Show the Done Button
-            btnDone.visibility = View.VISIBLE
+            btnDone.visibility = View.VISIBLE*/
+
+
+            //Calling the "Edit Routine" Activity
+            val intent = Intent(this, EditRoutineActivity::class.java)
+            startActivity(intent)
+            overridePendingTransition(0, 0)
         }
 
         //Button Done
@@ -205,7 +211,7 @@ class MainActivity : AppCompatActivity() {
         btnAddHabit = findViewById(R.id.btn_add_habit)
         btnAddHabit.setOnClickListener{
             //Calling the "Add Habit" Activity
-            val intent = Intent(this, AddHabitActivity::class.java)
+            val intent = Intent(this, AddRoutineActivity::class.java)
             startActivity(intent)
             overridePendingTransition(0, 0)
         }
@@ -226,7 +232,7 @@ class MainActivity : AppCompatActivity() {
             editRoutineFragment.arguments = bundle
 
             supportFragmentManager
-                .beginTransaction().replace(R.id.habits_fragment_container, editRoutineFragment).commit()
+                .beginTransaction().replace(R.id.routine_fragment_container, editRoutineFragment).commit()
         }
         else{
             //Show Fragment
@@ -234,7 +240,7 @@ class MainActivity : AppCompatActivity() {
             showRoutineFragment.arguments = bundle
 
             supportFragmentManager
-                .beginTransaction().replace(R.id.habits_fragment_container, showRoutineFragment).commit()
+                .beginTransaction().replace(R.id.routine_fragment_container, showRoutineFragment).commit()
         }
     }
 
@@ -315,26 +321,26 @@ class MainActivity : AppCompatActivity() {
             val manageRoutine = ManageRoutine()
 
             //Delete the Old List
-            manageRoutine.deleteAllRoutineFromDay(this@MainActivity)
-            //manageHabits.deleteAllHabits(this@MainActivity)
+            manageRoutine.deleteAllRoutineFromDay(this@ShowRoutineActivity)
+            //manageHabits.deleteAllHabits(this@ShowRoutineActivity)
             //Add a new One
-            manageRoutine.addRoutineListCurrentDay(ManageRoutineFacade.createRoutineList(), this@MainActivity)
-            manageRoutine.addRoutineListAllDay(shared, this@MainActivity)
+            manageRoutine.addRoutineListCurrentDay(ManageRoutineFacade.createRoutineList(), this@ShowRoutineActivity)
+            manageRoutine.addRoutineListAllDay(shared, this@ShowRoutineActivity)
 
             //Monday
-            manageRoutine.addRoutineListSelectedDay(mon_thu, "Monday", this@MainActivity)
+            manageRoutine.addRoutineListSelectedDay(mon_thu, "Monday", this@ShowRoutineActivity)
             //Tuesday
-            manageRoutine.addRoutineListSelectedDay(tue_fri, "Tuesday", this@MainActivity)
+            manageRoutine.addRoutineListSelectedDay(tue_fri, "Tuesday", this@ShowRoutineActivity)
             //Wednesday
-            manageRoutine.addRoutineListSelectedDay(wed_sat, "Wednesday", this@MainActivity)
+            manageRoutine.addRoutineListSelectedDay(wed_sat, "Wednesday", this@ShowRoutineActivity)
             //Thursday
-            manageRoutine.addRoutineListSelectedDay(mon_thu, "Thursday", this@MainActivity)
+            manageRoutine.addRoutineListSelectedDay(mon_thu, "Thursday", this@ShowRoutineActivity)
             //Friday
-            manageRoutine.addRoutineListSelectedDay(tue_fri, "Friday", this@MainActivity)
+            manageRoutine.addRoutineListSelectedDay(tue_fri, "Friday", this@ShowRoutineActivity)
             //Saturday
-            manageRoutine.addRoutineListSelectedDay(wed_sat, "Saturday", this@MainActivity)
+            manageRoutine.addRoutineListSelectedDay(wed_sat, "Saturday", this@ShowRoutineActivity)
             //Sunday
-            manageRoutine.addRoutineListSelectedDay(sun, "Sunday", this@MainActivity)
+            manageRoutine.addRoutineListSelectedDay(sun, "Sunday", this@ShowRoutineActivity)
         }
 
         //Notify the User
@@ -348,9 +354,9 @@ class MainActivity : AppCompatActivity() {
             //Application Controller
             val manageCategories = ManageCategories()
 
-            manageCategories.deleteAllCategories(this@MainActivity)
+            manageCategories.deleteAllCategories(this@ShowRoutineActivity)
             //Add a new One
-            manageCategories.addCategoriesList(ManageCategoriesFacade.createCategoriesList(), this@MainActivity)
+            manageCategories.addCategoriesList(ManageCategoriesFacade.createCategoriesList(), this@ShowRoutineActivity)
         }
 
         //Notify the User

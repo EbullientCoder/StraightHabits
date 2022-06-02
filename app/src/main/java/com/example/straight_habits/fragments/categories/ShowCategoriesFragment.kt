@@ -1,7 +1,6 @@
 package com.example.straight_habits.fragments.categories
 
 import android.os.Bundle
-import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -10,10 +9,9 @@ import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.straight_habits.R
-import com.example.straight_habits.activity.MainActivity
+import com.example.straight_habits.activity.routine.ShowRoutineActivity
 import com.example.straight_habits.adapters.categories.CategoriesAdapter
 import com.example.straight_habits.database.RoomDB
-import com.example.straight_habits.facade.ManageCategoriesFacade
 import com.example.straight_habits.interfaces.categories.SelectCategoryInterface
 import com.example.straight_habits.models.CategoryModel
 import kotlinx.coroutines.Dispatchers
@@ -101,9 +99,9 @@ class ShowCategoriesFragment : Fragment(), SelectCategoryInterface {
             //Get the Selected Category
             //val position = ManageCategoriesFacade.getSelectedPosition(categoriesList)
 
-            //Call the MainActivity method to update the Fragment showed list
+            //Call the ShowRoutineActivity method to update the Fragment showed list
             if(categoriesList.size != 0)
-                (activity as MainActivity?)?.setHabitsFragment(categoriesList[0].getName(), edit)
+                (activity as ShowRoutineActivity?)?.setHabitsFragment(categoriesList[0].getName(), edit)
         }
     }
 
@@ -120,7 +118,7 @@ class ShowCategoriesFragment : Fragment(), SelectCategoryInterface {
         //Notify the Adapter
         categoriesAdapter.notifyDataSetChanged()
 
-        //Call the MainActivity method to update the Fragment showed list
-        (activity as MainActivity?)?.setHabitsFragment(categoriesList[position].getName(), false)
+        //Call the ShowRoutineActivity method to update the Fragment showed list
+        (activity as ShowRoutineActivity?)?.setHabitsFragment(categoriesList[position].getName(), false)
     }
 }

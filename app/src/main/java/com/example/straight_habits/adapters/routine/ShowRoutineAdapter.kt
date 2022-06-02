@@ -1,4 +1,4 @@
-package com.example.straight_habits.adapters.habits
+package com.example.straight_habits.adapters.routine
 
 import android.graphics.Paint
 import android.view.LayoutInflater
@@ -17,11 +17,11 @@ import com.example.straight_habits.facade.ManageRoutineFacade
 import com.example.straight_habits.interfaces.habits.CheckHabitInterface
 import com.example.straight_habits.interfaces.habits.HabitDetailsInterface
 
-class HabitsAdapter(
+class ShowRoutineAdapter(
     private var habitsList : MutableList<RoutineBean>,
     private var checkHabitInterface : CheckHabitInterface,
     private var habitDetailsInterface: HabitDetailsInterface
-) : RecyclerView.Adapter<HabitsAdapter.HabitsViewHolder>() {
+) : RecyclerView.Adapter<ShowRoutineAdapter.HabitsViewHolder>() {
 
     //Create the Personalized ViewHolder
     override fun onCreateViewHolder(parent: ViewGroup, position: Int): HabitsViewHolder {

@@ -1,4 +1,4 @@
-package com.example.straight_habits.adapters
+package com.example.straight_habits.adapters.days
 
 import android.content.res.Configuration
 import android.view.LayoutInflater
@@ -13,19 +13,19 @@ import com.example.straight_habits.interfaces.SelectDayInterface
 import com.example.straight_habits.models.DayModel
 
 
-class DaysAdapter(
+class AddRoutineDaysAdapter(
     private val days: MutableList<DayModel>,
     private val selectDayInterface: SelectDayInterface
-): RecyclerView.Adapter<DaysAdapter.DayViewHolder>()  {
+): RecyclerView.Adapter<AddRoutineDaysAdapter.DayViewHolder>()  {
 
     //Personalized View Holder
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): DaysAdapter.DayViewHolder {
-        val view = LayoutInflater.from(parent.context).inflate(R.layout.container_day, parent, false)
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): DayViewHolder {
+        val view = LayoutInflater.from(parent.context).inflate(R.layout.container_add_routine_day, parent, false)
 
         return DayViewHolder(view)
     }
 
-    override fun onBindViewHolder(holder: DaysAdapter.DayViewHolder, position: Int) {
+    override fun onBindViewHolder(holder: DayViewHolder, position: Int) {
         holder.setData(days[position])
     }
 

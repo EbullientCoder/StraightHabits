@@ -5,13 +5,13 @@ import android.app.TimePickerDialog
 import android.widget.EditText
 import android.widget.TimePicker
 import com.example.straight_habits.R
-import com.example.straight_habits.activity.AddHabitActivity
+import com.example.straight_habits.activity.routine.AddRoutineActivity
 import com.example.straight_habits.beans.RoutineBean
 import com.example.straight_habits.models.CategoryModel
 import java.util.*
 
 
-class AddHabitGraphicController(view: AddHabitActivity): TimePickerDialog.OnTimeSetListener {
+class AddRoutineGraphicController(view: AddRoutineActivity): TimePickerDialog.OnTimeSetListener {
     private val addHabitInstance = view
     //Text
     private val txtHabitName: EditText

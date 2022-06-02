@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.os.Handler
 import com.example.straight_habits.R
+import com.example.straight_habits.activity.routine.ShowRoutineActivity
 import kotlinx.coroutines.*
 
 
@@ -37,12 +38,12 @@ class SplashScreenActivity : AppCompatActivity() {
             //job.join()
 
             //Go to the Main Activity
-            val intent = Intent(applicationContext, MainActivity::class.java)
+            val intent = Intent(applicationContext, ShowRoutineActivity::class.java)
             startActivity(intent)
         }*/
 
         Handler().postDelayed({
-            val intent = Intent(applicationContext, MainActivity::class.java)
+            val intent = Intent(applicationContext, ShowRoutineActivity::class.java)
             //intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK
             //intent.putExtra("session", Session())
 

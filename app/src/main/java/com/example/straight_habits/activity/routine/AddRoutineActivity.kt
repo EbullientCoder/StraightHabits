@@ -1,4 +1,4 @@
-package com.example.straight_habits.activity
+package com.example.straight_habits.activity.routine
 
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
@@ -8,11 +8,11 @@ import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.straight_habits.R
-import com.example.straight_habits.adapters.DaysAdapter
+import com.example.straight_habits.adapters.days.AddRoutineDaysAdapter
 import com.example.straight_habits.adapters.categories.AddHabitCategoriesAdapter
 import com.example.straight_habits.beans.RoutineBean
 import com.example.straight_habits.controller.application.ManageRoutine
-import com.example.straight_habits.controller.graphic.AddHabitGraphicController
+import com.example.straight_habits.controller.graphic.AddRoutineGraphicController
 import com.example.straight_habits.database.RoomDB
 import com.example.straight_habits.interfaces.SelectDayInterface
 import com.example.straight_habits.interfaces.categories.SelectCategoryInterface
@@ -23,7 +23,7 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
 
-class AddHabitActivity : AppCompatActivity(), SelectCategoryInterface, SelectDayInterface {
+class AddRoutineActivity : AppCompatActivity(), SelectCategoryInterface, SelectDayInterface {
     //Button
     private lateinit var btnClose: ImageView
     private lateinit var btnCreate: FloatingActionButton
@@ -33,11 +33,11 @@ class AddHabitActivity : AppCompatActivity(), SelectCategoryInterface, SelectDay
     private lateinit var categoriesList: MutableList<CategoryModel>
     //Days
     private lateinit var rvDays: RecyclerView
-    private lateinit var daysAdapter: DaysAdapter
+    private lateinit var addRoutineDaysAdapter: AddRoutineDaysAdapter
     private lateinit var daysList: MutableList<DayModel>
 
     //Controller
-    private lateinit var graphicController: AddHabitGraphicController
+    private lateinit var graphicController: AddRoutineGraphicController
 
 
 
@@ -46,7 +46,7 @@ class AddHabitActivity : AppCompatActivity(), SelectCategoryInterface, SelectDay
         setContentView(R.layout.activity_add_routine)
 
         //Controller
-        graphicController = AddHabitGraphicController(this)
+        graphicController = AddRoutineGraphicController(this)
 
 
         //Set Button
@@ -78,7 +78,7 @@ class AddHabitActivity : AppCompatActivity(), SelectCategoryInterface, SelectDay
         btnClose = findViewById(R.id.btn_close_add_habit)
         btnClose.setOnClickListener {
             //Calling the "Main Habit" Activity
-            val intent = Intent(this, MainActivity::class.java)
+            val intent = Intent(this, ShowRoutineActivity::class.java)
             startActivity(intent)
             overridePendingTransition(0, 0)
         }
@@ -112,7 +112,7 @@ class AddHabitActivity : AppCompatActivity(), SelectCategoryInterface, SelectDay
 
 
             //Calling the "Main Habit" Activity
-            val intent = Intent(this, MainActivity::class.java)
+            val intent = Intent(this, ShowRoutineActivity::class.java)
             startActivity(intent)
             overridePendingTransition(0, 0)
         }
@@ -164,12 +164,12 @@ class AddHabitActivity : AppCompatActivity(), SelectCategoryInterface, SelectDay
         rvDays = findViewById(R.id.rv_add_habit_days)
 
         //Adapter
-        daysAdapter = DaysAdapter(daysList, this)
+        addRoutineDaysAdapter = AddRoutineDaysAdapter(daysList, this)
 
         //Recycler View
         rvDays
             .layoutManager = LinearLayoutManager(applicationContext, LinearLayoutManager.HORIZONTAL, false)
-        rvDays.adapter = daysAdapter
+        rvDays.adapter = addRoutineDaysAdapter
     }
 
 
@@ -200,6 +200,6 @@ class AddHabitActivity : AppCompatActivity(), SelectCategoryInterface, SelectDay
             daysList[position].selected = true
 
         //Upgrade Adapter
-        daysAdapter.notifyDataSetChanged()
+        addRoutineDaysAdapter.notifyDataSetChanged()
     }
 }

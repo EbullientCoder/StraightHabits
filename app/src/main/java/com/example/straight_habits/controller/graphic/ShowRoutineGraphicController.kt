@@ -6,7 +6,7 @@ import android.os.Build
 import android.widget.TextView
 import androidx.annotation.RequiresApi
 import androidx.recyclerview.widget.RecyclerView
-import com.example.straight_habits.activity.MainActivity
+import com.example.straight_habits.activity.routine.ShowRoutineActivity
 import com.example.straight_habits.R
 import com.example.straight_habits.facade.ManageDaysFacade
 import com.google.android.material.floatingactionbutton.FloatingActionButton
@@ -18,7 +18,7 @@ import com.example.straight_habits.models.MenuModel
 
 
 @RequiresApi(Build.VERSION_CODES.O)
-class MainGraphicController(view: MainActivity): MenuItemClickInterface {
+class ShowRoutineGraphicController(view: ShowRoutineActivity): MenuItemClickInterface {
     private val mainInstance = view
     //Text
     private val txtDay : TextView

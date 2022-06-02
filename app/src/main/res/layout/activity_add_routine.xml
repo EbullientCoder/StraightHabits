@@ -5,7 +5,7 @@
     android:background="?attr/colorPrimary"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".activity.AddHabitActivity">
+    tools:context=".activity.routine.AddRoutineActivity">
 
     <!-- Header -->
     <androidx.constraintlayout.widget.ConstraintLayout

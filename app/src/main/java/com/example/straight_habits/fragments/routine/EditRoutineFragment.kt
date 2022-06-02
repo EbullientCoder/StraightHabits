@@ -13,7 +13,7 @@ import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.straight_habits.R
-import com.example.straight_habits.adapters.habits.EditHabitsAdapter
+import com.example.straight_habits.adapters.routine.EditRoutineAdapter
 import com.example.straight_habits.beans.RoutineBean
 import com.example.straight_habits.controller.application.ManageRoutine
 import com.example.straight_habits.database.RoomDB
@@ -32,7 +32,7 @@ import kotlin.collections.ArrayList
 class EditRoutineFragment : Fragment(), EditHabitInterface, UpdateEditHabitsListInterface {
     //Habits
     private lateinit var rvHabits: RecyclerView
-    private lateinit var habitsAdapter: EditHabitsAdapter
+    private lateinit var routineAdapter: EditRoutineAdapter
     private lateinit var habitsList: MutableList<RoutineBean>
     //Category
     //var category: String? = "Morning"
@@ -157,13 +157,13 @@ class EditRoutineFragment : Fragment(), EditHabitInterface, UpdateEditHabitsList
     //Set Recycler View to display the Habits List
     private fun setHabitsRecyclerView(){
         //Adapter
-        habitsAdapter = EditHabitsAdapter(habitsList, this)
+        routineAdapter = EditRoutineAdapter(habitsList, this)
 
         //To Update the UI we need to use the UI Thread
         activity?.runOnUiThread {
             //Layout Manager
             rvHabits.layoutManager = LinearLayoutManager(context)
-            rvHabits.adapter = habitsAdapter
+            rvHabits.adapter = routineAdapter
         }
     }
 
@@ -207,7 +207,7 @@ class EditRoutineFragment : Fragment(), EditHabitInterface, UpdateEditHabitsList
         habitsList.removeAt(position)
 
         //Notify the Adapter
-        habitsAdapter.notifyDataSetChanged()
+        routineAdapter.notifyDataSetChanged()
     }
 
     override fun editHabit(position: Int) {
