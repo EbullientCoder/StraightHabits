@@ -18,9 +18,9 @@ import com.example.straight_habits.controller.application.ManageRoutine
 import com.example.straight_habits.database.RoomDB
 import com.example.straight_habits.facade.ManageDaysFacade
 import com.example.straight_habits.facade.ManageRoutineFacade
-import com.example.straight_habits.fragments.details.HabitDetailsFragment
-import com.example.straight_habits.interfaces.habits.CheckHabitInterface
-import com.example.straight_habits.interfaces.habits.HabitDetailsInterface
+import com.example.straight_habits.fragments.details.RoutineDetailsFragment
+import com.example.straight_habits.interfaces.routine.CheckRoutineInterface
+import com.example.straight_habits.interfaces.routine.RoutineDetailsInterface
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.runBlocking
@@ -28,7 +28,7 @@ import java.util.*
 import kotlin.collections.ArrayList
 
 
-class ShowRoutineFragment : Fragment(), CheckHabitInterface, HabitDetailsInterface {
+class ShowRoutineFragment : Fragment(), CheckRoutineInterface, RoutineDetailsInterface {
     //Habits
     private lateinit var rvHabits: RecyclerView
     private lateinit var showRoutineAdapter: ShowRoutineAdapter
@@ -350,8 +350,8 @@ class ShowRoutineFragment : Fragment(), CheckHabitInterface, HabitDetailsInterfa
         bundle.putSerializable("Habit Details", habitsList[position])
 
         //Create the Details Fragment
-        val habitDetailsFragment = HabitDetailsFragment()
+        val habitDetailsFragment = RoutineDetailsFragment()
         habitDetailsFragment.arguments = bundle
-        activity?.let { habitDetailsFragment.show(it.supportFragmentManager,"HabitDetailsFragment") }
+        activity?.let { habitDetailsFragment.show(it.supportFragmentManager,"RoutineDetailsFragment") }
     }
 }

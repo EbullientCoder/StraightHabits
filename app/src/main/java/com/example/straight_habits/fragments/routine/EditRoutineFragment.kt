@@ -19,9 +19,9 @@ import com.example.straight_habits.controller.application.ManageRoutine
 import com.example.straight_habits.database.RoomDB
 import com.example.straight_habits.facade.ManageDaysFacade
 import com.example.straight_habits.facade.ManageRoutineFacade
-import com.example.straight_habits.fragments.details.HabitDetailsEditFragment
-import com.example.straight_habits.interfaces.UpdateEditHabitsListInterface
-import com.example.straight_habits.interfaces.habits.EditHabitInterface
+import com.example.straight_habits.fragments.details.RoutineDetailsEditFragment
+import com.example.straight_habits.interfaces.routine.UpdateEditedRoutineInterface
+import com.example.straight_habits.interfaces.routine.EditRoutineInterface
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.runBlocking
@@ -29,7 +29,7 @@ import java.util.*
 import kotlin.collections.ArrayList
 
 
-class EditRoutineFragment : Fragment(), EditHabitInterface, UpdateEditHabitsListInterface {
+class EditRoutineFragment : Fragment(), EditRoutineInterface, UpdateEditedRoutineInterface {
     //Habits
     private lateinit var rvHabits: RecyclerView
     private lateinit var routineAdapter: EditRoutineAdapter
@@ -215,7 +215,7 @@ class EditRoutineFragment : Fragment(), EditHabitInterface, UpdateEditHabitsList
         bundle.putSerializable("Edit Habit Details", habitsList[position])
 
         //Create the Details Fragment
-        val habitDetailsEditFragment = HabitDetailsEditFragment(this)
+        val habitDetailsEditFragment = RoutineDetailsEditFragment(this)
         habitDetailsEditFragment.arguments = bundle
         activity?.let { habitDetailsEditFragment.show(it.supportFragmentManager,"EditHabitDetailsFragment") }
     }
@@ -226,7 +226,7 @@ class EditRoutineFragment : Fragment(), EditHabitInterface, UpdateEditHabitsList
 
     //Function Called by the Edit Habit Details fragment
     @RequiresApi(Build.VERSION_CODES.O)
-    override fun updateList(){
+    override fun updateList(position: Int, routine: RoutineBean){
         //Get Bundle
         var category: String? = "Morning"
         val bundle = arguments

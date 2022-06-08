@@ -16,10 +16,10 @@ import com.example.straight_habits.interfaces.categories.SelectCategoryInterface
 import com.example.straight_habits.models.CategoryModel
 
 
-class AddHabitCategoriesAdapter(
+class AddRoutineCategoriesAdapter(
     private val categories: MutableList<CategoryModel>,
     private val selectCategoryInterface: SelectCategoryInterface
-): RecyclerView.Adapter<AddHabitCategoriesAdapter.CategoryViewHolder>()  {
+): RecyclerView.Adapter<AddRoutineCategoriesAdapter.CategoryViewHolder>()  {
 
     //Personalized View Holder
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): CategoryViewHolder {

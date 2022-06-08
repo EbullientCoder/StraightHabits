@@ -9,7 +9,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.straight_habits.R
 import com.example.straight_habits.adapters.days.AddRoutineDaysAdapter
-import com.example.straight_habits.adapters.categories.AddHabitCategoriesAdapter
+import com.example.straight_habits.adapters.categories.AddRoutineCategoriesAdapter
 import com.example.straight_habits.beans.RoutineBean
 import com.example.straight_habits.controller.application.ManageRoutine
 import com.example.straight_habits.controller.graphic.AddRoutineGraphicController
@@ -29,7 +29,7 @@ class AddRoutineActivity : AppCompatActivity(), SelectCategoryInterface, SelectD
     private lateinit var btnCreate: FloatingActionButton
     //Categories
     private lateinit var rvCategories: RecyclerView
-    private lateinit var categoriesAdapter: AddHabitCategoriesAdapter
+    private lateinit var categoriesAdapter: AddRoutineCategoriesAdapter
     private lateinit var categoriesList: MutableList<CategoryModel>
     //Days
     private lateinit var rvDays: RecyclerView
@@ -136,7 +136,7 @@ class AddRoutineActivity : AppCompatActivity(), SelectCategoryInterface, SelectD
         rvCategories = findViewById(R.id.rv_add_habit_categories)
 
         //Adapter
-        categoriesAdapter = AddHabitCategoriesAdapter(categoriesList, this)
+        categoriesAdapter = AddRoutineCategoriesAdapter(categoriesList, this)
 
         //Recycler View
         rvCategories

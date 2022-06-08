@@ -2,7 +2,7 @@
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="115dp"
+    android:layout_height="100dp"
     xmlns:android="http://schemas.android.com/apk/res/android">
 
     <!--  Habit Name  -->
@@ -25,13 +25,12 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="20dp"
-        android:layout_marginTop="10dp"
         android:fontFamily="@font/source_sans_pro"
         android:text="Informazioni riguardo questa abi..."
         android:textColor="@color/lite_text"
         android:textSize="12sp"
         app:layout_constraintStart_toEndOf="@+id/line"
-        app:layout_constraintTop_toBottomOf="@+id/txt_category" />
+        app:layout_constraintTop_toBottomOf="@+id/txt_habit_name" />
 
 
     <!-- First Date -->
@@ -62,20 +61,6 @@
         android:textColor="@color/lite_text"
         app:layout_constraintStart_toEndOf="@+id/line"
         app:layout_constraintTop_toBottomOf="@+id/txt_information" />
-
-
-    <!-- Category -->
-    <TextView
-        android:id="@+id/txt_category"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="20dp"
-        android:fontFamily="@font/source_sans_pro_bold"
-        android:text="Category"
-        android:textColor="@color/lite_text"
-        android:textSize="12sp"
-        app:layout_constraintStart_toEndOf="@+id/line"
-        app:layout_constraintTop_toBottomOf="@+id/txt_habit_name" />
 
 
 

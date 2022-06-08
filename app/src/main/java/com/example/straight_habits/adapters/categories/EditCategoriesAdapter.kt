@@ -44,7 +44,7 @@ class EditCategoriesAdapter(
         private val categoryBackground = itemView.findViewById<ConstraintLayout>(R.id.layout_category_container)
         //Buttons
         private val btnEdit = itemView.findViewById<ImageView>(R.id.btn_edit_category)
-        //private val btnDelete = itemView.findViewById<ImageView>(R.id.btn_delete_category)
+        private val btnDelete = itemView.findViewById<ImageView>(R.id.btn_delete_category)
 
 
         //Methods
@@ -99,6 +99,11 @@ class EditCategoriesAdapter(
 
         //Category Selected
         private fun setSelected(){
+            //Buttons not visible
+            btnEdit.visibility = View.GONE
+            btnDelete.visibility = View.GONE
+
+
             //Check Night ot Day Mode
             when (itemView.resources.configuration.uiMode and Configuration.UI_MODE_NIGHT_MASK) {
                 //Night Mode
@@ -129,6 +134,10 @@ class EditCategoriesAdapter(
 
         //Category not Selected
         private fun setNotSelected(){
+            //Buttons visible
+            btnEdit.visibility = View.VISIBLE
+            btnDelete.visibility = View.VISIBLE
+
             //Check Night ot Day Mode
             when (itemView.resources.configuration.uiMode and Configuration.UI_MODE_NIGHT_MASK) {
                 //Night Mode

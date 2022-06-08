@@ -11,12 +11,12 @@ import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
 import com.example.straight_habits.R
 import com.example.straight_habits.beans.RoutineBean
-import com.example.straight_habits.interfaces.habits.EditHabitInterface
+import com.example.straight_habits.interfaces.routine.EditRoutineInterface
 
 
 class EditRoutineAdapter(
     private var habitsList : MutableList<RoutineBean>,
-    private var editHabitInterface: EditHabitInterface
+    private var editRoutineInterface: EditRoutineInterface
     ) : RecyclerView.Adapter<EditRoutineAdapter.EditHabitsViewHolder>() {
 
     //Create the Personalized ViewHolder
@@ -43,7 +43,7 @@ class EditRoutineAdapter(
         private val txtInformation = itemView.findViewById<TextView>(R.id.txt_information)
         private val txtFullDate = itemView.findViewById<TextView>(R.id.txt_date)
         private val txtShortHour = itemView.findViewById<TextView>(R.id.txt_left_date)
-        private val txtCategory = itemView.findViewById<TextView>(R.id.txt_category)
+        //private val txtCategory = itemView.findViewById<TextView>(R.id.txt_category)
         private val imgDot = itemView.findViewById<ImageView>(R.id.img_dot)
         private val line = itemView.findViewById<LinearLayout>(R.id.line)
         private val btnEdit = itemView.findViewById<ImageView>(R.id.btn_edit_habit)
@@ -56,7 +56,7 @@ class EditRoutineAdapter(
             txtInformation.text = routine.getInfo()
             txtFullDate.text = routine.getStartHour() + " - " + routine.getEndHour()
             txtShortHour.text = routine.getShortHour()
-            txtCategory.text = routine.getCategory()
+            //txtCategory.text = routine.getCategory()
 
             //Set Buttons
             setButtons()
@@ -68,10 +68,10 @@ class EditRoutineAdapter(
         //Set Buttons
         private fun setButtons(){
             btnDelete.setOnClickListener{
-                editHabitInterface.deleteHabit(adapterPosition)
+                editRoutineInterface.deleteHabit(adapterPosition)
             }
             btnEdit.setOnClickListener{
-                editHabitInterface.editHabit(adapterPosition)
+                editRoutineInterface.editHabit(adapterPosition)
             }
         }
 
@@ -85,7 +85,7 @@ class EditRoutineAdapter(
                     //Text Color
                     txtHabitName.setTextColor(ContextCompat.getColor(itemView.context, R.color.dark_grey))
                     txtInformation.setTextColor(ContextCompat.getColor(itemView.context, R.color.dark_grey))
-                    txtCategory.setTextColor(ContextCompat.getColor(itemView.context, R.color.dark_grey))
+                    //txtCategory.setTextColor(ContextCompat.getColor(itemView.context, R.color.dark_grey))
                     txtFullDate.setTextColor(ContextCompat.getColor(itemView.context, R.color.dark_grey))
                     txtShortHour.setTextColor(ContextCompat.getColor(itemView.context, R.color.dark_grey))
                     //Button Color
@@ -101,7 +101,7 @@ class EditRoutineAdapter(
                     //Text Color
                     txtHabitName.setTextColor(ContextCompat.getColor(itemView.context, R.color.lite_text))
                     txtInformation.setTextColor(ContextCompat.getColor(itemView.context, R.color.lite_text))
-                    txtCategory.setTextColor(ContextCompat.getColor(itemView.context, R.color.lite_text))
+                    //txtCategory.setTextColor(ContextCompat.getColor(itemView.context, R.color.lite_text))
                     txtFullDate.setTextColor(ContextCompat.getColor(itemView.context, R.color.lite_text))
                     txtShortHour.setTextColor(ContextCompat.getColor(itemView.context, R.color.lite_text))
                     //Button Color
@@ -117,7 +117,7 @@ class EditRoutineAdapter(
                     //Text Color
                     txtHabitName.setTextColor(ContextCompat.getColor(itemView.context, R.color.lite_text))
                     txtInformation.setTextColor(ContextCompat.getColor(itemView.context, R.color.lite_text))
-                    txtCategory.setTextColor(ContextCompat.getColor(itemView.context, R.color.lite_text))
+                    //txtCategory.setTextColor(ContextCompat.getColor(itemView.context, R.color.lite_text))
                     txtFullDate.setTextColor(ContextCompat.getColor(itemView.context, R.color.lite_text))
                     txtShortHour.setTextColor(ContextCompat.getColor(itemView.context, R.color.lite_text))
                     //Button Color

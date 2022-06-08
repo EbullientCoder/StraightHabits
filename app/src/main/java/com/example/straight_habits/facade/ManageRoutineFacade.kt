@@ -2,6 +2,8 @@ package com.example.straight_habits.facade
 
 import com.example.straight_habits.beans.RoutineBean
 import com.example.straight_habits.models.RoutineModel
+import java.util.*
+import kotlin.collections.ArrayList
 
 
 class ManageRoutineFacade {
@@ -438,6 +440,45 @@ class ManageRoutineFacade {
             for(i in 1 until routines.size){
                 routines[i].setSelected(false)
                 routines[i].setDone(false)
+            }
+        }
+
+
+        //Order List
+        fun orderRoutine(routineList: MutableList<RoutineBean>){
+            var app: RoutineBean
+
+            //Loop to sort the beans by their starting hour
+            for(i in 0 until routineList.size - 1){
+                for(j in i until routineList.size){
+                    //Tokenizer
+                    val st1 = StringTokenizer(routineList[i].getStartHour(), ":")
+                    val st2 = StringTokenizer(routineList[j].getStartHour(), ":")
+
+                    //Get the Values
+                    var start1 : MutableList<Int> = ArrayList()
+                    while(st1.hasMoreTokens())
+                        start1.add(st1.nextToken().toInt())
+
+                    var start2 : MutableList<Int> = ArrayList()
+                    while(st2.hasMoreTokens())
+                        start2.add(st2.nextToken().toInt())
+
+
+                    //Sort Hours
+                    if(start1[0] > start2[0]){
+                        app = routineList[i]
+                        routineList[i] = routineList[j]
+                        routineList[j] = app
+                    }
+
+                    //Sort Minutes
+                    if(start1[0] == start2[0] && start1[1] > start2[1]){
+                        app = routineList[i]
+                        routineList[i] = routineList[j]
+                        routineList[j] = app
+                    }
+                }
             }
         }
     }

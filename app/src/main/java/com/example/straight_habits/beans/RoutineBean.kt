@@ -59,4 +59,14 @@ class RoutineBean(
     fun setEnd(end: String){ this.endHour = end}
     fun setSelected(state : Boolean){ selected = state}
     fun setDone(state : Boolean){ done = state}
+    fun setInfo(){
+        if(information.length > 40){
+            info = information.subSequence(0, 40).toString() + "-\n" + information.subSequence(40, information.length).toString()
+
+            if(info.length > 80)
+                info = info.subSequence(0, 77).toString() + "..."
+        }
+        else
+            info = information
+    }
 }

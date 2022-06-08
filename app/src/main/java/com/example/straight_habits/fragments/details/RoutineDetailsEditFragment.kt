@@ -18,12 +18,12 @@ import com.example.straight_habits.beans.RoutineBean
 import com.example.straight_habits.controller.application.ManageRoutine
 import com.example.straight_habits.facade.ManageDaysFacade
 import com.example.straight_habits.facade.ManageRoutineFacade
-import com.example.straight_habits.interfaces.UpdateEditHabitsListInterface
+import com.example.straight_habits.interfaces.routine.UpdateEditedRoutineInterface
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import kotlinx.coroutines.runBlocking
 
 
-class HabitDetailsEditFragment(val updateEditHabitsListInterface: UpdateEditHabitsListInterface) : DialogFragment() {
+class RoutineDetailsEditFragment(private val updateEditedRoutineInterface: UpdateEditedRoutineInterface) : DialogFragment() {
     //Button
     private lateinit var btnBack: ImageView
     private lateinit var btnDone: FloatingActionButton
@@ -34,8 +34,9 @@ class HabitDetailsEditFragment(val updateEditHabitsListInterface: UpdateEditHabi
     private lateinit var txtStart: EditText
     private lateinit var txtEnd: EditText
 
-    //Habit
+    //Routine
     private lateinit var routine: RoutineBean
+    private var position: Int = 0
 
 
     override fun onCreateView(
@@ -68,7 +69,7 @@ class HabitDetailsEditFragment(val updateEditHabitsListInterface: UpdateEditHabi
             if(editHabit(routine)){
                 Toast.makeText(requireContext(), "Habit Updated!", Toast.LENGTH_SHORT).show()
 
-                updateEditHabitsListInterface.updateList()
+                updateEditedRoutineInterface.updateList(position, routine)
             }
 
             dismiss()
@@ -86,8 +87,9 @@ class HabitDetailsEditFragment(val updateEditHabitsListInterface: UpdateEditHabi
         //Get Bundle
         val bundle = arguments
 
-        //Get Habit
+        //Get Routine
         routine = bundle!!.getSerializable("Edit Habit Details") as RoutineBean
+        position = bundle!!.getInt("Edit Routine Position")
 
         setText(routine)
     }
@@ -123,6 +125,7 @@ class HabitDetailsEditFragment(val updateEditHabitsListInterface: UpdateEditHabi
         if (txtInfo.editableText.toString() != ""){
             info = txtInfo.editableText.toString()
             routine.setInformation(info)
+            routine.setInfo()
         }
         //Category
         if (txtCategory.editableText.toString() != ""){

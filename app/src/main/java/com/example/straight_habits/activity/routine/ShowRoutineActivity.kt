@@ -321,10 +321,11 @@ class ShowRoutineActivity : AppCompatActivity() {
             val manageRoutine = ManageRoutine()
 
             //Delete the Old List
-            manageRoutine.deleteAllRoutineFromDay(this@ShowRoutineActivity)
-            //manageHabits.deleteAllHabits(this@ShowRoutineActivity)
+            //manageRoutine.deleteAllRoutineFromDay(this@ShowRoutineActivity)
+            manageRoutine.deleteAllRoutine(this@ShowRoutineActivity)
             //Add a new One
-            manageRoutine.addRoutineListCurrentDay(ManageRoutineFacade.createRoutineList(), this@ShowRoutineActivity)
+            //manageRoutine.addRoutineListCurrentDay(ManageRoutineFacade.createRoutineList(), this@ShowRoutineActivity)
+            manageRoutine.addRoutineListAllDay(ManageRoutineFacade.createRoutineList(), this@ShowRoutineActivity)
             manageRoutine.addRoutineListAllDay(shared, this@ShowRoutineActivity)
 
             //Monday

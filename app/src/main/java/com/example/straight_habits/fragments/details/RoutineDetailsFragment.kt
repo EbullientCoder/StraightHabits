@@ -14,7 +14,7 @@ import com.example.straight_habits.R
 import com.example.straight_habits.beans.RoutineBean
 
 
-class HabitDetailsFragment : DialogFragment() {
+class RoutineDetailsFragment : DialogFragment() {
     //Button
     private lateinit var btnBack: ImageView
     //Text

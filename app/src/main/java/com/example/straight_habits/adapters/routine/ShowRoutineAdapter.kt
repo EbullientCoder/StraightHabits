@@ -14,13 +14,13 @@ import com.example.straight_habits.R
 import com.example.straight_habits.beans.RoutineBean
 import com.example.straight_habits.facade.ManageColorsFacade
 import com.example.straight_habits.facade.ManageRoutineFacade
-import com.example.straight_habits.interfaces.habits.CheckHabitInterface
-import com.example.straight_habits.interfaces.habits.HabitDetailsInterface
+import com.example.straight_habits.interfaces.routine.CheckRoutineInterface
+import com.example.straight_habits.interfaces.routine.RoutineDetailsInterface
 
 class ShowRoutineAdapter(
     private var habitsList : MutableList<RoutineBean>,
-    private var checkHabitInterface : CheckHabitInterface,
-    private var habitDetailsInterface: HabitDetailsInterface
+    private var checkRoutineInterface : CheckRoutineInterface,
+    private var routineDetailsInterface: RoutineDetailsInterface
 ) : RecyclerView.Adapter<ShowRoutineAdapter.HabitsViewHolder>() {
 
     //Create the Personalized ViewHolder
@@ -152,20 +152,20 @@ class ShowRoutineAdapter(
                 //Check that the Item Clicked is not the Last
                 if(adapterPosition != habitsList.size - 1){
                     //Select the Next Habit
-                    checkHabitInterface.checkHabit(adapterPosition + 1)
+                    checkRoutineInterface.checkHabit(adapterPosition + 1)
                 }
                 else{
                     //Select the Last Habit
-                    checkHabitInterface.checkLastHabit(adapterPosition)
+                    checkRoutineInterface.checkLastHabit(adapterPosition)
                 }
             }
 
             //Not Selected
             btnDoneNotSelected.setOnClickListener{
                 if(btnDoneNotSelected.isChecked)
-                    checkHabitInterface.preDoneHabit(adapterPosition, true)
+                    checkRoutineInterface.preDoneHabit(adapterPosition, true)
                 else
-                    checkHabitInterface.preDoneHabit(adapterPosition, false)
+                    checkRoutineInterface.preDoneHabit(adapterPosition, false)
             }
         }
 
@@ -173,7 +173,7 @@ class ShowRoutineAdapter(
         private fun habitDetails(){
             //Open Interface Method
             container.setOnClickListener {
-                habitDetailsInterface.openHabitDetails(adapterPosition)
+                routineDetailsInterface.openHabitDetails(adapterPosition)
             }
         }
     }
