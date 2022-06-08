@@ -20,8 +20,6 @@ import com.example.straight_habits.controller.graphic.ShowRoutineGraphicControll
 import com.example.straight_habits.facade.ManageCategoriesFacade
 import com.example.straight_habits.facade.ManageDaysFacade
 import com.example.straight_habits.facade.ManageRoutineFacade
-import com.example.straight_habits.fragments.categories.EditCategoriesFragment
-import com.example.straight_habits.fragments.routine.EditRoutineFragment
 import com.example.straight_habits.fragments.categories.ShowCategoriesFragment
 import com.example.straight_habits.fragments.routine.ShowRoutineFragment
 import com.google.android.material.floatingactionbutton.FloatingActionButton
@@ -42,12 +40,10 @@ class ShowRoutineActivity : AppCompatActivity() {
     private lateinit var txtEdit: TextView
 
     //Fragment
-    //Habits
+    //Routine
     private lateinit var showRoutineFragment: ShowRoutineFragment
-    private lateinit var editRoutineFragment: EditRoutineFragment
     //Categories
     private lateinit var showCategoriesFragment: ShowCategoriesFragment
-    private lateinit var editCategoriesFragment: EditCategoriesFragment
 
     //Graph Controller
     private lateinit var graphicController: ShowRoutineGraphicController
@@ -227,12 +223,12 @@ class ShowRoutineActivity : AppCompatActivity() {
         //Set Fragment
         //Check if create Show Habits Fragment or Edit Habits Fragment
         if(edit){
-           //Edit Fragment
-            editRoutineFragment = EditRoutineFragment()
-            editRoutineFragment.arguments = bundle
+            //Edit Fragment
+            //editRoutineFragment = EditRoutineFragment()
+            //editRoutineFragment.arguments = bundle
 
-            supportFragmentManager
-                .beginTransaction().replace(R.id.routine_fragment_container, editRoutineFragment).commit()
+            //supportFragmentManager
+            //    .beginTransaction().replace(R.id.routine_fragment_container, editRoutineFragment).commit()
         }
         else{
             //Show Fragment
@@ -250,10 +246,10 @@ class ShowRoutineActivity : AppCompatActivity() {
         //Check if create Show Habits Fragment or Edit Habits Fragment
         if(edit){
             //Edit Fragment
-            editCategoriesFragment = EditCategoriesFragment()
+            //editCategoriesFragment = EditCategoriesFragment()
 
-            supportFragmentManager
-                .beginTransaction().replace(R.id.categories_fragment_container, editCategoriesFragment).commit()
+            //supportFragmentManager
+            //    .beginTransaction().replace(R.id.categories_fragment_container, editCategoriesFragment).commit()
         }
         else{
             //Show Fragment
