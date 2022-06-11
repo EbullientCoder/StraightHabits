@@ -10,7 +10,7 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.StraightHabits" >
         <activity
-            android:name=".activity.routine.EditRoutineActivity"
+            android:name=".activity.routine.EditListActivity"
             android:exported="true" />
         <activity
             android:name=".activity.routine.AddRoutineActivity"

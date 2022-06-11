@@ -1,5 +1,5 @@
 package com.example.straight_habits.interfaces
 
-interface MenuItemClickInterface {
+interface SelectMenuItemInterface {
     fun selectMenuItem(position: Int)
 }

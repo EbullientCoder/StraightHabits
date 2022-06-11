@@ -13,12 +13,12 @@ import com.google.android.material.floatingactionbutton.FloatingActionButton
 import android.widget.ImageView
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.straight_habits.adapters.MenuAdapter
-import com.example.straight_habits.interfaces.MenuItemClickInterface
+import com.example.straight_habits.interfaces.SelectMenuItemInterface
 import com.example.straight_habits.models.MenuModel
 
 
 @RequiresApi(Build.VERSION_CODES.O)
-class ShowRoutineGraphicController(view: ShowRoutineActivity): MenuItemClickInterface {
+class ShowRoutineGraphicController(view: ShowRoutineActivity): SelectMenuItemInterface {
     private val mainInstance = view
     //Text
     private val txtDay : TextView

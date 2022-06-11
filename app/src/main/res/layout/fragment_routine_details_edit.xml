@@ -18,11 +18,27 @@
         app:layout_constraintTop_toTopOf="parent">
 
 
-        <!-- Habit Name -->
-        <EditText
-            android:id="@+id/txt_habit_details_edit_name"
+        <!-- Edit Routine -->
+        <TextView
+            android:id="@+id/textView6"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:fontFamily="@font/source_sans_pro_bold"
+            android:text="Edit Routine"
+            android:textAlignment="center"
+            android:textColor="?attr/colorPrimaryVariant"
+            android:textSize="20sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+
+        <!-- Habit Name -->
+        <EditText
+            android:id="@+id/txt_category_details_edit_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
             android:fontFamily="@font/source_sans_pro_semibold"
             android:hint="Habit Name"
             android:textAlignment="center"
@@ -30,7 +46,7 @@
             android:textSize="20sp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toBottomOf="@+id/textView6" />
 
 
         <!-- Habit Information -->
@@ -46,7 +62,7 @@
             android:textSize="18sp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/txt_habit_details_edit_name" />
+            app:layout_constraintTop_toBottomOf="@+id/txt_category_details_edit_name" />
 
 
         <!-- Habit Category -->

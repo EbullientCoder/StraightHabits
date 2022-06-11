@@ -15,27 +15,25 @@ import androidx.annotation.RequiresApi
 import androidx.fragment.app.DialogFragment
 import com.example.straight_habits.R
 import com.example.straight_habits.beans.RoutineBean
+import com.example.straight_habits.controller.application.ManageCategories
 import com.example.straight_habits.controller.application.ManageRoutine
 import com.example.straight_habits.facade.ManageDaysFacade
 import com.example.straight_habits.facade.ManageRoutineFacade
 import com.example.straight_habits.interfaces.UpdateEditedListInterface
+import com.example.straight_habits.models.CategoryModel
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import kotlinx.coroutines.runBlocking
 
 
-class RoutineDetailsEditFragment(private val updateEditedListInterface: UpdateEditedListInterface) : DialogFragment() {
+class CategoryDetailsEditFragment(private val updateEditedListInterface: UpdateEditedListInterface) : DialogFragment() {
     //Button
     private lateinit var btnBack: ImageView
     private lateinit var btnDone: FloatingActionButton
     //Text
     private lateinit var txtName: EditText
-    private lateinit var txtInfo: EditText
-    private lateinit var txtCategory: EditText
-    private lateinit var txtStart: EditText
-    private lateinit var txtEnd: EditText
 
     //Routine
-    private lateinit var routine: RoutineBean
+    private lateinit var category: CategoryModel
     private var position: Int = 0
 
 
@@ -50,8 +48,9 @@ class RoutineDetailsEditFragment(private val updateEditedListInterface: UpdateEd
         }
 
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_routine_details_edit, container, false)
+        return inflater.inflate(R.layout.fragment_category_details_edit, container, false)
     }
+
 
     @RequiresApi(Build.VERSION_CODES.O)
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -66,10 +65,10 @@ class RoutineDetailsEditFragment(private val updateEditedListInterface: UpdateEd
         btnDone = view.findViewById(R.id.btn_habit_details_edit_done)
         btnDone.setOnClickListener{
             //If the Habit has been updated than print it and close the fragment
-            if(editHabit(routine)){
+            if(editCategory(category)){
                 Toast.makeText(requireContext(), "Habit Updated!", Toast.LENGTH_SHORT).show()
 
-                updateEditedListInterface.updateRoutineList(position, routine)
+                updateEditedListInterface.updateCategoryList(position, category)
             }
 
             dismiss()
@@ -77,79 +76,44 @@ class RoutineDetailsEditFragment(private val updateEditedListInterface: UpdateEd
 
 
 
-        //Habit's Details
+        //Category's Details
         txtName = view.findViewById(R.id.txt_category_details_edit_name)
-        txtInfo = view.findViewById(R.id.txt_habit_details_edit_information)
-        txtCategory = view.findViewById(R.id.txt_habit_details_edit_category)
-        txtStart = view.findViewById(R.id.txt_habit_details_edit_start)
-        txtEnd = view.findViewById(R.id.txt_habit_details_edit_end)
 
         //Get Bundle
         val bundle = arguments
 
         //Get Routine
-        routine = bundle!!.getSerializable("Edit Habit Details") as RoutineBean
-        position = bundle!!.getInt("Edit Routine Position")
+        category = bundle!!.getSerializable("Edit Category Details") as CategoryModel
+        position = bundle!!.getInt("Edit Category Position")
 
-        setText(routine)
+        setText(category)
     }
 
 
 
-    private fun setText(routine: RoutineBean){
-        txtName.hint = routine.getName()
-        txtInfo.hint = routine.getInformation()
-        txtCategory.hint = routine.getCategory()
-        txtStart.hint = routine.getStartHour()
-        txtEnd.hint = routine.getEndHour()
+    private fun setText(category: CategoryModel){
+        txtName.hint = category.getName()
     }
 
     @RequiresApi(Build.VERSION_CODES.O)
-    private fun editHabit(routine: RoutineBean): Boolean{
+    private fun editCategory(category: CategoryModel): Boolean{
         //Application Controller
-        val manageHabits = ManageRoutine()
+        val manageCategories = ManageCategories()
 
         //Get Text
         var name: String
-        var info: String
-        var category: String
-        var start: String
-        var end: String
+
 
         //Name
         if (txtName.editableText.toString() != ""){
             name = txtName.editableText.toString()
-            routine.setName(name)
-        }
-        //Information
-        if (txtInfo.editableText.toString() != ""){
-            info = txtInfo.editableText.toString()
-            routine.setInformation(info)
-            routine.setInfo()
-        }
-        //Category
-        if (txtCategory.editableText.toString() != ""){
-            category = txtCategory.editableText.toString()
-            routine.setCategory(category)
-        }
-        //Start
-        if (txtStart.editableText.toString() != ""){
-            start = txtStart.editableText.toString()
-            routine.setStart(start)
-        }
-        //End
-        if (txtEnd.editableText.toString() != ""){
-            end = txtEnd.editableText.toString()
-            routine.setEnd(end)
+            category.setName(name)
         }
 
 
         //Update the DB
         runBlocking {
-            manageHabits
-                .editRoutine(
-                    ManageRoutineFacade.beanToModel(routine, ManageDaysFacade.getCurrentDay()),
-                    requireContext())
+            manageCategories.editCategory(category, requireContext())
         }
 
         return true

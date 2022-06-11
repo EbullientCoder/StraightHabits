@@ -11,12 +11,12 @@ import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
 import com.example.straight_habits.R
-import com.example.straight_habits.interfaces.MenuItemClickInterface
+import com.example.straight_habits.interfaces.SelectMenuItemInterface
 import com.example.straight_habits.models.MenuModel
 
 class MenuAdapter(
     private var menuList: MutableList<MenuModel>,
-    private val menuItemClickInterface: MenuItemClickInterface
+    private val selectMenuItemInterface: SelectMenuItemInterface
 ) : RecyclerView.Adapter<MenuAdapter.MenuViewHolder>() {
 
     //Create the Personalized ViewHolder
@@ -57,7 +57,7 @@ class MenuAdapter(
 
             //Set Click Listener
             menuItem.setOnClickListener{
-                menuItemClickInterface.selectMenuItem(adapterPosition)
+                selectMenuItemInterface.selectMenuItem(adapterPosition)
             }
         }
 

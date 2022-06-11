@@ -18,24 +18,26 @@ import com.example.straight_habits.controller.application.ManageRoutine
 import com.example.straight_habits.database.RoomDB
 import com.example.straight_habits.facade.ManageDaysFacade
 import com.example.straight_habits.facade.ManageRoutineFacade
+import com.example.straight_habits.fragments.details.CategoryDetailsEditFragment
 import com.example.straight_habits.fragments.details.RoutineDetailsEditFragment
 import com.example.straight_habits.interfaces.SelectDayInterface
-import com.example.straight_habits.interfaces.routine.UpdateEditedRoutineInterface
+import com.example.straight_habits.interfaces.categories.EditCategoryInterface
+import com.example.straight_habits.interfaces.UpdateEditedListInterface
 import com.example.straight_habits.interfaces.categories.SelectCategoryInterface
 import com.example.straight_habits.interfaces.routine.EditRoutineInterface
 import com.example.straight_habits.models.CategoryModel
 import com.example.straight_habits.models.DayModel
-import com.example.straight_habits.models.RoutineModel
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.runBlocking
 
-class EditRoutineActivity : AppCompatActivity(),
+class EditListActivity : AppCompatActivity(),
     SelectDayInterface,
     SelectCategoryInterface,
+    EditCategoryInterface,
     EditRoutineInterface,
-    UpdateEditedRoutineInterface {
+    UpdateEditedListInterface {
     //Days
     private lateinit var rvDays: RecyclerView
     private lateinit var daysAdapter: EditRoutineDaysAdapter
@@ -149,7 +151,7 @@ class EditRoutineActivity : AppCompatActivity(),
 
 
             //Adapter
-            categoriesAdapter = EditCategoriesAdapter(categoriesList, this@EditRoutineActivity)
+            categoriesAdapter = EditCategoriesAdapter(categoriesList, this@EditListActivity, this@EditListActivity)
 
 
             //Recycler View
@@ -192,7 +194,7 @@ class EditRoutineActivity : AppCompatActivity(),
 
 
             //Adapter
-            routineAdapter = EditRoutineAdapter(routineList, this@EditRoutineActivity)
+            routineAdapter = EditRoutineAdapter(routineList, this@EditListActivity)
 
 
             //Recycler View
@@ -278,6 +280,23 @@ class EditRoutineActivity : AppCompatActivity(),
         routineAdapter.notifyDataSetChanged()
     }
 
+    override fun editCategory(position: Int) {
+        val bundle = Bundle()
+        //Put the Routine to edit
+        bundle.putSerializable("Edit Category Details", categoriesList[position])
+        //Put the Position of the Routine to edit
+        bundle.putInt("Edit Category Position", position)
+
+        //Create the Details Fragment
+        val categoryDetailsEditFragment = CategoryDetailsEditFragment(this)
+        categoryDetailsEditFragment.arguments = bundle
+        categoryDetailsEditFragment.show(this.supportFragmentManager,"EditCategoryDetailsFragment")
+    }
+
+    override fun deleteCategory(position: Int) {
+        TODO("Not yet implemented")
+    }
+
 
 
 
@@ -336,7 +355,8 @@ class EditRoutineActivity : AppCompatActivity(),
 
 
 
-    override fun updateList(position: Int, routine: RoutineBean) {
+    //Update List Interface-------------------------------------------------------------------------
+    override fun updateRoutineList(position: Int, routine: RoutineBean) {
         //Remove the old Routine in the position
         routineList.removeAt(position)
 
@@ -346,4 +366,16 @@ class EditRoutineActivity : AppCompatActivity(),
         //Update the Adapter
         routineAdapter.notifyDataSetChanged()
     }
+
+    override fun updateCategoryList(position: Int, category: CategoryModel) {
+        //Remove the old Category in the Position
+        categoriesList.removeAt(position)
+
+        //Add the new edited Category in the position
+        categoriesList.add(position, category)
+
+        //Update the Adapter
+        categoriesAdapter.notifyDataSetChanged()
+    }
+
 }

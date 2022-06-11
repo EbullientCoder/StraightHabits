@@ -12,7 +12,7 @@ class CategoryModel(
     private var ID : Int,
 
     @ColumnInfo(name = "Name")
-    private val name: String,
+    private var name: String,
 
     @ColumnInfo(name = "Selected")
     private var selected: Boolean): Serializable{
@@ -23,4 +23,5 @@ class CategoryModel(
 
         //Setter
         fun setSelected(selected: Boolean){ this.selected = selected }
+        fun setName(name: String){ this.name = name }
 }

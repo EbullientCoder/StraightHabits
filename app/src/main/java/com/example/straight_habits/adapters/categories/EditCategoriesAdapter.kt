@@ -10,12 +10,14 @@ import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
 import com.example.straight_habits.R
+import com.example.straight_habits.interfaces.categories.EditCategoryInterface
 import com.example.straight_habits.interfaces.categories.SelectCategoryInterface
 import com.example.straight_habits.models.CategoryModel
 
 class EditCategoriesAdapter(
     private val categories: MutableList<CategoryModel>,
-    private val selectCategoryInterface: SelectCategoryInterface
+    private val selectCategoryInterface: SelectCategoryInterface,
+    private val editCategoriesInterface: EditCategoryInterface
 ): RecyclerView.Adapter<EditCategoriesAdapter.EditCategoryViewHolder>()  {
 
     //Personalized View Holder
@@ -50,12 +52,21 @@ class EditCategoriesAdapter(
         //Methods
         fun setData(category: CategoryModel){
             //Click Listener
+            //Text
             txtName.setOnClickListener{
                 selectCategoryInterface.selectCategory(adapterPosition)
             }
             categoryBackground.setOnClickListener{
                 selectCategoryInterface.selectCategory(adapterPosition)
             }
+            //Buttons
+            btnEdit.setOnClickListener {
+                editCategoriesInterface.editCategory(adapterPosition)
+            }
+            btnDelete.setOnClickListener {
+                editCategoriesInterface.deleteCategory(adapterPosition)
+            }
+
 
             //Set Name
             txtName.text = category.getName()

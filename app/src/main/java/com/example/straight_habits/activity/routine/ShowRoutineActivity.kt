@@ -180,7 +180,7 @@ class ShowRoutineActivity : AppCompatActivity() {
 
 
             //Calling the "Edit Routine" Activity
-            val intent = Intent(this, EditRoutineActivity::class.java)
+            val intent = Intent(this, EditListActivity::class.java)
             startActivity(intent)
             overridePendingTransition(0, 0)
         }
