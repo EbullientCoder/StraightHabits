@@ -32,9 +32,10 @@ class CategoryDetailsEditFragment(private val updateEditedListInterface: UpdateE
     //Text
     private lateinit var txtName: EditText
 
-    //Routine
+    //Category
     private lateinit var category: CategoryModel
     private var position: Int = 0
+    private var oldName: String = ""
 
 
     override fun onCreateView(
@@ -64,8 +65,15 @@ class CategoryDetailsEditFragment(private val updateEditedListInterface: UpdateE
         //Done Button
         btnDone = view.findViewById(R.id.btn_habit_details_edit_done)
         btnDone.setOnClickListener{
-            //If the Habit has been updated than print it and close the fragment
+            //If the Category has been updated than print it and close the fragment
             if(editCategory(category)){
+                //Edit the Routine Category
+                val manageRoutine = ManageRoutine()
+                runBlocking {
+                    manageRoutine.editRoutineListCategory(category.getName(), oldName, requireContext())
+                }
+
+
                 Toast.makeText(requireContext(), "Habit Updated!", Toast.LENGTH_SHORT).show()
 
                 updateEditedListInterface.updateCategoryList(position, category)
@@ -82,9 +90,11 @@ class CategoryDetailsEditFragment(private val updateEditedListInterface: UpdateE
         //Get Bundle
         val bundle = arguments
 
-        //Get Routine
+        //Get Category
         category = bundle!!.getSerializable("Edit Category Details") as CategoryModel
         position = bundle!!.getInt("Edit Category Position")
+        oldName = category.getName()
+
 
         setText(category)
     }

@@ -174,4 +174,13 @@ class ManageRoutine {
 
         dao.edit(routine)
     }
+
+    //Change Routine Category
+    suspend fun editRoutineListCategory(newCategory: String, oldCategory: String, context: Context){
+        //Get the Database Instance
+        val db = RoomDB.getInstance(context)
+        val dao = db.routineDAO()
+
+        dao.editRoutineCategory(newCategory, oldCategory)
+    }
 }

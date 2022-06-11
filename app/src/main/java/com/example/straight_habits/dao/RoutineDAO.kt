@@ -34,4 +34,8 @@ interface RoutineDAO {
     //@Query("UPDATE HabitTable SET WHERE ID = :habitID")
     @Update
     suspend fun edit(routine: RoutineModel)
+
+    //Change Routine Category
+    @Query("UPDATE HabitTable SET Category = :newCategory WHERE Category = :oldCategory")
+    suspend fun editRoutineCategory(newCategory: String, oldCategory: String)
 }
