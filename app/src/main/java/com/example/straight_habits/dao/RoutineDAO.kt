@@ -14,6 +14,10 @@ interface RoutineDAO {
     @Query("DELETE FROM HabitTable WHERE Day = :day AND Name = :name AND Category = :category AND Start = :start AND Information = :info")
     suspend fun delete(day: String, name: String, category: String, start: String, info: String)
 
+    //Delete the Routine of the Category
+    @Query("DELETE FROM HabitTable WHERE Category = :category")
+    suspend fun deleteRoutineListCategory(category: String)
+
     //Delete all Habits
     @Query("DELETE FROM HabitTable")
     suspend fun deleteAll()

@@ -14,6 +14,7 @@ import com.example.straight_habits.adapters.categories.EditCategoriesAdapter
 import com.example.straight_habits.adapters.days.EditRoutineDaysAdapter
 import com.example.straight_habits.adapters.routine.EditRoutineAdapter
 import com.example.straight_habits.beans.RoutineBean
+import com.example.straight_habits.controller.application.ManageCategories
 import com.example.straight_habits.controller.application.ManageRoutine
 import com.example.straight_habits.database.RoomDB
 import com.example.straight_habits.facade.ManageDaysFacade
@@ -32,7 +33,7 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.runBlocking
 
-class EditListActivity : AppCompatActivity(),
+class EditRoutineActivity : AppCompatActivity(),
     SelectDayInterface,
     SelectCategoryInterface,
     EditCategoryInterface,
@@ -151,7 +152,7 @@ class EditListActivity : AppCompatActivity(),
 
 
             //Adapter
-            categoriesAdapter = EditCategoriesAdapter(categoriesList, this@EditListActivity, this@EditListActivity)
+            categoriesAdapter = EditCategoriesAdapter(categoriesList, this@EditRoutineActivity, this@EditRoutineActivity)
 
 
             //Recycler View
@@ -194,7 +195,7 @@ class EditListActivity : AppCompatActivity(),
 
 
             //Adapter
-            routineAdapter = EditRoutineAdapter(routineList, this@EditListActivity)
+            routineAdapter = EditRoutineAdapter(routineList, this@EditRoutineActivity)
 
 
             //Recycler View
@@ -280,6 +281,26 @@ class EditListActivity : AppCompatActivity(),
         routineAdapter.notifyDataSetChanged()
     }
 
+    override fun deleteCategory(position: Int) {
+        //Application Controller
+        val manageCategories = ManageCategories()
+        val manageRoutine = ManageRoutine()
+
+        //Coroutine
+        runBlocking {
+            //Delete the Routine of the Category
+            manageRoutine.deleteRoutineListCategory(categoriesList[position].getName(), this@EditRoutineActivity)
+            //Delete the Category
+            manageCategories.deleteCategory(categoriesList[position], this@EditRoutineActivity)
+        }
+
+        //Remove the Category from the List
+        categoriesList.removeAt(position)
+
+        //Notify the Adapter
+        categoriesAdapter.notifyItemRemoved(position)
+    }
+
     override fun editCategory(position: Int) {
         val bundle = Bundle()
         //Put the Routine to edit
@@ -291,10 +312,6 @@ class EditListActivity : AppCompatActivity(),
         val categoryDetailsEditFragment = CategoryDetailsEditFragment(this)
         categoryDetailsEditFragment.arguments = bundle
         categoryDetailsEditFragment.show(this.supportFragmentManager,"EditCategoryDetailsFragment")
-    }
-
-    override fun deleteCategory(position: Int) {
-        TODO("Not yet implemented")
     }
 
 
