@@ -99,8 +99,8 @@ class ManageDaysFacade {
         //Get the Current Day
         @RequiresApi(Build.VERSION_CODES.O)
         fun getCurrentDay(): String{
-            //return LocalDateTime.now().dayOfWeek.toString().lowercase().capitalize()
-            return "Sunday"
+            return LocalDateTime.now().dayOfWeek.toString().lowercase().capitalize()
+            //return "Sunday"
         }
 
 
