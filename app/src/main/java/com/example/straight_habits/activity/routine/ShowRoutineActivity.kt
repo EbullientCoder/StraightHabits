@@ -95,7 +95,6 @@ class ShowRoutineActivity : AppCompatActivity() {
             editor.commit()
         }
         else{
-            Toast.makeText(this, "Entrato in else", Toast.LENGTH_SHORT).show()
             if(!sp.getString("CURRENT_DATE", "").equals(ManageDaysFacade.getCurrentDate())){
                 val oldCurrentDay: String = sp.getString("CURRENT_DAY", "")!!
 
@@ -110,8 +109,6 @@ class ShowRoutineActivity : AppCompatActivity() {
                     //ManageDaysFacade.resetPrevDayHabits(ManageDaysFacade.getCurrentDay(), applicationContext)
                     ManageDaysFacade.resetPassedDayRoutine(oldCurrentDay, applicationContext)
                 }
-
-                Toast.makeText(this, "Entrato in IF", Toast.LENGTH_SHORT).show()
             }
         }
 
