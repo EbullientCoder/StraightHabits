@@ -9,7 +9,7 @@ import java.time.LocalDateTime
 
 class ManageDaysFacade {
     companion object{
-        //Return Days List
+        //Reset previous day list
         suspend fun resetPrevDayHabits(day: String, context: Context){
             //Database
             val db = RoomDB.getInstance(context)
@@ -60,6 +60,29 @@ class ManageDaysFacade {
             db.close()
         }
 
+        //Reset passed day list
+        suspend fun resetPassedDayRoutine(day: String, context: Context){
+            //Database
+            val db = RoomDB.getInstance(context)
+            val dao = db.routineDAO()
+            //Habits List
+            var habitsList: MutableList<RoutineModel>
+
+            //Get the Routine List of the passed day
+            habitsList = dao.readAll(day)
+            //Delete all the Routine List of that day from the DB
+            dao.deleteAllFromDay(day)
+            //Reset the List
+            ManageRoutineFacade.resetHabitsList(habitsList)
+            //Update the new habits list on the DB
+            for(habit in habitsList) dao.insert(habit)
+
+            //Close the DB Connection
+            db.close()
+        }
+
+
+
 
 
         //Get the Current Date
@@ -70,12 +93,14 @@ class ManageDaysFacade {
             val month = LocalDateTime.now().month.toString().lowercase().capitalize()
 
             return "$day, $num $month"
+            //return "Friday, 11 April"
         }
 
         //Get the Current Day
         @RequiresApi(Build.VERSION_CODES.O)
         fun getCurrentDay(): String{
-            return LocalDateTime.now().dayOfWeek.toString().lowercase().capitalize()
+            //return LocalDateTime.now().dayOfWeek.toString().lowercase().capitalize()
+            return "Sunday"
         }
 
 

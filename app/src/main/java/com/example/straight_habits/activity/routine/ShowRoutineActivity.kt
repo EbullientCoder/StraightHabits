@@ -6,6 +6,7 @@ import android.content.SharedPreferences
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.os.Build
+import android.util.Log
 import android.view.View
 import android.widget.ImageView
 import android.widget.TextView
@@ -84,32 +85,74 @@ class ShowRoutineActivity : AppCompatActivity() {
     //Set Shared Preferences
     @RequiresApi(Build.VERSION_CODES.O)
     private fun resetList(){
-        val f = File("/data/data/your_application_package/shared_prefs/MyPreferences.xml")
+        File("/data/data/your_application_package/shared_prefs/MyPreferences.xml")
+        val sp = getSharedPreferences("MyPreferences", Context.MODE_PRIVATE)
+
+        if(!sp.contains("CURRENT_DAY") && !sp.contains("CURRENT_DATE")){
+            val editor: SharedPreferences.Editor = sp.edit()
+            editor.putString("CURRENT_DAY", ManageDaysFacade.getCurrentDay())
+            editor.putString("CURRENT_DATE", ManageDaysFacade.getCurrentDate())
+            editor.commit()
+        }
+        else{
+            Toast.makeText(this, "Entrato in else", Toast.LENGTH_SHORT).show()
+            if(!sp.getString("CURRENT_DATE", "").equals(ManageDaysFacade.getCurrentDate())){
+                val oldCurrentDay: String = sp.getString("CURRENT_DAY", "")!!
+
+                val editor: SharedPreferences.Editor = sp.edit()
+                editor.clear()
+                editor.putString("CURRENT_DAY", ManageDaysFacade.getCurrentDay())
+                editor.putString("CURRENT_DATE", ManageDaysFacade.getCurrentDate())
+                editor.commit()
+
+                //Resetting the Habits List
+                lifecycleScope.launch(Dispatchers.IO){
+                    //ManageDaysFacade.resetPrevDayHabits(ManageDaysFacade.getCurrentDay(), applicationContext)
+                    ManageDaysFacade.resetPassedDayRoutine(oldCurrentDay, applicationContext)
+                }
+
+                Toast.makeText(this, "Entrato in IF", Toast.LENGTH_SHORT).show()
+            }
+        }
+
+
+
+        /*val f = File("/data/data/your_application_package/shared_prefs/MyPreferences.xml")
 
         //If the file doesn't exist it will be created and will be saved the current day
+        //and the current date
         if (!f.exists()){
             val sp = getSharedPreferences("MyPreferences", Context.MODE_PRIVATE)
             val editor: SharedPreferences.Editor = sp.edit()
             editor.putString("CURRENT_DAY", ManageDaysFacade.getCurrentDay())
+            //editor.putString("CURRENT_DATE", ManageDaysFacade.getCurrentDate())
             editor.commit()
+
+            Toast.makeText(this, "File doesn't exist", Toast.LENGTH_LONG).show()
         }
-        //Else will be checked if the day stored in the file is the current day.
-        //If it's not, the prev day will reset
+        //Else will be checked if the date stored in the file is the current date.
+        //If it's not, than the routine on the old current day will be restored and the current day
+        //and the current date will be updated
         else {
             val sp = getSharedPreferences("MyPreferences", Context.MODE_PRIVATE)
             if(!sp.getString("CURRENT_DAY", "").equals(ManageDaysFacade.getCurrentDay())){
+                val oldCurrentDay = sp.getString("CURRENT_DAY", "")
+
                 //Updating the stored Day Value
                 val editor: SharedPreferences.Editor = sp.edit()
                 editor.clear()
                 editor.putString("CURRENT_DAY", ManageDaysFacade.getCurrentDay())
+                //editor.putString("CURRENT_DATE", ManageDaysFacade.getCurrentDate())
                 editor.commit()
 
                 //Resetting the Habits List
                 lifecycleScope.launch(Dispatchers.IO){
                     ManageDaysFacade.resetPrevDayHabits(ManageDaysFacade.getCurrentDay(), applicationContext)
+                    //if (oldCurrentDay != null)
+                        //ManageDaysFacade.resetPassedDayRoutine(oldCurrentDay, applicationContext)
                 }
             }
-        }
+        }*/
     }
 
 
