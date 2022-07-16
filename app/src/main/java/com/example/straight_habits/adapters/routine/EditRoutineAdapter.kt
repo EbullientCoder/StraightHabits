@@ -53,7 +53,7 @@ class EditRoutineAdapter(
         fun setCommonData(routine: RoutineBean){
             //Text
             txtHabitName.text = routine.getName()
-            txtInformation.text = routine.getInfo()
+            txtInformation.text = routine.getInformation()
             txtFullDate.text = routine.getStartHour() + " - " + routine.getEndHour()
             txtShortHour.text = routine.getShortHour()
             //txtCategory.text = routine.getCategory()
@@ -77,8 +77,20 @@ class EditRoutineAdapter(
 
         //Set Normal
         private fun setData(){
+            //Text Color
+            txtHabitName.setTextColor(ContextCompat.getColor(itemView.context, R.color.dark_grey))
+            txtInformation.setTextColor(ContextCompat.getColor(itemView.context, R.color.dark_grey))
+            //txtCategory.setTextColor(ContextCompat.getColor(itemView.context, R.color.dark_grey))
+            txtFullDate.setTextColor(ContextCompat.getColor(itemView.context, R.color.dark_grey))
+            txtShortHour.setTextColor(ContextCompat.getColor(itemView.context, R.color.dark_grey))
+            //Button Color
+            btnDelete.setImageResource(R.drawable.icon_delete_night)
+            btnEdit.setImageResource(R.drawable.icon_edit_night)
+            //Line Not Visible
+            line.setBackgroundResource(R.color.dark_grey)
+
             //Check Night ot Day Mode
-            when (itemView.resources.configuration.uiMode and Configuration.UI_MODE_NIGHT_MASK) {
+            /*when (itemView.resources.configuration.uiMode and Configuration.UI_MODE_NIGHT_MASK) {
                 //Night Mode
                 Configuration.UI_MODE_NIGHT_YES
                 ->{
@@ -126,7 +138,7 @@ class EditRoutineAdapter(
                     //Line Not Visible
                     line.setBackgroundResource(R.color.lite_text)
                 }
-            }
+            }*/
 
             //Dot Not Visible
             imgDot.setImageResource(R.drawable.icon_dot_not_selected)

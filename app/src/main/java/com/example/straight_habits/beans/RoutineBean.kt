@@ -15,7 +15,6 @@ class RoutineBean(
 
     //Attribute to get the start Hour
     private var shortHour : String
-    private var info : String
 
     // initializer block
     init {
@@ -25,24 +24,23 @@ class RoutineBean(
             st.nextToken() + ":00"
         } else ""
 
-        //Information
-        //var pos = information.indexOf('\n')
-        //if(pos == -1) pos = 0
-
-        if(information.length > 40){
-            info = information.subSequence(0, 40).toString() + "-\n" + information.subSequence(40, information.length).toString()
-
-            if(info.length > 80)
-                info = info.subSequence(0, 77).toString() + "..."
+        //Duration
+        //Start Hour
+        val start = StringTokenizer(startHour, ":")
+        //End Hour
+        val end = StringTokenizer(endHour, ":")
+        //Time
+        var hours = end.nextToken().toInt() - start.nextToken().toInt()
+        var minutes = end.nextToken().toInt() - start.nextToken().toInt()
+        if(minutes < 0){
+            hours--
+            minutes += 60
         }
-        else
-            info = information
     }
 
     //Getter
     fun getID(): Int{ return ID}
     fun getName() : String{ return name}
-    fun getInfo() : String{ return info}
     fun getInformation() : String{ return information}
     fun getCategory() : String{ return category}
     fun getStartHour() : String{ return startHour}
@@ -59,14 +57,4 @@ class RoutineBean(
     fun setEnd(end: String){ this.endHour = end}
     fun setSelected(state : Boolean){ selected = state}
     fun setDone(state : Boolean){ done = state}
-    fun setInfo(){
-        if(information.length > 40){
-            info = information.subSequence(0, 40).toString() + "-\n" + information.subSequence(40, information.length).toString()
-
-            if(info.length > 80)
-                info = info.subSequence(0, 77).toString() + "..."
-        }
-        else
-            info = information
-    }
 }

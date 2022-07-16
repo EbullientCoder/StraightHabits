@@ -71,9 +71,9 @@ class EditCategoriesAdapter(
             //Set Name
             txtName.text = category.getName()
 
-
+            btnEdit.setImageResource(R.drawable.icon_edit_night)
             //Check Night ot Day Mode
-            when (itemView.resources.configuration.uiMode and Configuration.UI_MODE_NIGHT_MASK) {
+            /*when (itemView.resources.configuration.uiMode and Configuration.UI_MODE_NIGHT_MASK) {
                 //Night Mode
                 Configuration.UI_MODE_NIGHT_YES
                 ->{
@@ -97,7 +97,7 @@ class EditCategoriesAdapter(
                     //btnDelete.setImageResource(R.drawable.icon_delete_night)
                     btnEdit.setImageResource(R.drawable.icon_edit_night)
                 }
-            }
+            }*/
 
 
 
@@ -114,9 +114,11 @@ class EditCategoriesAdapter(
             btnEdit.visibility = View.GONE
             btnDelete.visibility = View.GONE
 
+            //Text Color
+            txtName.setTextColor(ContextCompat.getColor(itemView.context, R.color.white))
 
             //Check Night ot Day Mode
-            when (itemView.resources.configuration.uiMode and Configuration.UI_MODE_NIGHT_MASK) {
+            /*when (itemView.resources.configuration.uiMode and Configuration.UI_MODE_NIGHT_MASK) {
                 //Night Mode
                 Configuration.UI_MODE_NIGHT_YES
                 ->{
@@ -137,7 +139,7 @@ class EditCategoriesAdapter(
                     //Text Color
                     txtName.setTextColor(ContextCompat.getColor(itemView.context, R.color.white))
                 }
-            }
+            }*/
 
             //Background
             categoryBackground.setBackgroundResource(R.drawable.category_edit_container_background)
@@ -149,8 +151,13 @@ class EditCategoriesAdapter(
             btnEdit.visibility = View.VISIBLE
             btnDelete.visibility = View.VISIBLE
 
+            //Text Color
+            txtName.setTextColor(ContextCompat.getColor(itemView.context, R.color.dark_grey))
+            //Background Color
+            categoryBackground.setBackgroundResource(R.color.dark_background)
+
             //Check Night ot Day Mode
-            when (itemView.resources.configuration.uiMode and Configuration.UI_MODE_NIGHT_MASK) {
+            /*when (itemView.resources.configuration.uiMode and Configuration.UI_MODE_NIGHT_MASK) {
                 //Night Mode
                 Configuration.UI_MODE_NIGHT_YES
                 ->{
@@ -177,7 +184,7 @@ class EditCategoriesAdapter(
                     //Background Color
                     categoryBackground.setBackgroundResource(R.color.dark_background)
                 }
-            }
+            }*/
         }
     }
 }

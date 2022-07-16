@@ -31,8 +31,17 @@ class ManageColorsFacade {
                 //Text Size
                 habitName.setTextSize(TypedValue.COMPLEX_UNIT_SP, 20f)
 
+                //Text Color
+                habitName.setTextColor(ContextCompat.getColor(context, R.color.white))
+                shortHour.setTextColor(ContextCompat.getColor(context, R.color.white))
+                fullDate.setTextColor(ContextCompat.getColor(context, R.color.white))
+                information.setTextColor(ContextCompat.getColor(context, R.color.white))
+
+                //Set Line
+                line.setBackgroundResource(R.color.white)
+
                 //Check Night ot Day Mode
-                when (context.resources.configuration.uiMode and Configuration.UI_MODE_NIGHT_MASK) {
+                /*when (context.resources.configuration.uiMode and Configuration.UI_MODE_NIGHT_MASK) {
                     //Night Mode
                     Configuration.UI_MODE_NIGHT_YES
                     ->{
@@ -71,7 +80,7 @@ class ManageColorsFacade {
                         //Set Line
                         line.setBackgroundResource(R.color.dark_text)
                     }
-                }
+                }*/
 
                 //Dot Img
                 dot.setImageResource(R.drawable.icon_dot_selected)
@@ -80,8 +89,18 @@ class ManageColorsFacade {
                 //Text Size
                 habitName.setTextSize(TypedValue.COMPLEX_UNIT_SP, 16f)
 
+                //Text Color
+                habitName.setTextColor(ContextCompat.getColor(context, R.color.dark_grey))
+                shortHour.setTextColor(ContextCompat.getColor(context, R.color.dark_grey))
+                fullDate.setTextColor(ContextCompat.getColor(context, R.color.dark_grey))
+                information.setTextColor(ContextCompat.getColor(context, R.color.dark_grey))
+
+                //Set Line
+                line.setBackgroundResource(R.color.dark_grey)
+
+
                 //Check Night ot Day Mode
-                when (context.resources.configuration.uiMode and Configuration.UI_MODE_NIGHT_MASK) {
+                /*when (context.resources.configuration.uiMode and Configuration.UI_MODE_NIGHT_MASK) {
                     //Night Mode
                     Configuration.UI_MODE_NIGHT_YES
                     ->{
@@ -120,7 +139,7 @@ class ManageColorsFacade {
                         //Set Line
                         line.setBackgroundResource(R.color.lite_text)
                     }
-                }
+                }*/
 
                 //Dot Img
                 dot.setImageResource(R.drawable.icon_dot_not_selected)

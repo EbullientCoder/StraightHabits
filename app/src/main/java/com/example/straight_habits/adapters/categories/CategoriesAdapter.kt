@@ -82,8 +82,13 @@ class CategoriesAdapter(
                 habitsCounter.visibility = View.GONE
             }
             else{
+                //Set Background
+                categoryBackground.setBackgroundResource(R.color.dark_background)
+                //Set Text Color
+                txtName.setTextColor(ContextCompat.getColor(itemView.context, R.color.white))
+
                 //Check Night ot Day Mode
-                when (itemView.resources.configuration.uiMode and Configuration.UI_MODE_NIGHT_MASK) {
+                /*when (itemView.resources.configuration.uiMode and Configuration.UI_MODE_NIGHT_MASK) {
                     //Night Mode
                     Configuration.UI_MODE_NIGHT_YES
                     ->{
@@ -110,7 +115,7 @@ class CategoriesAdapter(
                         //Set Text Color
                         txtName.setTextColor(ContextCompat.getColor(itemView.context, R.color.dark_text))
                     }
-                }
+                }*/
 
                 //Habits Counter
                 habitsCounter.visibility = View.GONE

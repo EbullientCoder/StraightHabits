@@ -71,8 +71,13 @@ class AddRoutineDaysAdapter(
 
         //Not Selected
         private fun setNotSelected(){
+            //Text Color
+            txtDay.setTextColor(ContextCompat.getColor(itemView.context, R.color.white))
+            //Background Color
+            background.setBackgroundResource(R.color.dark_background)
+
             //Check Night ot Day Mode
-            when (itemView.resources.configuration.uiMode and Configuration.UI_MODE_NIGHT_MASK) {
+            /*when (itemView.resources.configuration.uiMode and Configuration.UI_MODE_NIGHT_MASK) {
                 //Night Mode
                 Configuration.UI_MODE_NIGHT_YES
                 ->{
@@ -99,7 +104,7 @@ class AddRoutineDaysAdapter(
                     //Background Color
                     background.setBackgroundResource(R.color.dark_background)
                 }
-            }
+            }*/
         }
     }
 }

@@ -69,8 +69,13 @@ class AddRoutineCategoriesAdapter(
                 categoryBackground.setBackgroundResource(R.drawable.category_container_background)
             }
             else{
+                //Set Background
+                categoryBackground.setBackgroundResource(R.color.dark_background)
+                //Set Text Color
+                txtName.setTextColor(ContextCompat.getColor(itemView.context, R.color.white))
+
                 //Check Night ot Day Mode
-                when (itemView.resources.configuration.uiMode and Configuration.UI_MODE_NIGHT_MASK) {
+                /*when (itemView.resources.configuration.uiMode and Configuration.UI_MODE_NIGHT_MASK) {
                     //Night Mode
                     Configuration.UI_MODE_NIGHT_YES
                     ->{
@@ -97,7 +102,7 @@ class AddRoutineCategoriesAdapter(
                         //Set Text Color
                         txtName.setTextColor(ContextCompat.getColor(itemView.context, R.color.dark_text))
                     }
-                }
+                }*/
             }
         }
 

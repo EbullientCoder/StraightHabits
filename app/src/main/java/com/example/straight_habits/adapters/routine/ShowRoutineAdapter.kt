@@ -143,7 +143,8 @@ class ShowRoutineAdapter(
         //Set Hour
         fun setHour(routine: RoutineBean){
             txtShortHour.visibility = View.VISIBLE
-            txtShortHour.text = routine.getShortHour()
+            //txtShortHour.text = routine.getShortHour()
+            txtShortHour.text = routine.getStartHour()
         }
 
         //Set the Buttons Click Listener

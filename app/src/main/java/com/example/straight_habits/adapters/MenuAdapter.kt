@@ -78,8 +78,19 @@ class MenuAdapter(
         }
 
         private fun setNotSelected(item: MenuModel){
+            //Image
+            if(item.getID() == "Routines")
+                image.setImageResource(R.drawable.icon_todo_grey)
+            else if(item.getID() == "Habits")
+                image.setImageResource(R.drawable.icon_habits_grey)
+            else
+                image.setImageResource(R.drawable.icon_stats_grey)
+
+            //Text
+            id.setTextColor(ContextCompat.getColor(itemView.context, R.color.lite_text))
+
             //Check Night ot Day Mode
-            when (itemView.resources.configuration.uiMode and Configuration.UI_MODE_NIGHT_MASK) {
+            /*when (itemView.resources.configuration.uiMode and Configuration.UI_MODE_NIGHT_MASK) {
                 //Night Mode
                 Configuration.UI_MODE_NIGHT_YES
                 ->{
@@ -124,7 +135,7 @@ class MenuAdapter(
                     //Text
                     id.setTextColor(ContextCompat.getColor(itemView.context, R.color.lite_text))
                 }
-            }
+            }*/
 
             //Selector
             selector.setBackgroundResource(R.drawable.icon_menu_item_not_selected)

@@ -125,7 +125,6 @@ class RoutineDetailsEditFragment(private val updateEditedListInterface: UpdateEd
         if (txtInfo.editableText.toString() != ""){
             info = txtInfo.editableText.toString()
             routine.setInformation(info)
-            routine.setInfo()
         }
         //Category
         if (txtCategory.editableText.toString() != ""){
