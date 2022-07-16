@@ -1,6 +1,5 @@
 package com.example.straight_habits.adapters
 
-import android.content.res.Configuration
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -39,7 +38,7 @@ class MenuAdapter(
     //View Holder
     inner class MenuViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView){
         //Attributes
-        private val menuItem: ConstraintLayout = itemView.findViewById(R.id.menu_container)
+        private val menuItem: ConstraintLayout = itemView.findViewById(R.id.routine_container)
         private val image: ImageView = itemView.findViewById(R.id.img_menu)
         private val id: TextView = itemView.findViewById(R.id.txt_menu_id)
         private val selector: LinearLayout = itemView.findViewById(R.id.menu_item_selected)

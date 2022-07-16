@@ -4,10 +4,7 @@ import android.graphics.Paint
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.CheckBox
-import android.widget.ImageView
-import android.widget.LinearLayout
-import android.widget.TextView
+import android.widget.*
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.recyclerview.widget.RecyclerView
 import com.example.straight_habits.R
@@ -17,11 +14,11 @@ import com.example.straight_habits.facade.ManageRoutineFacade
 import com.example.straight_habits.interfaces.routine.CheckRoutineInterface
 import com.example.straight_habits.interfaces.routine.RoutineDetailsInterface
 
-class ShowRoutineAdapter(
+class RoutineAdapter(
     private var habitsList : MutableList<RoutineBean>,
     private var checkRoutineInterface : CheckRoutineInterface,
     private var routineDetailsInterface: RoutineDetailsInterface
-) : RecyclerView.Adapter<ShowRoutineAdapter.HabitsViewHolder>() {
+) : RecyclerView.Adapter<RoutineAdapter.HabitsViewHolder>() {
 
     //Create the Personalized ViewHolder
     override fun onCreateViewHolder(parent: ViewGroup, position: Int): HabitsViewHolder {
@@ -55,7 +52,7 @@ class ShowRoutineAdapter(
         private val btnDoneNotSelected = itemView.findViewById<CheckBox>(R.id.btn_done_not_selected)
         private val imgDot = itemView.findViewById<ImageView>(R.id.img_dot)
         private val line = itemView.findViewById<LinearLayout>(R.id.line)
-        private val container = itemView.findViewById<ConstraintLayout>(R.id.menu_container)
+        private val container = itemView.findViewById<ConstraintLayout>(R.id.routine_container)
 
         //Methods
         fun setCommonData(routine : RoutineBean, selectedPosition : Int){
@@ -77,7 +74,7 @@ class ShowRoutineAdapter(
             txtShortHour.visibility = View.GONE
 
             //Set Button
-            setButton()
+            setClickListeners()
 
             //Habits Details
             habitDetails()
@@ -143,12 +140,20 @@ class ShowRoutineAdapter(
         //Set Hour
         fun setHour(routine: RoutineBean){
             txtShortHour.visibility = View.VISIBLE
-            //txtShortHour.text = routine.getShortHour()
-            txtShortHour.text = routine.getStartHour()
+            txtShortHour.text = routine.getShortHour()
+            //txtShortHour.text = routine.getStartHour()
         }
 
-        //Set the Buttons Click Listener
-        private fun setButton(){
+        //Set the Click Listener
+        private fun setClickListeners(){
+            //On Long click open Edit Popup
+            container.setOnLongClickListener{
+                routineDetailsInterface.openRoutineEditDeletePopup(adapterPosition)
+
+                return@setOnLongClickListener true
+            }
+
+
             //Selected
             btnDoneSelected.setOnClickListener{
                 //Check that the Item Clicked is not the Last

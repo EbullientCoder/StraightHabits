@@ -1,7 +1,6 @@
 package com.example.straight_habits.adapters.categories
 
 
-import android.content.res.Configuration
 import android.os.Build
 import android.view.LayoutInflater
 import android.view.View
@@ -14,6 +13,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.straight_habits.R
 import com.example.straight_habits.database.RoomDB
 import com.example.straight_habits.facade.ManageDaysFacade
+import com.example.straight_habits.interfaces.categories.CategoryDetailsInterface
 import com.example.straight_habits.interfaces.categories.SelectCategoryInterface
 import com.example.straight_habits.models.CategoryModel
 import kotlinx.coroutines.runBlocking
@@ -25,7 +25,8 @@ import kotlinx.coroutines.runBlocking
 
 class CategoriesAdapter(
     private val categories: MutableList<CategoryModel>,
-    private val selectCategoryInterface: SelectCategoryInterface
+    private val selectCategoryInterface: SelectCategoryInterface,
+    private val categoryDetailsInterface: CategoryDetailsInterface
 ): RecyclerView.Adapter<CategoriesAdapter.CategoryViewHolder>()  {
 
     //Personalized View Holder
@@ -55,18 +56,21 @@ class CategoriesAdapter(
         private val txtHabitsLeft = itemView.findViewById<TextView>(R.id.txt_habits_left)
         //Habits Counter
         private val habitsCounter = itemView.findViewById<ConstraintLayout>(R.id.habits_left_background)
-
+        private val container = itemView.findViewById<ConstraintLayout>(R.id.category_container)
 
 
         //Methods
         @RequiresApi(Build.VERSION_CODES.O)
         fun setCommonData(category: CategoryModel){
-            //Click Listener
-            txtName.setOnClickListener{
+            //Select Category Click Listener
+            container.setOnClickListener{
                 selectCategoryInterface.selectCategory(adapterPosition)
             }
-            categoryBackground.setOnClickListener{
-                selectCategoryInterface.selectCategory(adapterPosition)
+            //Open Category Edit/Delete Popup
+            container.setOnLongClickListener {
+                categoryDetailsInterface.openCategoryEditDeletePopup(adapterPosition)
+
+                return@setOnLongClickListener true
             }
 
             //Set Name
@@ -86,36 +90,6 @@ class CategoriesAdapter(
                 categoryBackground.setBackgroundResource(R.color.dark_background)
                 //Set Text Color
                 txtName.setTextColor(ContextCompat.getColor(itemView.context, R.color.white))
-
-                //Check Night ot Day Mode
-                /*when (itemView.resources.configuration.uiMode and Configuration.UI_MODE_NIGHT_MASK) {
-                    //Night Mode
-                    Configuration.UI_MODE_NIGHT_YES
-                    ->{
-                        //Set Background
-                        categoryBackground.setBackgroundResource(R.color.dark_background)
-                        //Set Text Color
-                        txtName.setTextColor(ContextCompat.getColor(itemView.context, R.color.white))
-                    }
-
-                    //Day Mode
-                    Configuration.UI_MODE_NIGHT_NO
-                    ->{
-                        //Set Background
-                        categoryBackground.setBackgroundResource(R.color.background)
-                        //Set Text Color
-                        txtName.setTextColor(ContextCompat.getColor(itemView.context, R.color.dark_text))
-                    }
-
-                    //Undefined
-                    Configuration.UI_MODE_NIGHT_UNDEFINED
-                    ->{
-                        //Set Background
-                        categoryBackground.setBackgroundResource(R.color.background)
-                        //Set Text Color
-                        txtName.setTextColor(ContextCompat.getColor(itemView.context, R.color.dark_text))
-                    }
-                }*/
 
                 //Habits Counter
                 habitsCounter.visibility = View.GONE

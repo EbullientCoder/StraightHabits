@@ -37,8 +37,6 @@ class ShowRoutineActivity : AppCompatActivity() {
     private lateinit var btnAddHabit: FloatingActionButton
     private lateinit var btnDelete: ImageView
     private lateinit var txtDelete: TextView
-    private lateinit var btnEdit: ImageView
-    private lateinit var txtEdit: TextView
 
     //Fragment
     //Routine
@@ -64,8 +62,8 @@ class ShowRoutineActivity : AppCompatActivity() {
         graphicController = ShowRoutineGraphicController(this)
 
         //Set Fragments
-        setCategoriesFragment(false)
-        showCategoriesFragment.selectFragment(false)
+        setCategoriesFragment()
+        showCategoriesFragment.selectFragment()
 
 
         //Buttons
@@ -111,45 +109,6 @@ class ShowRoutineActivity : AppCompatActivity() {
                 }
             }
         }
-
-
-
-        /*val f = File("/data/data/your_application_package/shared_prefs/MyPreferences.xml")
-
-        //If the file doesn't exist it will be created and will be saved the current day
-        //and the current date
-        if (!f.exists()){
-            val sp = getSharedPreferences("MyPreferences", Context.MODE_PRIVATE)
-            val editor: SharedPreferences.Editor = sp.edit()
-            editor.putString("CURRENT_DAY", ManageDaysFacade.getCurrentDay())
-            //editor.putString("CURRENT_DATE", ManageDaysFacade.getCurrentDate())
-            editor.commit()
-
-            Toast.makeText(this, "File doesn't exist", Toast.LENGTH_LONG).show()
-        }
-        //Else will be checked if the date stored in the file is the current date.
-        //If it's not, than the routine on the old current day will be restored and the current day
-        //and the current date will be updated
-        else {
-            val sp = getSharedPreferences("MyPreferences", Context.MODE_PRIVATE)
-            if(!sp.getString("CURRENT_DAY", "").equals(ManageDaysFacade.getCurrentDay())){
-                val oldCurrentDay = sp.getString("CURRENT_DAY", "")
-
-                //Updating the stored Day Value
-                val editor: SharedPreferences.Editor = sp.edit()
-                editor.clear()
-                editor.putString("CURRENT_DAY", ManageDaysFacade.getCurrentDay())
-                //editor.putString("CURRENT_DATE", ManageDaysFacade.getCurrentDate())
-                editor.commit()
-
-                //Resetting the Habits List
-                lifecycleScope.launch(Dispatchers.IO){
-                    ManageDaysFacade.resetPrevDayHabits(ManageDaysFacade.getCurrentDay(), applicationContext)
-                    //if (oldCurrentDay != null)
-                        //ManageDaysFacade.resetPassedDayRoutine(oldCurrentDay, applicationContext)
-                }
-            }
-        }*/
     }
 
 
@@ -166,16 +125,16 @@ class ShowRoutineActivity : AppCompatActivity() {
             if(!open){
                 txtDelete.visibility = View.VISIBLE
                 btnDelete.visibility = View.VISIBLE
-                txtEdit.visibility = View.VISIBLE
-                btnEdit.visibility = View.VISIBLE
+                //txtEdit.visibility = View.VISIBLE
+                //btnEdit.visibility = View.VISIBLE
 
                 open = true
             }
             else{
                 txtDelete.visibility = View.GONE
                 btnDelete.visibility = View.GONE
-                txtEdit.visibility = View.GONE
-                btnEdit.visibility = View.GONE
+                //txtEdit.visibility = View.GONE
+                //btnEdit.visibility = View.GONE
 
                 open = false
             }
@@ -193,45 +152,20 @@ class ShowRoutineActivity : AppCompatActivity() {
             testDeleteAndRebuildCategories()
 
             //Recreate the Show Fragments
-            setCategoriesFragment(false)
-            showCategoriesFragment.selectFragment(false)
+            setCategoriesFragment()
+            showCategoriesFragment.selectFragment()
 
             btnMenu.performClick()
         }
 
-        //Button Edit
-        txtEdit = findViewById(R.id.txt_edit)
-        txtEdit.visibility = View.GONE
-        btnEdit = findViewById(R.id.btn_edit)
-        btnEdit.visibility = View.GONE
-        btnEdit.setOnClickListener{
-            //Edit Fragment
-            /*setCategoriesFragment(true)
-            showCategoriesFragment.selectFragment(true)
-
-            //Retire the Icons
-            btnMenu.performClick()
-
-            //Hide the Menu Button
-            btnMenu.visibility = View.GONE
-
-            //Show the Done Button
-            btnDone.visibility = View.VISIBLE*/
-
-
-            //Calling the "Edit Routine" Activity
-            val intent = Intent(this, EditRoutineActivity::class.java)
-            startActivity(intent)
-            overridePendingTransition(0, 0)
-        }
 
         //Button Done
         btnDone = findViewById(R.id.btn_edit_done)
         btnDone.visibility = View.GONE
         btnDone.setOnClickListener{
             //Show Fragment
-            setCategoriesFragment(false)
-            showCategoriesFragment.selectFragment(false)
+            setCategoriesFragment()
+            showCategoriesFragment.selectFragment()
 
             //Hide Button Done
             btnDone.visibility = View.GONE
@@ -256,48 +190,28 @@ class ShowRoutineActivity : AppCompatActivity() {
 
 
     //Update the Fragment showed list
-    fun setHabitsFragment(category: String, edit: Boolean){
+    fun setHabitsFragment(category: String){
         val bundle = Bundle()
         bundle.putString("Category", category)
 
         //Set Fragment
-        //Check if create Show Habits Fragment or Edit Habits Fragment
-        if(edit){
-            //Edit Fragment
-            //editRoutineFragment = EditRoutineFragment()
-            //editRoutineFragment.arguments = bundle
+        //Show Fragment
+        showRoutineFragment = ShowRoutineFragment()
+        showRoutineFragment.arguments = bundle
 
-            //supportFragmentManager
-            //    .beginTransaction().replace(R.id.routine_fragment_container, editRoutineFragment).commit()
-        }
-        else{
-            //Show Fragment
-            showRoutineFragment = ShowRoutineFragment()
-            showRoutineFragment.arguments = bundle
+        supportFragmentManager
+            .beginTransaction().replace(R.id.routine_fragment_container, showRoutineFragment).commit()
 
-            supportFragmentManager
-                .beginTransaction().replace(R.id.routine_fragment_container, showRoutineFragment).commit()
-        }
     }
 
     //Set Categories Fragment
-    private fun setCategoriesFragment(edit: Boolean){
+    private fun setCategoriesFragment(){
         //Set Fragment
-        //Check if create Show Habits Fragment or Edit Habits Fragment
-        if(edit){
-            //Edit Fragment
-            //editCategoriesFragment = EditCategoriesFragment()
+        //Show Fragment
+        showCategoriesFragment = ShowCategoriesFragment()
 
-            //supportFragmentManager
-            //    .beginTransaction().replace(R.id.categories_fragment_container, editCategoriesFragment).commit()
-        }
-        else{
-            //Show Fragment
-            showCategoriesFragment = ShowCategoriesFragment()
-
-            supportFragmentManager
-                .beginTransaction().replace(R.id.categories_fragment_container, showCategoriesFragment).commit()
-        }
+        supportFragmentManager
+            .beginTransaction().replace(R.id.categories_fragment_container, showCategoriesFragment).commit()
     }
 
 

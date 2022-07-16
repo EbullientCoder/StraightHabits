@@ -7,20 +7,25 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.annotation.RequiresApi
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.straight_habits.R
-import com.example.straight_habits.adapters.routine.ShowRoutineAdapter
+import com.example.straight_habits.adapters.routine.RoutineAdapter
 import com.example.straight_habits.beans.RoutineBean
 import com.example.straight_habits.controller.application.ManageRoutine
 import com.example.straight_habits.database.RoomDB
 import com.example.straight_habits.facade.ManageDaysFacade
 import com.example.straight_habits.facade.ManageRoutineFacade
+import com.example.straight_habits.fragments.details.RoutineDetailsEditFragment
 import com.example.straight_habits.fragments.details.RoutineDetailsFragment
+import com.example.straight_habits.interfaces.UpdateEditedListInterface
 import com.example.straight_habits.interfaces.routine.CheckRoutineInterface
+import com.example.straight_habits.interfaces.routine.EditRoutineInterface
 import com.example.straight_habits.interfaces.routine.RoutineDetailsInterface
+import com.example.straight_habits.models.CategoryModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.runBlocking
@@ -28,10 +33,11 @@ import java.util.*
 import kotlin.collections.ArrayList
 
 
-class ShowRoutineFragment : Fragment(), CheckRoutineInterface, RoutineDetailsInterface {
+class ShowRoutineFragment : Fragment(),
+    CheckRoutineInterface, RoutineDetailsInterface, UpdateEditedListInterface, EditRoutineInterface {
     //Habits
     private lateinit var rvHabits: RecyclerView
-    private lateinit var showRoutineAdapter: ShowRoutineAdapter
+    private lateinit var routineAdapter: RoutineAdapter
     private lateinit var habitsList: MutableList<RoutineBean>
 
 
@@ -241,13 +247,13 @@ class ShowRoutineFragment : Fragment(), CheckRoutineInterface, RoutineDetailsInt
     //Set Recycler View to display the Habits List
     private fun setHabitsRecyclerView(){
         //Adapter
-        showRoutineAdapter = ShowRoutineAdapter(habitsList, this, this)
+        routineAdapter = RoutineAdapter(habitsList, this, this)
 
         //To Update the UI we need to use the UI Thread
         activity?.runOnUiThread {
             //Layout Manager
             rvHabits.layoutManager = LinearLayoutManager(context)
-            rvHabits.adapter = showRoutineAdapter
+            rvHabits.adapter = routineAdapter
 
             //Position
             var position = ManageRoutineFacade.getSelectedPosition(habitsList)
@@ -261,7 +267,7 @@ class ShowRoutineFragment : Fragment(), CheckRoutineInterface, RoutineDetailsInt
 
 
     //Interface Methods-----------------------------------------------------------------------------
-    //Check Habit Interface
+    //CheckRoutineInterface-------------------------------------------------------------------------
     //Check Clicked Habit
     @RequiresApi(Build.VERSION_CODES.O)
     override fun checkHabit(position: Int) {
@@ -300,7 +306,7 @@ class ShowRoutineFragment : Fragment(), CheckRoutineInterface, RoutineDetailsInt
 
         //Notify the Adapter
         activity?.runOnUiThread{
-            showRoutineAdapter.notifyDataSetChanged()
+            routineAdapter.notifyDataSetChanged()
         }
     }
 
@@ -322,7 +328,7 @@ class ShowRoutineFragment : Fragment(), CheckRoutineInterface, RoutineDetailsInt
 
         //Notify the Adapter
         activity?.runOnUiThread{
-            showRoutineAdapter.notifyDataSetChanged()
+            routineAdapter.notifyDataSetChanged()
         }
     }
 
@@ -345,6 +351,9 @@ class ShowRoutineFragment : Fragment(), CheckRoutineInterface, RoutineDetailsInt
         }
     }
 
+
+    //RoutineDetailsInterface-----------------------------------------------------------------------
+    //This function will show the routine details
     override fun openHabitDetails(position: Int) {
         val bundle = Bundle()
         bundle.putSerializable("Habit Details", habitsList[position])
@@ -353,5 +362,87 @@ class ShowRoutineFragment : Fragment(), CheckRoutineInterface, RoutineDetailsInt
         val habitDetailsFragment = RoutineDetailsFragment()
         habitDetailsFragment.arguments = bundle
         activity?.let { habitDetailsFragment.show(it.supportFragmentManager,"RoutineDetailsFragment") }
+    }
+
+    //This function will open the routine edit/delete popup
+    override fun openRoutineEditDeletePopup(position: Int) {
+        val bundle = Bundle()
+        //Put the Routine to edit
+        bundle.putSerializable("Edit Habit Details", habitsList[position])
+        //Put the Position of the Routine to edit
+        bundle.putInt("Edit Routine Position", position)
+
+        //Create the Edit Details Fragment
+        val habitDetailsEditFragment = RoutineDetailsEditFragment(this, this)
+        habitDetailsEditFragment.arguments = bundle
+        activity?.let{habitDetailsEditFragment.show(it.supportFragmentManager,"EditHabitDetailsFragment")}
+    }
+
+
+    //EditRoutineInterface--------------------------------------------------------------------------
+    @RequiresApi(Build.VERSION_CODES.O)
+    override fun deleteRoutine(position: Int) {
+        //Application Controller
+        val manageRoutine = ManageRoutine()
+
+        //Coroutines
+        runBlocking {
+            //Delete Routine
+            val routineModel =
+                ManageRoutineFacade.beanToModel(habitsList[position], ManageDaysFacade.getCurrentDay())
+            manageRoutine.deleteRoutine(routineModel, requireContext())
+
+            //Check if the Routine was Selected. If so, select the next one that is not done
+            if (habitsList[position].getSelected()) {
+                val i = ManageRoutineFacade.getNotDone(habitsList, position + 1)
+
+                activity?.runOnUiThread {
+                    Toast.makeText(requireContext(), i.toString(), Toast.LENGTH_SHORT).show()
+                }
+
+                if (i != habitsList.size) {
+                    //Set Selected the first not done bean
+                    habitsList[i].setSelected(true)
+
+                    manageRoutine
+                        .editRoutine(
+                            ManageRoutineFacade
+                                .beanToModel(habitsList[i], ManageDaysFacade.getCurrentDay()), requireContext()
+                        )
+                }
+            }
+        }
+
+        //Remove Habit from the List
+        habitsList.removeAt(position)
+
+        //Notify the Adapter
+        //routineAdapter.notifyDataSetChanged()
+        routineAdapter.notifyDataSetChanged()
+    }
+
+
+    //UpdateEditedListInterface---------------------------------------------------------------------
+    override fun updateRoutineList(position: Int, routine: RoutineBean) {
+        //Remove the old Routine in the position
+        habitsList.removeAt(position)
+
+        //Add the new edited Routine in the position
+        habitsList.add(position, routine)
+
+        //Update the Adapter
+        //routineAdapter.notifyDataSetChanged()
+        routineAdapter.notifyDataSetChanged()
+    }
+
+    override fun updateCategoryList(position: Int, categoryModel: CategoryModel) {
+        //Remove the old Category in the Position
+        //categoriesList.removeAt(position)
+
+        //Add the new edited Category in the position
+        //categoriesList.add(position, category)
+
+        //Update the Adapter
+        //categoriesAdapter.notifyDataSetChanged()
     }
 }

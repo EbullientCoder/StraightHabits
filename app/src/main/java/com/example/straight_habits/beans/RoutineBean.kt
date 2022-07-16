@@ -15,6 +15,7 @@ class RoutineBean(
 
     //Attribute to get the start Hour
     private var shortHour : String
+    //private var duration: String
 
     // initializer block
     init {

@@ -20,15 +20,19 @@ import com.example.straight_habits.controller.application.ManageRoutine
 import com.example.straight_habits.facade.ManageDaysFacade
 import com.example.straight_habits.facade.ManageRoutineFacade
 import com.example.straight_habits.interfaces.UpdateEditedListInterface
+import com.example.straight_habits.interfaces.categories.EditCategoryInterface
 import com.example.straight_habits.models.CategoryModel
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import kotlinx.coroutines.runBlocking
 
 
-class CategoryDetailsEditFragment(private val updateEditedListInterface: UpdateEditedListInterface) : DialogFragment() {
+class CategoryDetailsEditFragment(
+    private val updateEditedListInterface: UpdateEditedListInterface,
+    private val editCategoryInterface: EditCategoryInterface) : DialogFragment() {
     //Button
     private lateinit var btnBack: ImageView
     private lateinit var btnDone: FloatingActionButton
+    private lateinit var btnDelete: FloatingActionButton
     //Text
     private lateinit var txtName: EditText
 
@@ -74,14 +78,22 @@ class CategoryDetailsEditFragment(private val updateEditedListInterface: UpdateE
                 }
 
 
-                Toast.makeText(requireContext(), "Habit Updated!", Toast.LENGTH_SHORT).show()
+                Toast.makeText(requireContext(), "Category Updated!", Toast.LENGTH_SHORT).show()
 
                 updateEditedListInterface.updateCategoryList(position, category)
+
             }
 
             dismiss()
         }
 
+        //Delete Button
+        btnDelete = view.findViewById(R.id.btn_habit_details_edit_delete)
+        btnDelete.setOnClickListener{
+            editCategoryInterface.deleteCategory(position)
+
+            dismiss()
+        }
 
 
         //Category's Details

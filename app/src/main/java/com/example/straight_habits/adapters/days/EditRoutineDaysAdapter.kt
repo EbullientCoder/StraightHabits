@@ -8,7 +8,6 @@ import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
 import com.example.straight_habits.R
-import com.example.straight_habits.adapters.routine.EditRoutineAdapter
 import com.example.straight_habits.interfaces.SelectDayInterface
 import com.example.straight_habits.models.DayModel
 

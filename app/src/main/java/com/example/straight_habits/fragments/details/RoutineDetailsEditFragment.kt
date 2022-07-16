@@ -19,14 +19,18 @@ import com.example.straight_habits.controller.application.ManageRoutine
 import com.example.straight_habits.facade.ManageDaysFacade
 import com.example.straight_habits.facade.ManageRoutineFacade
 import com.example.straight_habits.interfaces.UpdateEditedListInterface
+import com.example.straight_habits.interfaces.routine.EditRoutineInterface
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import kotlinx.coroutines.runBlocking
 
 
-class RoutineDetailsEditFragment(private val updateEditedListInterface: UpdateEditedListInterface) : DialogFragment() {
+class RoutineDetailsEditFragment(
+    private val updateEditedListInterface: UpdateEditedListInterface,
+    private val editRoutineInterface: EditRoutineInterface) : DialogFragment() {
     //Button
     private lateinit var btnBack: ImageView
     private lateinit var btnDone: FloatingActionButton
+    private lateinit var btnDelete: FloatingActionButton
     //Text
     private lateinit var txtName: EditText
     private lateinit var txtInfo: EditText
@@ -71,6 +75,14 @@ class RoutineDetailsEditFragment(private val updateEditedListInterface: UpdateEd
 
                 updateEditedListInterface.updateRoutineList(position, routine)
             }
+
+            dismiss()
+        }
+
+        //Delete Button
+        btnDelete = view.findViewById(R.id.btn_habit_details_edit_delete)
+        btnDelete.setOnClickListener{
+            editRoutineInterface.deleteRoutine(position)
 
             dismiss()
         }
