@@ -136,7 +136,8 @@ class ShowRoutineAdapter(
         private fun setText(routine : RoutineBean){
             txtHabitName.text = routine.getName()
             txtFullDate.text = routine.getStartHour() + " - " + routine.getEndHour()
-            txtInformation.text = routine.getInfo()
+            //txtInformation.text = routine.getInfo()
+            txtInformation.text = routine.getInformation()
         }
 
         //Set Hour
